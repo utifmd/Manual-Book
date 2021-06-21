@@ -5,7 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import com.dudegenuine.domain.Chapter
 import com.dudegenuine.manualbook.R
-import com.dudegenuine.manualbook.infrastructure.di.component.ManualBookComponent
+import com.dudegenuine.manualbook.feature.di.component.ManualBookComponent
 import com.dudegenuine.usecases.GetChapters
 import io.reactivex.observers.DisposableObserver
 import javax.inject.Inject
