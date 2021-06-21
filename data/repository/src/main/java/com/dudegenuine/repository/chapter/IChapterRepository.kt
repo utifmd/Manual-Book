@@ -1,4 +1,4 @@
-package com.dudegenuine.data.remote.persistance.contract
+package com.dudegenuine.repository.chapter
 
 import com.dudegenuine.domain.Chapter
 import io.reactivex.Observable

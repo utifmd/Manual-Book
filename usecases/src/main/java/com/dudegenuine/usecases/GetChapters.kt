@@ -1,7 +1,7 @@
 package com.dudegenuine.usecases
 
-import com.dudegenuine.data.remote.persistance.repository.ChapterRepository
 import com.dudegenuine.domain.Chapter
+import com.dudegenuine.repository.chapter.ChapterRepository
 import io.reactivex.Scheduler
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.observers.DisposableObserver

@@ -1,6 +1,6 @@
-package com.dudegenuine.data.remote.persistance.contract
+package com.dudegenuine.remote.persistence
 
-import com.dudegenuine.data.remote.payload.contract.IChapterResponse
+import com.dudegenuine.remote.payload.IChapterResponse
 import io.reactivex.Observable
 
 /**

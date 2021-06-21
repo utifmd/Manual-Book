@@ -1,6 +1,6 @@
 package com.dudegenuine.manualbook.feature.di.module
 
-import com.dudegenuine.data.remote.persistance.repository.ChapterRepository
+import com.dudegenuine.repository.chapter.ChapterRepository
 import com.dudegenuine.usecases.GetChapters
 import dagger.Module
 import dagger.Provides

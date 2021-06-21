@@ -1,5 +1,4 @@
-package com.dudegenuine.data.remote.payload.contract
-
+package com.dudegenuine.remote.payload
 /**
  * Manual Book created by utifmd on 17/06/21.
  */

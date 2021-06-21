@@ -1,7 +1,3 @@
-include ':app', ':usecases', ':domain', ':data'
-
-rootProject.name = "Manual Book"
-
 dependencyResolutionManagement {
     repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
     repositories {
@@ -10,3 +6,9 @@ dependencyResolutionManagement {
     }
 }
 
+rootProject.name = "Manual Book"
+
+include ':app', ':usecases', ':domain',
+        ':data:local',
+        ':data:remote',
+        ':data:repository'

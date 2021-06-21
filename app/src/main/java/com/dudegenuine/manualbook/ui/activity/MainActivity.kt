@@ -3,17 +3,15 @@ package com.dudegenuine.manualbook.ui.activity
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import com.dudegenuine.domain.Chapter
+//import com.dudegenuine.domain.Chapter
 import com.dudegenuine.manualbook.R
 import com.dudegenuine.manualbook.feature.di.component.ManualBookComponent
-import com.dudegenuine.usecases.GetChapters
 import io.reactivex.observers.DisposableObserver
-import javax.inject.Inject
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(){
     val TAG: String = javaClass.simpleName
-    @Inject
-    lateinit var getChapters: GetChapters
+    /*@Inject
+    lateinit var getChapters: GetChapters*/
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -21,7 +19,7 @@ class MainActivity : AppCompatActivity() {
 
         ManualBookComponent.createComponent().inject(this)
 
-        getChapters.getData(object: DisposableObserver<List<Chapter>>() {
+        /*getChapters.getData(object: DisposableObserver<List<Chapter>>() {
             override fun onNext(t: List<Chapter>) {
                 Log.d(TAG, "onNext: triggered")
             }
@@ -34,12 +32,12 @@ class MainActivity : AppCompatActivity() {
                 Log.d(TAG, "onComplete: triggered")
             }
 
-        }, mapOf( "language" to "id" ))
+        }, mapOf( "language" to "id" ))*/
     }
 
     override fun onDestroy() {
         super.onDestroy()
 
-        getChapters.dispose()
+        // getChapters.dispose()
     }
 }

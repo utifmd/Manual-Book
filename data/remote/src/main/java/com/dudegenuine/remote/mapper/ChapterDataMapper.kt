@@ -1,8 +1,8 @@
-package com.dudegenuine.data.remote.persistance.mapper
+package com.dudegenuine.remote.mapper
 
-import com.dudegenuine.data.remote.payload.api.chapter.ChapterResponse
-import com.dudegenuine.data.remote.payload.contract.IChapterResponse
 import com.dudegenuine.domain.Chapter
+import com.dudegenuine.remote.payload.IChapterResponse
+import com.dudegenuine.remote.model.ChapterResponse
 
 /**
  * Manual Book created by utifmd on 17/06/21.

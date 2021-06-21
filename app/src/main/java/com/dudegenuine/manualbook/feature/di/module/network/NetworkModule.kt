@@ -8,10 +8,10 @@ import dagger.Provides
  */
 @Module
 class NetworkModule{
-    @Provides
+    /*@Provides
     fun provideNetwork(): INetwork {
         return NetworkImpl()
-    }
+    }*/
 
     /*@Provides
     fun provideGson(): Gson = GsonBuilder()

@@ -1,9 +1,8 @@
-package com.dudegenuine.data.remote.persistance.repository
+package com.dudegenuine.repository.chapter
 
-import com.dudegenuine.data.remote.persistance.contract.IChapterRepository
-import com.dudegenuine.data.remote.persistance.contract.IChapterPersistence
-import com.dudegenuine.data.remote.persistance.mapper.ChapterDataMapper
 import com.dudegenuine.domain.Chapter
+import com.dudegenuine.remote.mapper.ChapterDataMapper
+import com.dudegenuine.remote.persistence.IChapterPersistence
 import io.reactivex.Observable
 
 /**
@@ -11,7 +10,7 @@ import io.reactivex.Observable
  */
 class ChapterRepository(
     private val persistence: IChapterPersistence,
-    private val mapper: ChapterDataMapper): IChapterRepository {
+    private val mapper: ChapterDataMapper ): IChapterRepository {
 
     override fun getChapters(param: Map<String, String>): Observable<List<Chapter>> {
         return persistence.getChapter(param).map {

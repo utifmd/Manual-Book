@@ -1,6 +1,6 @@
 package com.dudegenuine.manualbook.feature.di.module
 
-import com.dudegenuine.data.remote.persistance.mapper.ChapterDataMapper
+import com.dudegenuine.remote.mapper.ChapterDataMapper
 import dagger.Module
 import dagger.Provides
 
