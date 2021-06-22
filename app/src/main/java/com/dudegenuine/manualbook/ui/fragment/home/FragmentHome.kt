@@ -3,13 +3,14 @@ package com.dudegenuine.manualbook.ui.fragment.home
 import android.os.Bundle
 import android.view.View
 import com.dudegenuine.manualbook.databinding.FragmentHomeBinding
+import com.dudegenuine.manualbook.ui.extention.BaseFragment
+import com.dudegenuine.manualbook.ui.extention.BaseViewModel
 
 /**
  * Manual Book created by utifmd on 20/06/21.
  */
-/*
 class FragmentHome: BaseFragment<FragmentHomeBinding>() {
-    val TAG: String = javaClass.simpleName
+    private val TAG: String = javaClass.simpleName
 
     override fun bindView(): FragmentHomeBinding {
         return FragmentHomeBinding.inflate(layoutInflater)
@@ -27,4 +28,4 @@ class FragmentHome: BaseFragment<FragmentHomeBinding>() {
         }
     }
 
-}*/
+}

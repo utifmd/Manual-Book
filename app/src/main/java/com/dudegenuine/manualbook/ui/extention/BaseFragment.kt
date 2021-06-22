@@ -1,4 +1,4 @@
-package com.dudegenuine.manualbook.ui.common
+package com.dudegenuine.manualbook.ui.extention
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,14 +9,13 @@ import androidx.navigation.fragment.FragmentNavigator
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.viewbinding.ViewBinding
-import com.dudegenuine.manualbook.ui.common.state.NavigationCommand
 import com.google.android.material.snackbar.Snackbar
+import com.dudegenuine.local.model.common.NavState
 
 /**
  * Manual Book created by utifmd on 18/06/21.
  */
-/*
-abstract class BaseFragment<VB: ViewBinding>: Fragment() {
+abstract class BaseFragment<VB: ViewBinding>: Fragment(){
     private lateinit var _binding: VB // ? = null
     val binding get() = _binding
 
@@ -40,10 +39,10 @@ abstract class BaseFragment<VB: ViewBinding>: Fragment() {
         viewModel.eventNav.observe(viewLifecycleOwner, {
             it?.getContentIfNotHandled()?.let { command ->
                 when(command){
-                    is NavigationCommand.TO ->
+                    is NavState.TO ->
                         findNavController().navigate(command.direction, getExtras())
 
-                    is NavigationCommand.BACK ->
+                    is NavState.BACK ->
                         findNavController().navigateUp()
                 }
             }
@@ -52,4 +51,4 @@ abstract class BaseFragment<VB: ViewBinding>: Fragment() {
 
     open fun getExtras(): FragmentNavigator.Extras =
         FragmentNavigatorExtras()
-}*/
+}
