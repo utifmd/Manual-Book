@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModel
 import androidx.navigation.fragment.FragmentNavigator
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
@@ -19,6 +20,9 @@ abstract class BaseFragment<VB: ViewBinding>: Fragment(){
     private lateinit var _binding: VB // ? = null
     val binding get() = _binding
 
+    /*private lateinit var _viewModel: ViewModel // ? = null
+    val viewModel get() = _viewModel*/
+
     abstract fun bindView(): VB
 
     abstract fun bindViewModel(): BaseViewModel
@@ -28,15 +32,16 @@ abstract class BaseFragment<VB: ViewBinding>: Fragment(){
         container: ViewGroup?,
         savedInstanceState: Bundle? ): View? {
         _binding = bindView()
+        // _viewModel = bindViewModel()
 
         setUpVueModel(bindViewModel())
-        setUpSnackPop(this, bindViewModel().eventSnackError, Snackbar.LENGTH_LONG)
+        setUpSnackPop(this, bindViewModel().snackPopError, Snackbar.LENGTH_LONG)
 
         return binding.root
     }
 
     private fun setUpVueModel(viewModel: BaseViewModel) {
-        viewModel.eventNav.observe(viewLifecycleOwner, {
+        viewModel.navigation.observe(viewLifecycleOwner, {
             it?.getContentIfNotHandled()?.let { command ->
                 when(command){
                     is NavState.TO ->

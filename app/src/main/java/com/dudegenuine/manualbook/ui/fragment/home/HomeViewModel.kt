@@ -1,12 +1,16 @@
 package com.dudegenuine.manualbook.ui.fragment.home
 
 import android.util.Log
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MediatorLiveData
+import androidx.lifecycle.MutableLiveData
 import com.dudegenuine.repos.network.Resource
 import com.dudegenuine.chapter.GetChapters
 import com.dudegenuine.domain.Chapter
+import com.dudegenuine.local.model.common.Event
+import com.dudegenuine.manualbook.R
 import com.dudegenuine.manualbook.feature.di.component.ManualBookComponent
 import com.dudegenuine.manualbook.ui.extention.BaseViewModel
-import io.reactivex.observers.DisposableObserver
 import javax.inject.Inject
 
 /**
@@ -17,23 +21,29 @@ class HomeViewModel: BaseViewModel() {
     @Inject
     lateinit var getChapters: GetChapters
 
-    fun loadChapter() {
-        getChapters.getData(mapOf( "language" to "id" ))
-        /*getChapters.getData(object: DisposableObserver<List<Chapter>>() {
-            override fun onNext(t: List<Chapter>) {
-                Log.d(TAG, "onNext: triggered")
-            }
+    private val _chapters = MediatorLiveData<Resource<List<Chapter>>>()
+    private var chaptersState: LiveData<Resource<List<Chapter>>> = MutableLiveData()
 
-            override fun onError(e: Throwable) {
-                Log.d(TAG, "onError: ${e.localizedMessage}")
-            }
+    init {
+        dependency().inject(this)
 
-            override fun onComplete() {
-                Log.d(TAG, "onComplete: triggered")
-            }
-
-        }, mapOf( "language" to "id" ))*/
+        loadChapters()
     }
 
-    init { ManualBookComponent.createComponent().inject(this) }
+    private fun loadChapters() {
+        _chapters.removeSource(chaptersState)
+
+        chaptersState = getChapters(mapOf("language" to "id"))
+
+        _chapters.addSource(chaptersState){
+            _chapters.value = it
+
+            if (it.status == Resource.Status.ERROR) {
+                Log.d(TAG, "loadChapters: ${it.throwable?.localizedMessage}")
+                _snackPopError.value = Event(R.string.msg_error)
+            }
+        }
+    }
+
+    val chapters get(): LiveData<Resource<List<Chapter>>> = _chapters
 }

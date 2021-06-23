@@ -7,34 +7,29 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import io.reactivex.Observable
 import io.reactivex.Observer
-import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
-import io.reactivex.observers.DisposableObserver
 import io.reactivex.schedulers.Schedulers
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.coroutineScope
 import java.lang.Exception
 
 /**
  * Manual Book created by utifmd on 22/06/21.
  */
-abstract class ResourceManager<ResultType, RequestType>: IResourceManager<ResultType, RequestType> {
+abstract class ResourceManager<ResultType, RequestType> { //: IResourceManager<ResultType, RequestType>
     private val TAG: String = javaClass.simpleName
-    private var result = Resource<ResultType>(Resource.Status.LOADING) //MutableLiveData<Resource<ResultType>>()
+    val result = MutableLiveData<Resource<ResultType>>() //Resource<ResultType>(Resource.Status.LOADING)
 
     @MainThread
-    override fun setValue(newValue: Resource<ResultType>) {
-        Log.d(TAG, "Resource: $newValue")
+    fun setValue(newValue: Resource<ResultType>) {
+        if (result.value != newValue) result.postValue(newValue) // if (result != newValue) result = newValue
 
-        if (result != newValue) result = newValue
-        // if (result.value != newValue) result.postValue(newValue)
+        Log.d(TAG, "setValue Resource: ${newValue.status}")
     }
 
     @MainThread
     protected abstract fun shouldFetch(result: ResultType?): Boolean
 
     @MainThread
-    protected abstract fun fetchDataRemote(): Observable<RequestType>
+    protected abstract fun fetchDataRemote(): Observable<out RequestType>
 
     @WorkerThread
     protected abstract fun processRequest(response: RequestType): ResultType
@@ -45,18 +40,18 @@ abstract class ResourceManager<ResultType, RequestType>: IResourceManager<Result
     @MainThread
     protected abstract fun fetchDataLocal(): ResultType
 
-    private fun manageDatas(){ //result: ResultType) {
+    private fun manageData(){ //result: ResultType) {
         Log.d(TAG, "Fetch data from network")
-        // setValue(Resource.onLoading()) // Dispatch latest value quickly (UX purpose)
+        setValue(Resource.onLoading()) // Dispatch latest value quickly (UX purpose)
 
         fetchDataRemote()
             .subscribeOn(Schedulers.newThread())
             .observeOn(Schedulers.io())
             .subscribe(object: Observer<RequestType> {
                 override fun onNext(request: RequestType) {
-                    Log.d(TAG, "onNext: triggered")
+                    Log.d(TAG, "onNext: triggered ${result.value?.status}")
 
-                    setValue(Resource.onSuccess(processRequest(request)))
+                    setValue(Resource.onSuccess(data = processRequest(request)))
 
                     /*runBlocking {
                         saveData(processResponse(request))
@@ -70,21 +65,20 @@ abstract class ResourceManager<ResultType, RequestType>: IResourceManager<Result
                 }
 
                 override fun onSubscribe(d: Disposable) {
-                    Log.d(TAG, "onSubscribe: triggered")
+                    Log.d(TAG, "onSubscribe: triggered ${result.value?.status}")
                 }
 
                 override fun onComplete() {
-                    Log.d(TAG, "onComplete: triggered")
-                    Log.e(TAG, "Data fetched from network")
+                    Log.d(TAG, "onComplete: Data fetched from network: ${result.value?.status}")
                 }
             })
     }
 
-    override fun build(): ResourceManager<ResultType, RequestType> {
-        result = Resource.onLoading() // result.value = Resource.onLoading()
+    fun build(): ResourceManager<ResultType, RequestType> {
+        // result.value = Resource.onLoading() // result = Resource.onLoading()
 
         try {
-            manageDatas()
+            manageData()
         } catch (e: Exception) {
             Log.e(TAG, "An error happened: $e")
             setValue(Resource.onError(data = null, throwable = e))
@@ -100,8 +94,12 @@ abstract class ResourceManager<ResultType, RequestType>: IResourceManager<Result
 
         return this
     }
+    fun asLiveData() = result as LiveData<Resource<ResultType>>
 
-    fun asData(): Resource<ResultType> = result
-    // fun asData(): Resource<ResultType> = result.value!!
-    // override fun asLiveData(): LiveData<Resource<ResultType>> = result
+/*{
+        Log.d(TAG, "asLiveData: ${result.value?.status}")
+        Log.d(TAG, "asLiveData: ${result.value?.data}")
+        return result
+    }*/
+    // val mLiveData: LiveData<Resource<ResultType>> get() = result
 }

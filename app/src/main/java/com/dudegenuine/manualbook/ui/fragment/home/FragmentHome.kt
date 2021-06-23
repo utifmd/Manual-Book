@@ -6,6 +6,7 @@ import androidx.fragment.app.viewModels
 import com.dudegenuine.manualbook.databinding.FragmentHomeBinding
 import com.dudegenuine.manualbook.ui.extention.BaseFragment
 import com.dudegenuine.manualbook.ui.extention.BaseViewModel
+import com.dudegenuine.manualbook.ui.fragment.home.views.HomeAdapter
 
 /**
  * Manual Book created by utifmd on 20/06/21.
@@ -26,10 +27,12 @@ class FragmentHome: BaseFragment<FragmentHomeBinding>() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.apply {
-            recyclerView
+            lifecycleOwner = this@FragmentHome
+            homeViewModel = viewModel
+
+            recyclerView.apply {
+                adapter = HomeAdapter(viewModel)
+            }
         }
-
-        viewModel
     }
-
 }

@@ -6,6 +6,7 @@ package com.dudegenuine.domain
 data class Chapter (
     val id: Int,
     val pages: List<Int?>,
+    val nameSimple: String,
     val nameComplex: String,
     val translatedName: String,
     val versesCount: Int,

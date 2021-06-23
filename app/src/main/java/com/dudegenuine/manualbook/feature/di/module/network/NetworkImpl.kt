@@ -23,7 +23,7 @@ class NetworkImpl: INetwork {
         return Retrofit.Builder()
             .client(client())
             .baseUrl(BuildConfig.BASE_URL)
-            .addConverterFactory(GsonConverterFactory.create(gson()))
+            .addConverterFactory(GsonConverterFactory.create())
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
     }
 

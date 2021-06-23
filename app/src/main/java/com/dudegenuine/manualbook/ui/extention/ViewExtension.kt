@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
 import com.dudegenuine.local.model.common.Event
+import com.dudegenuine.manualbook.feature.di.component.ManualBookComponent
 import com.google.android.material.snackbar.Snackbar
 
 /**

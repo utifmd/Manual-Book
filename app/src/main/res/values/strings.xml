@@ -57,4 +57,5 @@
     <!--<string name="menu_item_search">Mencari</string>-->
     <string name="menu_item_about">Tentang</string>
     <string name="menu_item_share">Bagikan</string>
+    <string name="msg_error">Sorry, something went wrong</string>
 </resources>

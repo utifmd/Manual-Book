@@ -1,8 +1,9 @@
 package com.dudegenuine.repos.domain.chapter
 
+import androidx.lifecycle.LiveData
 import com.dudegenuine.domain.Chapter
 import com.dudegenuine.remote.mapper.ChapterDataMapper
-import com.dudegenuine.remote.model.ChapterResponse
+import com.dudegenuine.remote.payload.IChapterResponse
 import com.dudegenuine.remote.persistence.IChapterPersistence
 import com.dudegenuine.repos.network.Resource
 import com.dudegenuine.repos.network.ResourceManager
@@ -13,20 +14,20 @@ import io.reactivex.Observable
  */
 class ChapterRepository(
     private val persistence: IChapterPersistence,
-    private val mapper: ChapterDataMapper ){ // : IChapterRepository {
+    private val mapper: ChapterDataMapper ) {
 
-    fun getChapters(param: Map<String, String>): Resource<List<Chapter>> { //LiveData<Resource<List<Chapter>>> {
-        return object: ResourceManager<List<Chapter>, ChapterResponse>(){
+    fun getChapters(param: Map<String, String>): LiveData<Resource<List<Chapter>>> { //Resource<List<Chapter>> {
+        return object: ResourceManager<List<Chapter>, IChapterResponse>(){
             override fun shouldFetch(result: List<Chapter>?): Boolean {
                 return true
             }
 
-            override fun fetchDataRemote(): Observable<ChapterResponse> {
-                return persistence.getChapter(param).map { it as ChapterResponse }
+            override fun fetchDataRemote(): Observable<out IChapterResponse> {
+                return persistence.getChapter(param)
             }
 
-            override fun processRequest(response: ChapterResponse): List<Chapter> {
-                return mapper.convertChapterList(response)
+            override fun processRequest(response: IChapterResponse): List<Chapter> {
+                return mapper.convertChapterToList(response)
             }
 
             override fun saveData(result: List<Chapter>) {
@@ -37,10 +38,6 @@ class ChapterRepository(
                 TODO("Not yet implemented")
             }
 
-            override fun manageData(result: List<Chapter>) {
-                TODO("Not yet implemented")
-            }
-
-        }.build().asData()
+        }.build().asLiveData()
     }
 }
