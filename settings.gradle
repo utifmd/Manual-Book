@@ -8,7 +8,11 @@ dependencyResolutionManagement {
 
 rootProject.name = "Manual Book"
 
-include ':app', ':usecases', ':domain',
-        ':data:local',
+include ':app',
+        ':domain'
+
+include ':usecase:chapter'
+
+include ':data:local',
         ':data:remote',
-        ':data:repository'
+        ':data:repos'

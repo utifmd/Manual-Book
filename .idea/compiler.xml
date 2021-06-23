@@ -4,6 +4,8 @@
     <bytecodeTargetLevel target="1.7">
       <module name="Manual_Book.app" target="11" />
       <module name="Manual_Book.data.local" target="11" />
+      <module name="Manual_Book.data.repos" target="11" />
+      <module name="Manual_Book.usecase.chapter" target="11" />
     </bytecodeTargetLevel>
   </component>
 </project>

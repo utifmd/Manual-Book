@@ -5,7 +5,6 @@ package com.dudegenuine.local.model.common
  */
 class Event<out T>(private val content: T){
     private var hasBeenHandled: Boolean = false
-
     fun peekContent(): T = content
 
     fun getContentIfNotHandled(): T?{

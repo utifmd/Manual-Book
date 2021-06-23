@@ -15,7 +15,10 @@ buildscript {
     ext.rxandroid_version = '2.1.1'
     ext.anko_version = '0.10.8'
     ext.kotlin_core_version = '1.5.0'
-    ext.kotlin_core_version = '2.3.0'
+    ext.room_version = '2.3.0'
+    ext.junit_version = '4.13.2'
+    ext.junit_adx_version = '1.1.2'
+    ext.espresso_adx_version = '3.3.0'
 
     repositories {
         google()

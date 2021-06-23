@@ -2,7 +2,7 @@ package com.dudegenuine.manualbook.feature.di.module
 
 import com.dudegenuine.manualbook.feature.datasource.domain.ChapterPersistence
 import com.dudegenuine.remote.mapper.ChapterDataMapper
-import com.dudegenuine.repository.chapter.ChapterRepository
+import com.dudegenuine.repos.domain.chapter.ChapterRepository
 import dagger.Module
 import dagger.Provides
 
@@ -14,8 +14,7 @@ class RepositoryModule {
     @Provides
     fun provideChapterRepository(
         persistence: ChapterPersistence,
-        mapper: ChapterDataMapper
-    ): ChapterRepository {
+        mapper: ChapterDataMapper): ChapterRepository {
         return ChapterRepository(persistence, mapper)
     }
 }

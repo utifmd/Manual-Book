@@ -1,7 +1,7 @@
 package com.dudegenuine.manualbook.feature.di.module
 
-import com.dudegenuine.repository.chapter.ChapterRepository
-import com.dudegenuine.usecases.GetChapters
+import com.dudegenuine.chapter.GetChapters
+import com.dudegenuine.repos.domain.chapter.ChapterRepository
 import dagger.Module
 import dagger.Provides
 import io.reactivex.android.schedulers.AndroidSchedulers

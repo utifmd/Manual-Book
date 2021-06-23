@@ -1,6 +1,8 @@
-package com.dudegenuine.repository.chapter
+package com.dudegenuine.repos.domain.chapter
 
+import androidx.lifecycle.LiveData
 import com.dudegenuine.domain.Chapter
+import com.dudegenuine.repos.network.Resource
 import io.reactivex.Observable
 
 /**

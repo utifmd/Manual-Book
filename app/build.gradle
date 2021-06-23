@@ -47,12 +47,12 @@ android {
 
 dependencies {
     implementation project(':domain')
-    implementation project(':usecases')
-    implementation project(':data:repository')
+    implementation project(':usecase:chapter')
     implementation project(':data:remote')
     implementation project(':data:local')
+    implementation project(':data:repos')
 
-    implementation "androidx.core:core-ktx:1.5.0"
+    implementation "androidx.core:core-ktx:$kotlin_core_version"
     implementation "androidx.appcompat:appcompat:$appcompat_version"
     implementation "androidx.navigation:navigation-fragment-ktx:$navigation_version"
     implementation "androidx.navigation:navigation-ui-ktx:$navigation_version"
@@ -85,7 +85,7 @@ dependencies {
     kaptTest "com.google.dagger:dagger-compiler:$dagger_version"
     kaptAndroidTest "com.google.dagger:dagger-compiler:$dagger_version"
 
-    /*testImplementation 'junit:junit:4.13.2'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'*/
+    testImplementation "junit:junit:$junit_version"
+    androidTestImplementation "androidx.test.ext:junit:$junit_adx_version"
+    androidTestImplementation "androidx.test.espresso:espresso-core:$espresso_adx_version"
 }

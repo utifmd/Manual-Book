@@ -1,9 +1,8 @@
 package com.dudegenuine.manualbook.feature.di.component
 
-import androidx.lifecycle.ViewModel
 import com.dudegenuine.manualbook.feature.di.module.*
 import com.dudegenuine.manualbook.feature.di.module.network.NetworkModule
-import com.dudegenuine.manualbook.ui.activity.MainActivity
+import com.dudegenuine.manualbook.ui.fragment.home.HomeViewModel
 import dagger.Component
 import javax.inject.Singleton
 
@@ -18,11 +17,11 @@ import javax.inject.Singleton
     MapperModule::class,
     PersistenceModule::class,
     RepositoryModule::class,
-    UseCaseModule::class
+    UseCaseModule::class,
+    ViewModelModule::class
 ] )
 interface ManualBookComponent {
-    fun inject(viewModel: ViewModel)
-    fun inject(mainActivity: MainActivity)
+    fun inject(homeViewModel: HomeViewModel)
 
     companion object {
         fun createComponent(): ManualBookComponent {

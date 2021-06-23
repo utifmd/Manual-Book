@@ -12,6 +12,5 @@ import dagger.Provides
 class ApiModule {
     @Provides
     fun provideChapterApi(network: INetwork): ChapterApi =
-        network.builder().build().create(ChapterApi::class.java)
-        // retrofit.create(ChapterApi::class.java)
+        network.builder().build().create(ChapterApi::class.java) // retrofit.create(ChapterApi::class.java)
 }

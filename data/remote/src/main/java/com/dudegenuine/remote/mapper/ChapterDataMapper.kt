@@ -8,7 +8,7 @@ import com.dudegenuine.remote.model.ChapterResponse
  * Manual Book created by utifmd on 17/06/21.
  */
 class ChapterDataMapper {
-    fun convertChapterList(result: IChapterResponse?): List<Chapter>{
+    fun convertChapterList(result: IChapterResponse?): List<Chapter> {
         val response = mutableListOf<Chapter>()
 
         if(result is ChapterResponse){
@@ -25,7 +25,7 @@ class ChapterDataMapper {
             ) }
         }
 
-        return response
+        return response // Resource(Resource.Status.SUCCESS, data = response)
     }
 
 }

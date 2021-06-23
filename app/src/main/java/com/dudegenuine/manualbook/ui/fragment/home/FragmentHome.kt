@@ -2,6 +2,7 @@ package com.dudegenuine.manualbook.ui.fragment.home
 
 import android.os.Bundle
 import android.view.View
+import androidx.fragment.app.viewModels
 import com.dudegenuine.manualbook.databinding.FragmentHomeBinding
 import com.dudegenuine.manualbook.ui.extention.BaseFragment
 import com.dudegenuine.manualbook.ui.extention.BaseViewModel
@@ -11,13 +12,14 @@ import com.dudegenuine.manualbook.ui.extention.BaseViewModel
  */
 class FragmentHome: BaseFragment<FragmentHomeBinding>() {
     private val TAG: String = javaClass.simpleName
+    private val viewModel: HomeViewModel by viewModels()
 
     override fun bindView(): FragmentHomeBinding {
         return FragmentHomeBinding.inflate(layoutInflater)
     }
 
     override fun bindViewModel(): BaseViewModel {
-        TODO("Not yet implemented")
+        return viewModel
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -26,6 +28,8 @@ class FragmentHome: BaseFragment<FragmentHomeBinding>() {
         binding.apply {
             recyclerView
         }
+
+        viewModel
     }
 
 }

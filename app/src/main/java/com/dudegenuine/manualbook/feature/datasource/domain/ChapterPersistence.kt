@@ -10,7 +10,7 @@ import io.reactivex.Observable
  */
 
 // injected api
-class ChapterPersistence(private var chapterApi: ChapterApi): IChapterPersistence {
+class ChapterPersistence(private val chapterApi: ChapterApi): IChapterPersistence {
 
     override fun getChapter(param: Map<String, String>): Observable<out IChapterResponse> =
         chapterApi.getChapter(param)
