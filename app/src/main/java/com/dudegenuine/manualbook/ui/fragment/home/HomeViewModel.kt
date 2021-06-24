@@ -11,6 +11,7 @@ import com.dudegenuine.local.model.common.Event
 import com.dudegenuine.manualbook.R
 import com.dudegenuine.manualbook.feature.di.component.ManualBookComponent
 import com.dudegenuine.manualbook.ui.extention.BaseViewModel
+import com.dudegenuine.manualbook.ui.fragment.detail.FragmentDetail
 import javax.inject.Inject
 
 /**
@@ -46,4 +47,19 @@ class HomeViewModel: BaseViewModel() {
     }
 
     val chapters get(): LiveData<Resource<List<Chapter>>> = _chapters
+
+    /*
+    * Listener
+    * */
+
+    fun onChaptersRefresh(){
+        loadChapters()
+    }
+
+    fun onChapterItemSelected(chapter: Chapter){
+        Log.d(TAG, "onChapterItemSelected: ${chapter.id}")
+
+//        val direction =
+//        navigate()
+    }
 }

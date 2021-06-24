@@ -30,7 +30,7 @@ data class Chapter(
 	@SerializedName("verses_count")
 	val versesCount: Int? = null,
 
-	@SerializedName("arabic_name")
+	@SerializedName("name_arabic")
 	val nameArabic: String? = null,
 
 	@SerializedName("revelation_place")

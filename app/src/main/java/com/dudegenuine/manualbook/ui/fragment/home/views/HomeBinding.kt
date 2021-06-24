@@ -14,21 +14,18 @@ import com.dudegenuine.repos.network.Resource
 object HomeBinding {
     private val TAG: String = javaClass.simpleName
 
-    @BindingAdapter("app:showWhenLoading")
-    @JvmStatic
-    fun <T>showWhenLoading(view: SwipeRefreshLayout, resource: Resource<T>?) {
-        Log.d(TAG, "Resource: ${resource?.status}")
-        if (resource != null)
-            view.isRefreshing =
-                resource.status == Resource.Status.LOADING
+    @BindingAdapter("showWhenLoading")
+    @JvmStatic fun <T>showWhenLoading(view: SwipeRefreshLayout, resource: Resource<T>?) {
+        if (resource != null) view.isRefreshing =
+            resource.status == Resource.Status.LOADING
     }
 
-    /*@BindingAdapter("app:items")
+    @BindingAdapter("items")
     @JvmStatic fun setItems(recyclerView: RecyclerView, resource: Resource<List<Chapter>>?) {
         with(recyclerView.adapter as HomeAdapter) {
             resource?.data?.let { updateData(it) }
         }
-    }*/
+    }
 
     /*@BindingAdapter("app:imageUrl")
     @JvmStatic fun loadImage(view: ImageView, url: String) {

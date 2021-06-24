@@ -11,7 +11,10 @@ import com.dudegenuine.manualbook.ui.fragment.home.HomeViewModel
 class HomeViewHolder(
     private val binding: ItemLayoutChapterBinding): RecyclerView.ViewHolder(binding.root) {
 
-    fun binds(chapter: Chapter, viewModel: HomeViewModel){
-
+    fun binds(mChapter: Chapter, mViewModel: HomeViewModel){
+        binding.apply {
+            chapter = mChapter
+            homeViewModel = mViewModel
+        }
     }
 }

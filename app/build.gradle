@@ -1,47 +1,18 @@
-plugins {
-    id 'com.android.application'
-    id 'kotlin-android' // id 'kotlin-parcelize'
-    id 'kotlin-kapt'
-}
+plugins { id 'com.android.application' }
+
+apply from: '../base.gradle'
+apply plugin: 'androidx.navigation.safeargs.kotlin'
 
 android {
-    compileSdk 30
-    buildToolsVersion "30.0.3"
-
     defaultConfig {
         applicationId "com.dudegenuine.manualbook"
-        minSdk 21
-        targetSdk 30
-        versionCode 1
-        versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-    }
-
-    buildTypes {
-        debug {
-            buildConfigField "String", "BASE_URL", "\"https://api.quran.com/api/v4/\""
-        }
-        release {
-            minifyEnabled true
-
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            buildConfigField "String", "BASE_URL", "\"https://api.quran.com/api/v4/\""
-        }
     }
 
     buildFeatures {
         dataBinding true
         viewBinding true
-    }
-
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
-    }
-
-    kotlinOptions {
-        jvmTarget = '1.8'
     }
 }
 
@@ -51,16 +22,6 @@ dependencies {
     implementation project(':data:remote')
     implementation project(':data:local')
     implementation project(':data:repos')
-
-    implementation "androidx.core:core-ktx:$kotlin_core_version"
-    implementation "androidx.appcompat:appcompat:$appcompat_version"
-    implementation "androidx.navigation:navigation-fragment-ktx:$navigation_version"
-    implementation "androidx.navigation:navigation-ui-ktx:$navigation_version"
-    implementation "androidx.legacy:legacy-support-v4:$legacy_support_version"
-    implementation "com.google.android.material:material:$material_version"
-    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version"
-    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
-    kapt "androidx.lifecycle:lifecycle-compiler:$lifecycle_version"
 
     // network
     implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
@@ -84,8 +45,4 @@ dependencies {
 
     kaptTest "com.google.dagger:dagger-compiler:$dagger_version"
     kaptAndroidTest "com.google.dagger:dagger-compiler:$dagger_version"
-
-    testImplementation "junit:junit:$junit_version"
-    androidTestImplementation "androidx.test.ext:junit:$junit_adx_version"
-    androidTestImplementation "androidx.test.espresso:espresso-core:$espresso_adx_version"
 }

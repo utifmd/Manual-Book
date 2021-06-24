@@ -4,7 +4,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-        <!--<variable name="email" type="com.materialstudies.reply.data.Email" />-->
+        <variable
+            name="chapter"
+            type="com.dudegenuine.domain.Chapter" />
     </data>
 
     <!--app:paddingTopSystemWindowInsets="@{true}"-->
@@ -43,7 +45,7 @@
                     app:layout_constraintEnd_toStartOf="@+id/navigation_icon"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    android:text="mail.subject}"
+                    android:text="@{chapter.viewName}"
                     android:textAppearance="?attr/textAppearanceHeadline3"
                     tools:text="High school reunion" />
 
@@ -55,6 +57,7 @@
                     app:layout_constraintEnd_toEndOf="@+id/sender_profile_image_view"
                     app:layout_constraintStart_toStartOf="@+id/sender_profile_image_view"
                     app:layout_constraintTop_toTopOf="@+id/subject_text_view"
+                    android:src="@drawable/ic_baseline_expand_more_24"
                     android:alpha="?attr/emphasisMediumAlpha"
                     android:background="?attr/actionBarItemBackground"
                     android:contentDescription="@string/navigate_back_icon_content_desc" />
@@ -68,10 +71,11 @@
                     app:layout_constraintEnd_toStartOf="@+id/sender_profile_image_view"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/subject_text_view"
-                    android:text="mail.senderPreview}"
+                    android:text="@{chapter.previewSender}"
                     android:textAppearance="?attr/textAppearanceBody2"
                     tools:text="Ali Connors -- 12m" />
 
+                <!--email_recipient_to(email.recipientsPreview)-->
                 <TextView
                     android:id="@+id/recipient_text_view"
                     android:layout_width="0dp"
@@ -81,7 +85,7 @@
                     app:layout_constraintEnd_toStartOf="@+id/sender_profile_image_view"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/sender_text_view"
-                    android:text="string/email_recipient_to(email.recipientsPreview)}"
+                    android:text="@{chapter.previewPage}"
                     android:textAppearance="?attr/textAppearanceCaption"
                     android:textColor="@color/color_on_surface_emphasis_medium" />
 
@@ -93,6 +97,7 @@
                     android:layout_height="@dimen/email_sender_profile_image_size"
                     android:contentDescription="@string/email_sender_profile_content_desc"
                     android:scaleType="centerCrop"
+                    android:src="@drawable/ic_baseline_menu_book_24"
                     app:layout_constraintTop_toTopOf="@id/sender_text_view"
                     app:layout_constraintBottom_toBottomOf="@+id/recipient_text_view"
                     app:layout_constraintEnd_toEndOf="parent"  />
@@ -105,7 +110,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/sender_profile_image_view"
-                    android:text="mail.body}"
+                    android:text="@{chapter.previewBody}"
                     android:textAppearance="?attr/textAppearanceBody1" />
 
                 <androidx.recyclerview.widget.RecyclerView

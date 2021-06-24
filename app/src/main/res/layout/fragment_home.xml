@@ -16,7 +16,7 @@
             android:id="@+id/fragment_home_swipe_to_refresh"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:showWhenLoading="@{homeViewModel.chapters}">
+            showWhenLoading="@{homeViewModel.chapters}">
             <!--app:paddingTopSystemWindowInsets="@{true}"
             app:paddingBottomSystemWindowInsets="@{true}"-->
             <androidx.recyclerview.widget.RecyclerView
@@ -26,6 +26,7 @@
                 android:clipToPadding="false"
                 android:paddingTop="@dimen/grid_0_25"
                 android:paddingBottom="@dimen/bottom_app_bar_height"
+                items="@{homeViewModel.chapters}"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
