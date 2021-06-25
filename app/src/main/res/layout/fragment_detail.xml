@@ -7,6 +7,9 @@
         <variable
             name="chapter"
             type="com.dudegenuine.domain.Chapter" />
+        <variable
+            name="detailTransName"
+            type="com.dudegenuine.manualbook.ui.fragment.detail.FragmentDetail" />
     </data>
 
     <!--app:paddingTopSystemWindowInsets="@{true}"-->
@@ -20,10 +23,10 @@
         android:clipToPadding="false"
         android:background="?android:colorBackground">
 
-        <!-- TODO: Set MaterialCardView transition name. -->
         <com.google.android.material.card.MaterialCardView
-            android:id="@+id/email_card_view"
-            android:transitionName="@string/email_card_detail_transition_name"
+            android:id="@+id/detail_card_view"
+            android:transitionGroup="true"
+            android:transitionName="@string/transition_name_dest"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
@@ -110,7 +113,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/sender_profile_image_view"
-                    android:text="@{chapter.previewBody}"
+                    android:text="@{chapter.viewBody}"
                     android:textAppearance="?attr/textAppearanceBody1" />
 
                 <androidx.recyclerview.widget.RecyclerView

@@ -7,5 +7,6 @@
     <fragment android:id="@+id/detailFragment"
         android:name="com.dudegenuine.manualbook.ui.fragment.detail.FragmentDetail"
         android:label="Detail">
+        <argument android:name="chapter" app:argType="com.dudegenuine.domain.Chapter"/>
     </fragment>
 </navigation>

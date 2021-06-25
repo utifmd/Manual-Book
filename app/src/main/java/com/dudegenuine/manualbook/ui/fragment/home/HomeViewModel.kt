@@ -1,17 +1,17 @@
 package com.dudegenuine.manualbook.ui.fragment.home
 
 import android.util.Log
+import android.view.View
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.navigation.fragment.FragmentNavigatorExtras
 import com.dudegenuine.repos.network.Resource
 import com.dudegenuine.chapter.GetChapters
 import com.dudegenuine.domain.Chapter
 import com.dudegenuine.local.model.common.Event
 import com.dudegenuine.manualbook.R
-import com.dudegenuine.manualbook.feature.di.component.ManualBookComponent
 import com.dudegenuine.manualbook.ui.extention.BaseViewModel
-import com.dudegenuine.manualbook.ui.fragment.detail.FragmentDetail
 import javax.inject.Inject
 
 /**
@@ -56,10 +56,10 @@ class HomeViewModel: BaseViewModel() {
         loadChapters()
     }
 
-    fun onChapterItemSelected(chapter: Chapter){
-        Log.d(TAG, "onChapterItemSelected: ${chapter.id}")
-
-//        val direction =
-//        navigate()
-    }
+    fun onChapterItemSelected(cardView: View, chapter: Chapter) = navigate(
+        FragmentHomeDirections.actionHomeToDetail(chapter),
+        FragmentNavigatorExtras(
+            cardView to cardView.resources.getString(R.string.transition_name_dest)
+        )
+    )
 }

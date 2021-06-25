@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.navigation.NavDirections
+import androidx.navigation.fragment.FragmentNavigator
 import com.dudegenuine.local.model.common.Event
 import com.dudegenuine.local.model.common.NavState
 import com.dudegenuine.manualbook.feature.di.component.ManualBookComponent
@@ -23,7 +24,7 @@ abstract class BaseViewModel: ViewModel(){
         return ManualBookComponent.createComponent()
     }
 
-    fun navigate(direction: NavDirections){
-        _navigation.value = Event(NavState.TO(direction))
+    fun navigate(direction: NavDirections, extra: FragmentNavigator.Extras){
+        _navigation.value = Event(NavState.TO(direction, extra))
     }
 }

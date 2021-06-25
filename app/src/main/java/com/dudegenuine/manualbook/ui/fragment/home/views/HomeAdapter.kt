@@ -1,6 +1,7 @@
 package com.dudegenuine.manualbook.ui.fragment.home.views
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -11,15 +12,18 @@ import com.dudegenuine.manualbook.ui.fragment.home.HomeViewModel
 /**
  * Manual Book created by utifmd on 23/06/21.
  */
-class HomeAdapter(val homeViewModel: HomeViewModel): RecyclerView.Adapter<RecyclerView.ViewHolder>(){
+class HomeAdapter(
+    private val homeViewModel: HomeViewModel): RecyclerView.Adapter<RecyclerView.ViewHolder>(){
+
     private val items: MutableList<Chapter> = mutableListOf()
+    private lateinit var listener: ChapterListener
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder = HomeViewHolder(
         ItemLayoutChapterBinding.inflate(LayoutInflater.from(parent.context), parent, false)
     )
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        (holder as HomeViewHolder).binds(items[position], homeViewModel)
+        (holder as HomeViewHolder).binds(items[position], homeViewModel) //, listener)
     }
 
     override fun getItemCount(): Int = items.size
@@ -31,5 +35,16 @@ class HomeAdapter(val homeViewModel: HomeViewModel): RecyclerView.Adapter<Recycl
 
             dispatchUpdatesTo(this@HomeAdapter)
         }
+    }
+
+    fun updateListener(listener: ChapterListener){
+        this.listener = listener
+    }
+
+    interface ChapterListener {
+        fun onChapterClicked(cardView: View, chapter: Chapter)
+        /*fun onChapterLongPressed(chapter: Chapter): Boolean
+        fun onChapterStarChanged(chapter: Chapter, newValue: Boolean)
+        fun onChapterArchived(chapter: Chapter)*/
     }
 }

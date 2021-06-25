@@ -12,20 +12,19 @@
         <variable
             name="homeViewModel"
             type="com.dudegenuine.manualbook.ui.fragment.home.HomeViewModel" />
-        <!-- <variable name="listener" type="com.materialstudies.reply.ui.home.EmailAdapter.EmailAdapterListener" />-->
+        <variable
+            name="chapterListener"
+            type="com.dudegenuine.manualbook.ui.fragment.home.views.HomeAdapter.ChapterListener" />
     </data>
 
+    <!--android:background="?attr/colorSecondary"-->
     <FrameLayout
         android:id="@+id/email_frame"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
         android:layout_marginVertical="@dimen/grid_0_25"
-        android:layout_marginHorizontal="@dimen/grid_0_5"
-        android:background="?attr/colorSecondary">
+        android:layout_marginHorizontal="@dimen/grid_0_5">
 
-        <!--android:transitionName="@{@string/email_card_transition_name(email.id)}"
-            android:onClick="@{(view) -> listener.onEmailClicked(view, email)}"
-            android:onLongClick="@{(view) -> listener.onEmailLongPressed(email)}"-->
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/card_view"
             android:layout_width="match_parent"
@@ -33,7 +32,8 @@
             android:elevation="@dimen/plane_00"
             android:clickable="true"
             android:focusable="true"
-            android:onClick="@{() -> homeViewModel.onChapterItemSelected(chapter)}"
+            android:transitionName="@{@string/transition_name_orig(chapter.id)}"
+            android:onClick="@{(view) -> homeViewModel.onChapterItemSelected(view, chapter)}"
             app:cardPreventCornerOverlap="false">
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -87,7 +87,7 @@
                     android:layout_marginEnd="@dimen/grid_2"
                     android:maxLines="2"
                     android:ellipsize="end"
-                    android:text="@{chapter.previewBody}"
+                    android:text="@{chapter.viewBody}"
                     tools:text="Cucumber mask facial has shipped. It'll be on your front door by the end of the week!"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"

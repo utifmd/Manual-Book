@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModel
 import androidx.navigation.fragment.FragmentNavigator
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
@@ -25,7 +24,7 @@ abstract class BaseFragment<VB: ViewBinding>: Fragment(){
 
     abstract fun bindView(): VB
 
-    abstract fun bindViewModel(): BaseViewModel
+    abstract fun bindViewModel(): BaseViewModel?
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -34,18 +33,21 @@ abstract class BaseFragment<VB: ViewBinding>: Fragment(){
         _binding = bindView()
         // _viewModel = bindViewModel()
 
-        setUpVueModel(bindViewModel())
-        setUpSnackPop(this, bindViewModel().snackPopError, Snackbar.LENGTH_LONG)
+        bindViewModel()?.let {
+
+            setUpVueModel(it)
+            setUpSnackPop(this, it.snackPopError, Snackbar.LENGTH_LONG)
+        }
 
         return binding.root
     }
 
-    private fun setUpVueModel(viewModel: BaseViewModel) {
-        viewModel.navigation.observe(viewLifecycleOwner, {
+    private fun setUpVueModel(viewModel: BaseViewModel?) {
+        viewModel?.navigation?.observe(viewLifecycleOwner, {
             it?.getContentIfNotHandled()?.let { command ->
                 when(command){
                     is NavState.TO ->
-                        findNavController().navigate(command.direction, getExtras())
+                        findNavController().navigate(command.direction, command.extra)
 
                     is NavState.BACK ->
                         findNavController().navigateUp()
@@ -54,6 +56,30 @@ abstract class BaseFragment<VB: ViewBinding>: Fragment(){
         })
     }
 
-    open fun getExtras(): FragmentNavigator.Extras =
-        FragmentNavigatorExtras()
+    /*open fun bindExtras(): FragmentNavigator.Extras =
+        FragmentNavigatorExtras()*/
+
+    /*public void restorePreviousState(){
+    // getting recyclerview position
+    mListState = mSavedInstanceState.getParcelable(SAVED_RECYCLER_VIEW_STATUS_ID);
+    // getting recyclerview items
+    mDataset = mSavedInstanceState.getParcelableArrayList(SAVED_RECYCLER_VIEW_DATASET_ID);
+    // Restoring adapter items
+    mAdapter.setItems(mDataset);
+    // Restoring recycler view position
+    mRvMedia.getLayoutManager().onRestoreInstanceState(mListState);
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+
+        binding.apply {
+            val parcelize = recyclerView.layoutManager?.onSaveInstanceState()
+
+            outState.apply {
+                putParcelable(TAG_LIST_POSITION, parcelize)
+                putParcelableArrayList()
+            }
+        }
+    }*/
 }

@@ -2,7 +2,10 @@ package com.dudegenuine.manualbook.ui.fragment.home.views
 
 import android.util.Log
 import android.view.View
+import androidx.core.view.doOnPreDraw
 import androidx.databinding.BindingAdapter
+import androidx.databinding.ViewDataBinding
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.dudegenuine.domain.Chapter
@@ -24,6 +27,13 @@ object HomeBinding {
     @JvmStatic fun setItems(recyclerView: RecyclerView, resource: Resource<List<Chapter>>?) {
         with(recyclerView.adapter as HomeAdapter) {
             resource?.data?.let { updateData(it) }
+        }
+    }
+
+    fun Fragment.bindTransPostpone(binding: ViewDataBinding){
+        postponeEnterTransition()
+        binding.root.doOnPreDraw {
+            startPostponedEnterTransition()
         }
     }
 

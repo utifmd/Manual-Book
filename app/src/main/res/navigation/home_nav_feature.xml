@@ -7,7 +7,6 @@
     <fragment android:id="@+id/homeFragment"
         android:name="com.dudegenuine.manualbook.ui.fragment.home.FragmentHome"
         android:label="Home">
-
         <action android:id="@+id/action_home_to_detail"
             app:destination="@id/detail_nav_feature">
             <argument android:name="chapter" app:argType="com.dudegenuine.domain.Chapter"/>

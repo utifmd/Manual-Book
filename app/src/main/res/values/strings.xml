@@ -37,10 +37,10 @@
     <string name="email_sender_profile_content_desc">Profile image of sender</string>
     <string name="navigate_back_icon_content_desc">Navigate back</string>
 
-    <!--EmailFragment-->
-    <string name="email_recipient_to">To %1$s</string>
-    <string name="email_card_transition_name">email_card_%1$s</string>
-    <string name="email_card_detail_transition_name">email_card_detail</string>
+    <!--DetailFragment-->
+    <string name="manual_book_card_transition_name">manual_book_card_%1$s</string>
+    <string name="transition_name_orig">manual_book_card_detail_orig_%1$s</string>
+    <string name="transition_name_dest">manual_book_card_detail_dest</string>
 
     <!--ComposeFragment-->
     <string name="compose_close_content_desc">Close editing email</string>
