@@ -15,6 +15,7 @@ import com.dudegenuine.manualbook.R
 import com.dudegenuine.manualbook.feature.di.component.ManualBookComponent
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.transition.MaterialContainerTransform
+import com.google.android.material.transition.MaterialSharedAxis
 
 /**
  * Manual Book created by utifmd on 20/06/21.
@@ -34,12 +35,34 @@ fun Fragment.popSnackBar(message: String, duration: Int) {
     }
 }
 
+/*
+* Transition common
+* */
+
 fun Fragment.bindDestSharedTransition(){
     sharedElementEnterTransition = MaterialContainerTransform().apply {
         drawingViewId = R.id.nav_host_fragment
         duration = resources.getInteger(R.integer.motion_duration_large).toLong()
         scrimColor = Color.TRANSPARENT
         setAllContainerColors(requireContext().themeColor(R.attr.colorSurface))
+    }
+}
+
+fun Fragment.bindEnterReturnTransition(){
+    enterTransition = MaterialSharedAxis(MaterialSharedAxis.Z, true).apply {
+        duration = resources.getInteger(R.integer.motion_duration_large).toLong()
+    }
+    returnTransition = MaterialSharedAxis(MaterialSharedAxis.Z, false).apply {
+        duration = resources.getInteger(R.integer.motion_duration_large).toLong()
+    }
+}
+
+fun Fragment.bindExitRenterTransition(){
+    exitTransition = MaterialSharedAxis(MaterialSharedAxis.Z, true).apply {
+        duration = resources.getInteger(R.integer.motion_duration_large).toLong()
+    }
+    reenterTransition = MaterialSharedAxis(MaterialSharedAxis.Z, false).apply {
+        duration = resources.getInteger(R.integer.motion_duration_large).toLong()
     }
 }
 

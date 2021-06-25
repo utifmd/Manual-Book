@@ -27,4 +27,24 @@ abstract class BaseViewModel: ViewModel(){
     fun navigate(direction: NavDirections, extra: FragmentNavigator.Extras){
         _navigation.value = Event(NavState.TO(direction, extra))
     }
+
+    fun navigateUp(){
+        _navigation.value = Event(NavState.BACK)
+    }
+
+    /*
+    * Remote Params
+    * */
+
+    protected fun chaptersParam(lang: String? = null): Map<String, String> = mutableMapOf (
+        "language" to (lang ?: "id")
+    )
+
+    protected fun searchParam(q: String, size: Int? = null, page: Int? = null, lang: String? = null): Map<String, Any> = mutableMapOf<String, Any>(
+        "q" to q,
+        "language" to (lang ?: "id")
+    ).apply {
+        if(size != null) put("size", size)
+        if(page != null) put("page", page)
+    }
 }

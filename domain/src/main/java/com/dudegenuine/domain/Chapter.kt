@@ -16,7 +16,7 @@ data class Chapter (
     val revelationPlace: String ): Serializable {
 
     private val defaultBody get() =
-        "$versesCount ayat, secara etimologi berarti \"$translatedName\" $nameSimple diwahyukan kepada Nabi Muhammad SAW di kota $revelationPlace"
+        "Berjumlah $versesCount ayat, secara etimologi berarti \"$translatedName\" $nameSimple diwahyukan kepada Nabi Muhammad SAW di kota $revelationPlace"
 
     /*
     * Preview
@@ -25,8 +25,7 @@ data class Chapter (
     val previewSender get() =
         "Qur\'an Surah - 14th century ago"
 
-    val previewBody get() =
-        "$nameArabic $defaultBody"
+    val previewBody get() = defaultBody
 
     val previewPage get() =
         "Halaman ${pages[0]}/${pages[1]}"

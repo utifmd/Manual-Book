@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.FragmentNavigator
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.navArgs
@@ -21,15 +22,14 @@ import com.google.android.material.transition.MaterialContainerTransform
  */
 class FragmentDetail: BaseFragment<FragmentDetailBinding>() {
     private val TAG: String = javaClass.simpleName
+    private val viewModel: DetailViewModel by viewModels()
     private val args: FragmentDetailArgs by navArgs()
 
     override fun bindView(): FragmentDetailBinding {
         return FragmentDetailBinding.inflate(layoutInflater)
     }
 
-    override fun bindViewModel(): BaseViewModel? {
-        return null
-    }
+    override fun bindViewModel(): BaseViewModel = viewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -1,6 +1,6 @@
 package com.dudegenuine.manualbook.feature.di.module
 
-import com.dudegenuine.manualbook.feature.datasource.api.ChapterApi
+import com.dudegenuine.manualbook.feature.datasource.api.RestApi
 import com.dudegenuine.manualbook.feature.datasource.domain.ChapterPersistence
 import dagger.Module
 import dagger.Provides
@@ -11,7 +11,7 @@ import dagger.Provides
 @Module
 class PersistenceModule {
     @Provides
-    fun provideChapterPersistence(chapterApi: ChapterApi): ChapterPersistence {
-        return ChapterPersistence(chapterApi)
+    fun provideChapterPersistence(restApi: RestApi): ChapterPersistence {
+        return ChapterPersistence(restApi)
     }
 }

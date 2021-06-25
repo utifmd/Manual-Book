@@ -87,7 +87,7 @@
                     android:layout_marginEnd="@dimen/grid_2"
                     android:maxLines="2"
                     android:ellipsize="end"
-                    android:text="@{chapter.viewBody}"
+                    android:text="@{chapter.previewBody}"
                     tools:text="Cucumber mask facial has shipped. It'll be on your front door by the end of the week!"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"

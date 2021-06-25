@@ -8,8 +8,8 @@
             name="chapter"
             type="com.dudegenuine.domain.Chapter" />
         <variable
-            name="detailTransName"
-            type="com.dudegenuine.manualbook.ui.fragment.detail.FragmentDetail" />
+            name="viewModel"
+            type="com.dudegenuine.manualbook.ui.fragment.detail.DetailViewModel" />
     </data>
 
     <!--app:paddingTopSystemWindowInsets="@{true}"-->
@@ -57,6 +57,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="@dimen/grid_2"
+                    android:onClick="@{(view) -> viewModel.navigateUp()}"
                     app:layout_constraintEnd_toEndOf="@+id/sender_profile_image_view"
                     app:layout_constraintStart_toStartOf="@+id/sender_profile_image_view"
                     app:layout_constraintTop_toTopOf="@+id/subject_text_view"

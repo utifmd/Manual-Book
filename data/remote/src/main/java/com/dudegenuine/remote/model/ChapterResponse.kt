@@ -1,12 +1,12 @@
 package com.dudegenuine.remote.model
 
-import com.dudegenuine.remote.payload.IChapterResponse
+import com.dudegenuine.remote.payload.IChapterResponsePayload
 import com.google.gson.annotations.SerializedName
 
 
 data class ChapterResponse(
 	@SerializedName("chapters")
-	val data: List<Chapter>? = null): IChapterResponse
+	val data: List<Chapter>? = null): IChapterResponsePayload
 
 data class Chapter(
 	val id: Int? = null,

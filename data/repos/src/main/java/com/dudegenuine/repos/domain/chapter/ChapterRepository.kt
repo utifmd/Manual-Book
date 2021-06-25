@@ -3,7 +3,7 @@ package com.dudegenuine.repos.domain.chapter
 import androidx.lifecycle.LiveData
 import com.dudegenuine.domain.Chapter
 import com.dudegenuine.remote.mapper.ChapterDataMapper
-import com.dudegenuine.remote.payload.IChapterResponse
+import com.dudegenuine.remote.payload.IChapterResponsePayload
 import com.dudegenuine.remote.persistence.IChapterPersistence
 import com.dudegenuine.repos.network.Resource
 import com.dudegenuine.repos.network.ResourceManager
@@ -14,19 +14,19 @@ import io.reactivex.Observable
  */
 class ChapterRepository(
     private val persistence: IChapterPersistence,
-    private val mapper: ChapterDataMapper ) {
+    private val mapper: ChapterDataMapper): IChapterRepository {
 
-    fun getChapters(param: Map<String, String>): LiveData<Resource<List<Chapter>>> { //Resource<List<Chapter>> {
-        return object: ResourceManager<List<Chapter>, IChapterResponse>(){
+    override fun getChapters(param: Map<String, String>): LiveData<Resource<List<Chapter>>> {
+        return object: ResourceManager<List<Chapter>, IChapterResponsePayload>(){
             override fun shouldFetch(result: List<Chapter>?): Boolean {
                 return true
             }
 
-            override fun fetchDataRemote(): Observable<out IChapterResponse> {
+            override fun fetchDataRemote(): Observable<out IChapterResponsePayload> {
                 return persistence.getChapter(param)
             }
 
-            override fun processRequest(response: IChapterResponse): List<Chapter> {
+            override fun processRequest(response: IChapterResponsePayload): List<Chapter> {
                 return mapper.convertChapterToList(response)
             }
 

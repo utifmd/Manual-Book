@@ -1,7 +1,7 @@
 package com.dudegenuine.manualbook.feature.datasource.domain
 
-import com.dudegenuine.manualbook.feature.datasource.api.ChapterApi
-import com.dudegenuine.remote.payload.IChapterResponse
+import com.dudegenuine.manualbook.feature.datasource.api.RestApi
+import com.dudegenuine.remote.payload.IChapterResponsePayload
 import com.dudegenuine.remote.persistence.IChapterPersistence
 import io.reactivex.Observable
 
@@ -10,8 +10,8 @@ import io.reactivex.Observable
  */
 
 // injected api
-class ChapterPersistence(private val chapterApi: ChapterApi): IChapterPersistence {
+class ChapterPersistence(private val restApi: RestApi): IChapterPersistence {
 
-    override fun getChapter(param: Map<String, String>): Observable<out IChapterResponse> =
-        chapterApi.getChapter(param)
+    override fun getChapter(param: Map<String, String>): Observable<out IChapterResponsePayload> =
+        restApi.getChapter(param)
 }

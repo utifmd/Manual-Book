@@ -34,7 +34,7 @@ class HomeViewModel: BaseViewModel() {
     private fun loadChapters() {
         _chapters.removeSource(chaptersState)
 
-        chaptersState = getChapters(mapOf("language" to "id"))
+        chaptersState = getChapters(chaptersParam())
 
         _chapters.addSource(chaptersState){
             _chapters.value = it
@@ -52,14 +52,14 @@ class HomeViewModel: BaseViewModel() {
     * Listener
     * */
 
-    fun onChaptersRefresh(){
-        loadChapters()
-    }
-
     fun onChapterItemSelected(cardView: View, chapter: Chapter) = navigate(
-        FragmentHomeDirections.actionHomeToDetail(chapter),
+        FragmentHomeDirections.actionGlobalToDetail(chapter),
         FragmentNavigatorExtras(
             cardView to cardView.resources.getString(R.string.transition_name_dest)
         )
     )
+
+    fun onChaptersRefresh(){
+        loadChapters()
+    }
 }

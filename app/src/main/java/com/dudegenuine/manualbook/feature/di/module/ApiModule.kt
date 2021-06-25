@@ -1,7 +1,7 @@
 package com.dudegenuine.manualbook.feature.di.module
 
 import com.dudegenuine.manualbook.feature.di.module.network.INetwork
-import com.dudegenuine.manualbook.feature.datasource.api.ChapterApi
+import com.dudegenuine.manualbook.feature.datasource.api.RestApi
 import dagger.Module
 import dagger.Provides
 
@@ -11,6 +11,6 @@ import dagger.Provides
 @Module
 class ApiModule {
     @Provides
-    fun provideChapterApi(network: INetwork): ChapterApi =
-        network.builder().build().create(ChapterApi::class.java) // retrofit.create(ChapterApi::class.java)
+    fun provideChapterApi(network: INetwork): RestApi =
+        network.builder().build().create(RestApi::class.java) // retrofit.create(ChapterApi::class.java)
 }
