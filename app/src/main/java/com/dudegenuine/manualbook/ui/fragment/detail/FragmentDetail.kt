@@ -11,10 +11,7 @@ import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.navArgs
 import com.dudegenuine.manualbook.R
 import com.dudegenuine.manualbook.databinding.FragmentDetailBinding
-import com.dudegenuine.manualbook.ui.extention.BaseFragment
-import com.dudegenuine.manualbook.ui.extention.BaseViewModel
-import com.dudegenuine.manualbook.ui.extention.bindDestSharedTransition
-import com.dudegenuine.manualbook.ui.extention.themeColor
+import com.dudegenuine.manualbook.ui.extention.*
 import com.google.android.material.transition.MaterialContainerTransform
 
 /**
@@ -25,15 +22,16 @@ class FragmentDetail: BaseFragment<FragmentDetailBinding>() {
     private val viewModel: DetailViewModel by viewModels()
     private val args: FragmentDetailArgs by navArgs()
 
-    override fun bindView(): FragmentDetailBinding {
-        return FragmentDetailBinding.inflate(layoutInflater)
-    }
+    override fun bindView(): FragmentDetailBinding =
+        FragmentDetailBinding.inflate(layoutInflater)
 
     override fun bindViewModel(): BaseViewModel = viewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         bindDestSharedTransition()
+        bindExitRenterTransition()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -41,7 +39,10 @@ class FragmentDetail: BaseFragment<FragmentDetailBinding>() {
 
         binding.apply {
             lifecycleOwner = this@FragmentDetail
+            viewModel = this@FragmentDetail.viewModel
+
             chapter = this@FragmentDetail.args.chapter
+            quran = this@FragmentDetail.args.quran
         }
     }
 }

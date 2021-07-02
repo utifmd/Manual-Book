@@ -1,4 +1,4 @@
-<layout
+<layout xmlns:tools="http://schemas.android.com/tools"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
@@ -14,19 +14,20 @@
         <!--app:onRefreshListener="@{() -> viewmodel.userRefreshesItems()}"-->
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
             android:id="@+id/fragment_home_swipe_to_refresh"
+            showWhenLoading="@{homeViewModel.chapters}"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            showWhenLoading="@{homeViewModel.chapters}">
+            app:onRefreshListener="@{() -> homeViewModel.onChaptersRefresh()}">
             <!--app:paddingTopSystemWindowInsets="@{true}"
             app:paddingBottomSystemWindowInsets="@{true}"-->
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recycler_view"
+                items="@{homeViewModel.chapters}"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:clipToPadding="false"
                 android:paddingTop="@dimen/grid_0_25"
                 android:paddingBottom="@dimen/bottom_app_bar_height"
-                items="@{homeViewModel.chapters}"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 

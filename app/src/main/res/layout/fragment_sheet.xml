@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="vueModel"
+            type="com.dudegenuine.manualbook.ui.fragment.sheet.BottomSheetViewModel" />
+
+        <variable
+            name="chapter"
+            type="com.dudegenuine.domain.Chapter" />
+    </data>
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <FrameLayout
+            android:id="@+id/background_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/bottom_sheet_behavior"
+            app:behavior_hideable="true"
+            app:behavior_skipCollapsed="true"
+            app:behavior_halfExpandedRatio="0.6">
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/menu_item_constraint_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="@dimen/grid_2"
+                android:paddingTop="@dimen/grid_3"
+                android:paddingBottom="@dimen/bottom_app_bar_height">
+
+                <TextView
+                    android:id="@+id/subject_text_view"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/grid_1"
+                    android:textColor="@color/reply_blue_200"
+                    android:layout_marginEnd="@dimen/grid_1"
+                    app:layout_constraintEnd_toStartOf="@+id/navigation_icon"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:text="@{chapter.viewName}"
+                    android:textAppearance="?attr/textAppearanceHeadline3"
+                    tools:text="High school reunion" />
+
+                    <!--android:onClick="@{viewModel::onBackSelected}"-->
+                <ImageButton
+                    android:id="@+id/navigation_icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/grid_2"
+                    android:src="@drawable/ic_baseline_expand_more_24"
+                    android:alpha="?attr/emphasisMediumAlpha"
+                    android:background="?attr/actionBarItemBackground"
+                    android:contentDescription="@string/navigate_back_icon_content_desc"
+                    app:layout_constraintEnd_toEndOf="@+id/sender_profile_image_view"
+                    app:layout_constraintStart_toStartOf="@+id/sender_profile_image_view"
+                    app:layout_constraintTop_toTopOf="@+id/subject_text_view"
+                    app:tint="@color/reply_blue_100" />
+
+                    <!--android:text="@{chapter.previewSender}"-->
+                <TextView
+                    android:id="@+id/sender_text_view"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/grid_1"
+                    android:textColor="@color/reply_blue_100"
+                    android:layout_marginEnd="@dimen/grid_1"
+                    app:layout_constraintEnd_toStartOf="@+id/sender_profile_image_view"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/subject_text_view"
+                    android:text="@{chapter.previewSender}"
+                    android:textAppearance="?attr/textAppearanceBody2"
+                    tools:text="Ali Connors -- 12m" />
+
+                <!--email_recipient_to(email.recipientsPreview)
+                    android:text="@{chapter.previewPage}" -->
+                <TextView
+                    android:id="@+id/recipient_text_view"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/grid_0_25"
+                    android:textColor="@color/reply_blue_100"
+                    android:layout_marginEnd="@dimen/grid_1"
+                    app:layout_constraintEnd_toStartOf="@+id/sender_profile_image_view"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/sender_text_view"
+                    android:text="@{chapter.previewPage}"
+                    android:textAppearance="?attr/textAppearanceCaption"
+                    tools:text="Prophet Muhammad SAW" />
+
+                <!--app:glideCircularCrop="rue}"
+                    app:glideSrc="mail.sender.avatar}"-->
+                <ImageView
+                    android:id="@+id/sender_profile_image_view"
+                    android:layout_width="@dimen/email_sender_profile_image_size"
+                    android:layout_height="@dimen/email_sender_profile_image_size"
+                    android:contentDescription="@string/email_sender_profile_content_desc"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/ic_baseline_menu_book_24"
+                    app:layout_constraintTop_toTopOf="@id/sender_text_view"
+                    app:layout_constraintBottom_toBottomOf="@+id/recipient_text_view"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:tint="@color/reply_blue_200" />
+
+                    <!--android:text="@{chapter.viewBody}"-->
+                <TextView
+                    android:id="@+id/body_text_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/grid_3"
+                    android:textColor="@color/reply_blue_100"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/sender_profile_image_view"
+                    android:text="@{chapter.viewBody}"
+                    tools:text="@tools:sample/lorem/random"
+                    android:textAppearance="?attr/textAppearanceBody1" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </FrameLayout>
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+</layout>

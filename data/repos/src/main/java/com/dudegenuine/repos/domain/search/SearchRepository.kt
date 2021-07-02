@@ -9,22 +9,23 @@ import com.dudegenuine.remote.persistence.ISearchPersistence
 import com.dudegenuine.repos.network.Resource
 import com.dudegenuine.repos.network.ResourceManager
 import io.reactivex.Observable
+import javax.inject.Inject
 
 /**
  * Manual Book created by utifmd on 25/06/21.
  */
-class SearchRepository(
+class SearchRepository @Inject constructor (
     // val local
-    val mapper: SearchDataMapper,
-    val persistence: ISearchPersistence ): ISearchRepository {
+    private val persistence: ISearchPersistence,
+    private val mapper: SearchDataMapper ): ISearchRepository {
 
-    override fun getSearch(param: Map<String, String>): LiveData<Resource<List<Search>>> {
+    override suspend fun getSearch(param: Map<String, String>): LiveData<Resource<List<Search>>> {
         return object: ResourceManager<List<Search>, ISearchResponsePayload>(){
             override fun shouldFetch(result: List<Search>?): Boolean {
                 return true
             }
 
-            override fun fetchDataRemote(): Observable<out ISearchResponsePayload> {
+            override suspend fun fetchDataRemote(): ISearchResponsePayload {
                 return persistence.getSearch(param)
             }
 
@@ -39,6 +40,6 @@ class SearchRepository(
             override fun fetchDataLocal(): List<Search> {
                 TODO("Not yet implemented")
             }
-        }.build().asLiveData()
+        }.build().commit()
     }
 }

@@ -3,16 +3,20 @@ package com.dudegenuine.manualbook.ui.extention
 import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Color
+import android.util.Log
 import android.view.View
 import androidx.annotation.AttrRes
 import androidx.annotation.ColorInt
 import androidx.core.content.res.use
+import androidx.databinding.BindingAdapter
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.dudegenuine.local.model.common.Event
 import com.dudegenuine.manualbook.R
 import com.dudegenuine.manualbook.feature.di.component.ManualBookComponent
+import com.dudegenuine.repos.network.Resource
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.transition.MaterialContainerTransform
 import com.google.android.material.transition.MaterialSharedAxis
@@ -64,6 +68,21 @@ fun Fragment.bindExitRenterTransition(){
     reenterTransition = MaterialSharedAxis(MaterialSharedAxis.Z, false).apply {
         duration = resources.getInteger(R.integer.motion_duration_large).toLong()
     }
+}
+
+/*
+* Binding Adapter
+* */
+
+@BindingAdapter("showWhenLoading")
+fun <T>showWhenLoading(view: SwipeRefreshLayout, resource: Resource<T>?) {
+    Log.d("showWhenLoading", "showWhenLoading: ${resource?.status}")
+    if (resource != null) view.isRefreshing =
+        resource.status == Resource.Status.LOADING
+}
+
+fun View.visible(isVisible: Boolean) {
+    visibility = if (isVisible) View.VISIBLE else View.GONE
 }
 
 @ColorInt

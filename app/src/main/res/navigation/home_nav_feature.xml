@@ -18,7 +18,12 @@
         app:destination="@id/search_nav_feature">
         <!--<argument android:name="chapter" app:argType="com.dudegenuine.domain.Chapter"/>-->
     </action>
+    <action android:id="@+id/action_global_to_quran"
+        app:destination="@id/quran_nav_feature">
+        <argument android:name="chapter" app:argType="com.dudegenuine.domain.Chapter"/>
+    </action>
 
     <include app:graph="@navigation/detail_nav_feature"/>
     <include app:graph="@navigation/search_nav_feature"/>
+    <include app:graph="@navigation/quran_nav_feature"/>
 </navigation>

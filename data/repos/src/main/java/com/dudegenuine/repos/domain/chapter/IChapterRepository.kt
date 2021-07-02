@@ -8,5 +8,5 @@ import com.dudegenuine.repos.network.Resource
  * Manual Book created by utifmd on 17/06/21.
  */
 interface IChapterRepository{
-    fun getChapters(param: Map<String, String>): LiveData<Resource<List<Chapter>>>
+    suspend fun getChapters(param: Map<String, String>): LiveData<Resource<List<Chapter>>>
 }

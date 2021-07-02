@@ -1,9 +1,12 @@
 package com.dudegenuine.manualbook.feature.datasource.api
 
 import com.dudegenuine.remote.model.ChapterResponse
+import com.dudegenuine.remote.model.QuranResponse
 import com.dudegenuine.remote.model.SearchResponse
 import io.reactivex.Observable
+import kotlinx.coroutines.Deferred
 import retrofit2.http.GET
+import retrofit2.http.Path
 import retrofit2.http.QueryMap
 
 /**
@@ -12,8 +15,15 @@ import retrofit2.http.QueryMap
 
 interface RestApi {
     @GET("chapters")
-    fun getChapter(@QueryMap queryMap: Map<String, String>): Observable<ChapterResponse>
+    suspend fun getChapter(@QueryMap queries: Map<String, String>): ChapterResponse
 
-    @GET("search") /*https://api.quran.com/api/v4/search?q=yahudi&size=0&page=3&language=id*/
-    fun getSearch(@QueryMap query: Map<String, String>): Observable<SearchResponse>
+    @GET("search")
+    suspend fun getSearch(@QueryMap queries: Map<String, String>): SearchResponse // Observable<SearchResponse>
+
+    @GET("quran/verses/imlaei")
+    suspend fun getQuran(@QueryMap queries: Map<String, String>): QuranResponse
+
+    @GET("verses/by_key/{verseKey}") // verses/by_key/1:1?language=id&words=false&translations=134&audio=1
+    suspend fun getVerse(@Path("verseKey") verseKey: String, @QueryMap queries: Map<String, String>): ChapterResponse
+
 }

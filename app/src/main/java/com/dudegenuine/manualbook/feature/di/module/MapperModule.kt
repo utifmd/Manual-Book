@@ -1,6 +1,8 @@
 package com.dudegenuine.manualbook.feature.di.module
 
 import com.dudegenuine.remote.mapper.ChapterDataMapper
+import com.dudegenuine.remote.mapper.QuranDataMapper
+import com.dudegenuine.remote.mapper.SearchDataMapper
 import dagger.Module
 import dagger.Provides
 
@@ -10,7 +12,17 @@ import dagger.Provides
 @Module
 class MapperModule {
     @Provides
-    fun provideChapterMapper(): ChapterDataMapper{
+    fun provideChapterMapper(): ChapterDataMapper {
         return ChapterDataMapper()
+    }
+
+    @Provides
+    fun provideSearchMapper(): SearchDataMapper {
+        return SearchDataMapper()
+    }
+
+    @Provides
+    fun provideQuranMapper(): QuranDataMapper {
+        return QuranDataMapper()
     }
 }

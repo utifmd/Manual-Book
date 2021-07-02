@@ -17,13 +17,14 @@ data class Search(
 )
 
 data class ResultsItem(
-	val translations: List<TranslationsItem?>? = null,
+	@SerializedName("translations")
+	val translations: List<TranslationSearch?>? = null,
 	@SerializedName("verse_id")
 	val verseId: Int? = null,
 	val text: String? = null
 )
 
-data class TranslationsItem(
+data class TranslationSearch(
 	val name: String? = null,
 	val id: Int? = null,
 	val text: String? = null

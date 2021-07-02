@@ -1,12 +1,15 @@
 package com.dudegenuine.manualbook.ui.fragment.search
 
 import android.os.Bundle
+import android.util.Log
+import android.view.KeyEvent
 import android.view.View
 import androidx.fragment.app.viewModels
 import com.dudegenuine.manualbook.databinding.FragmentSearchBinding
 import com.dudegenuine.manualbook.ui.extention.BaseFragment
 import com.dudegenuine.manualbook.ui.extention.BaseViewModel
 import com.dudegenuine.manualbook.ui.extention.bindEnterReturnTransition
+import com.dudegenuine.manualbook.ui.fragment.search.views.SearchAdapter
 
 /**
  * Manual Book created by utifmd on 25/06/21.
@@ -19,9 +22,15 @@ class FragmentSearch: BaseFragment<FragmentSearchBinding>() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.apply {
+            lifecycleOwner = this@FragmentSearch
+            viewModel = this@FragmentSearch.viewModel
 
-            searchToolbar.setNavigationOnClickListener(viewModel::onBackSelected)
-
+            recyclerView.adapter = SearchAdapter(
+                this@FragmentSearch.viewModel
+            )
+            searchToolbar.setNavigationOnClickListener(
+                this@FragmentSearch.viewModel.onBackSelected
+            )
         }
     }
 

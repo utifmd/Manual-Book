@@ -2,7 +2,11 @@ package com.dudegenuine.manualbook.feature.di.module
 
 import androidx.annotation.MainThread
 import com.dudegenuine.chapter.GetChapters
+import com.dudegenuine.quran.GetQuran
 import com.dudegenuine.repos.domain.chapter.ChapterRepository
+import com.dudegenuine.repos.domain.quran.QuranRepository
+import com.dudegenuine.repos.domain.search.SearchRepository
+import com.dudegenuine.search.GetSearches
 import dagger.Module
 import dagger.Provides
 import io.reactivex.Scheduler
@@ -15,9 +19,14 @@ import io.reactivex.disposables.CompositeDisposable
 @Module
 class UseCaseModule {
     @Provides
-    fun provideChaptersUseCase(
-        chapterRepository: ChapterRepository //, compositeDisposable: CompositeDisposable, mainThread: Scheduler
-    ): GetChapters {
-        return GetChapters(chapterRepository)
-    }
+    fun provideChaptersUseCase(chapterRepository: ChapterRepository): GetChapters =
+        GetChapters(chapterRepository) //, compositeDisposable: CompositeDisposable, mainThread: Scheduler
+
+    @Provides
+    fun provideSearchUseCase(repository: SearchRepository): GetSearches =
+        GetSearches(repository)
+
+    @Provides
+    fun provideQuranUseCase(repository: QuranRepository): GetQuran =
+        GetQuran(repository)
 }

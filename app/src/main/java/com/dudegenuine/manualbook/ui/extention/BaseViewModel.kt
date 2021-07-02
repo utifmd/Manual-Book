@@ -40,11 +40,31 @@ abstract class BaseViewModel: ViewModel(){
         "language" to (lang ?: "id")
     )
 
-    protected fun searchParam(q: String, size: Int? = null, page: Int? = null, lang: String? = null): Map<String, Any> = mutableMapOf<String, Any>(
-        "q" to q,
-        "language" to (lang ?: "id")
-    ).apply {
-        if(size != null) put("size", size)
-        if(page != null) put("page", page)
+    protected fun searchParam(
+        query: String, size: Int? = null, page: Int? = null, lang: String? = null): Map<String, String> =
+            mutableMapOf (
+                "q" to query,
+                "language" to (lang ?: "id")
+            ).apply {
+                if(size != null) put("size", size.toString())
+                if(page != null) put("page", page.toString())
+    }
+
+    protected fun verseParam(verseKey: String, audio: String): Map<String, String> = mutableMapOf (
+        "verse_key" to verseKey, // /1:1?language=id&words=false&translations=134&audio=1
+        "language" to "id",
+        "words" to "false",
+        "translation" to "134",
+        "audio" to audio
+    )
+
+    protected fun quranParam(pageNumber: Int): Map<String, String>{
+        /*chapter_number=1&
+        juz_number=1&
+        hizb_number=1&
+        rub_number=1&
+        verse_key="1:1"*/
+
+        return mapOf("page_number" to pageNumber.toString())
     }
 }

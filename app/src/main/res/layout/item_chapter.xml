@@ -19,7 +19,7 @@
 
     <!--android:background="?attr/colorSecondary"-->
     <FrameLayout
-        android:id="@+id/email_frame"
+        android:id="@+id/chapter_frame"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
         android:layout_marginVertical="@dimen/grid_0_25"

@@ -11,16 +11,17 @@ class ChapterDataMapper {
     fun convertChapterToList(result: IChapterResponsePayload?): List<Chapter> {
         val response = mutableListOf<Chapter>()
 
-        if(result is ChapterResponse){ println("MAPPER ${result.data?.size}")
+        if(result is ChapterResponse){ // println("MAPPER ${result.data?.size}")
             result.data?.forEach { response.add( Chapter(
                 id = it.id ?: 0,
-                pages = it.pages ?: emptyList(),
-                nameSimple = it.nameSimple ?: "",
-                nameComplex = it.nameComplex ?: "",
-                nameArabic = it.nameArabic ?: "",
-                translatedName = it.translatedName?.name ?: "",
+                pages = listOf(it.pages?.get(0) ?: 1, it.pages?.get(1) ?: 1),
+                // pages = it.pages?.joinToString(separator = " ~ ") ?: "empty", //, prefix = "", postfix = ""
+                nameSimple = it.nameSimple ?: "empty",
+                nameComplex = it.nameComplex ?: "empty",
+                nameArabic = it.nameArabic ?: "empty",
+                translatedName = it.translatedName?.name ?: "empty",
                 versesCount = it.versesCount ?: 0,
-                revelationPlace = it.revelationPlace ?: ""
+                revelationPlace = it.revelationPlace ?: "empty"
             ))}
         }
         return response

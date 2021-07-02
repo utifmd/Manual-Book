@@ -8,5 +8,6 @@
         android:name="com.dudegenuine.manualbook.ui.fragment.detail.FragmentDetail"
         android:label="Detail">
         <argument android:name="chapter" app:argType="com.dudegenuine.domain.Chapter"/>
+        <argument android:name="quran" app:argType="com.dudegenuine.domain.Quran"/>
     </fragment>
 </navigation>

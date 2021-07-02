@@ -15,14 +15,20 @@ class SearchDataMapper {
             val pyd = payload.search
 
             pyd?.results?.map { rsl -> result.add( Search(
-                query = pyd.query ?: "",
+                query = pyd.query ?: "empty",
                 totalPages = pyd.totalPages ?: 0,
                 currentPage = pyd.currentPage ?: 0,
                 totalResults = pyd.totalResults ?: 0,
                 verseId = rsl?.verseId ?: 0,
-                textOrig = rsl?.text ?: "",
-                textTrans = rsl?.translations?.get(0)?.text ?: "",
-                nameTrans = rsl?.translations?.get(0)?.name ?: ""
+                textOrig = rsl?.text ?: "empty",
+                textTrans = rsl?.translations?.let { trs ->
+                    if(trs.isNotEmpty())
+                        trs.map { it?.text }.joinToString(separator = " , ")
+                    else "No translation" } ?: "empty",
+                nameTrans = rsl?.translations?.let { trs ->
+                    if(trs.isNotEmpty())
+                        trs.map { it?.name }.joinToString(separator = " , ")
+                    else "No translation" } ?: "empty"
             ))}
         }
 

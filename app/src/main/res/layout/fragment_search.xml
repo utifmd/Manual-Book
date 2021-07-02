@@ -2,6 +2,12 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <data>
+        <variable
+            name="viewModel"
+            type="com.dudegenuine.manualbook.ui.fragment.search.SearchViewModel" />
+    </data>
+
     <!--app:paddingTopSystemWindowInsets="@{true}"-->
     <LinearLayout
         android:transitionGroup="true"
@@ -20,29 +26,35 @@
             app:contentInsetStartWithNavigation="0dp"
             app:navigationIcon="@drawable/ic_baseline_arrow_back_24">
 
-            <androidx.appcompat.widget.LinearLayoutCompat
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/et_search"
+                android:layout_marginEnd="@dimen/grid_2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:hint="@string/search_suggestion_hint"
+                android:imeOptions="flagNoExtractUi|actionSearch"
+                android:inputType="textNoSuggestions"
+                bindListener="@{viewModel.onSearching}"/>
+
+            <!--android:orientation="horizontal"-->
+            <!--<androidx.appcompat.widget.LinearLayoutCompat
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
+                android:gravity="center_vertical">
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
+                android:layout_weight="1"
                     android:background="@null"
-                    android:hint="@string/search_suggestion_hint"
-                    android:imeOptions="flagNoExtractUi|actionSearch"
-                    android:inputType="textNoSuggestions" />
 
                 <androidx.appcompat.widget.AppCompatImageButton
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="?attr/actionBarItemBackground"
                     android:padding="@dimen/grid_2"
+                    android:onClick="@{(view) -> viewModel.onSearching(tempText)}"
                     app:srcCompat="@drawable/ic_baseline_expand_more_24"
                     android:contentDescription="@string/app_close" />
-            </androidx.appcompat.widget.LinearLayoutCompat>
+            </androidx.appcompat.widget.LinearLayoutCompat>-->
         </com.google.android.material.appbar.MaterialToolbar>
 
         <View
@@ -51,17 +63,38 @@
             android:background="@android:color/white"
             android:backgroundTint="@color/material_on_surface_stroke" />
 
-        <ScrollView
+        <!--app:onRefreshListener="@{() -> viewModel.onSearching()}"-->
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/fragment_home_swipe_to_refresh"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:showWhenLoading="@{viewModel.searches}">
+            <!--android:overScrollMode="never"-->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clipToPadding="false"
+                android:layout_marginTop="@dimen/grid_3"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/body_text_view"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior"
+                items="@{viewModel.searches}"/>
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+        <!--<ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scrollbars="none">
 
             <LinearLayout
-                android:id="@+id/search_suggestion_container"
+                android:id="@+id/search_container"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical" />
-        </ScrollView>
+        </ScrollView>-->
     </LinearLayout>
 
 </layout>

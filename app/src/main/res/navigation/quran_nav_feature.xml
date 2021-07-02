@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/quran_nav_feature"
+    app:startDestination="@id/quranFragment">
+    <!-- SEARCH FRAGMENT -->
+    <fragment android:id="@+id/quranFragment"
+        android:name="com.dudegenuine.manualbook.ui.fragment.quran.QuranFragment"
+        android:label="Quran">
+        <argument android:name="chapter" app:argType="com.dudegenuine.domain.Chapter"/>
+    </fragment>
+</navigation>

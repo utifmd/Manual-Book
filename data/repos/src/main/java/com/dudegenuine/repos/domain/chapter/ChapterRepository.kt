@@ -8,21 +8,22 @@ import com.dudegenuine.remote.persistence.IChapterPersistence
 import com.dudegenuine.repos.network.Resource
 import com.dudegenuine.repos.network.ResourceManager
 import io.reactivex.Observable
+import javax.inject.Inject
 
 /**
  * Manual Book created by utifmd on 17/06/21.
  */
-class ChapterRepository(
+class ChapterRepository @Inject constructor (
     private val persistence: IChapterPersistence,
     private val mapper: ChapterDataMapper): IChapterRepository {
 
-    override fun getChapters(param: Map<String, String>): LiveData<Resource<List<Chapter>>> {
+    override suspend fun getChapters(param: Map<String, String>): LiveData<Resource<List<Chapter>>> {
         return object: ResourceManager<List<Chapter>, IChapterResponsePayload>(){
             override fun shouldFetch(result: List<Chapter>?): Boolean {
                 return true
             }
 
-            override fun fetchDataRemote(): Observable<out IChapterResponsePayload> {
+            override suspend fun fetchDataRemote(): IChapterResponsePayload {
                 return persistence.getChapter(param)
             }
 
@@ -38,6 +39,6 @@ class ChapterRepository(
                 TODO("Not yet implemented")
             }
 
-        }.build().asLiveData()
+        }.build().commit()
     }
 }

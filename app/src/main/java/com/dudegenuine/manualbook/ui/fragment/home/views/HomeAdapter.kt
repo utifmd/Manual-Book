@@ -6,7 +6,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.dudegenuine.domain.Chapter
-import com.dudegenuine.manualbook.databinding.ItemLayoutChapterBinding
+import com.dudegenuine.manualbook.databinding.ItemChapterBinding
+import com.dudegenuine.manualbook.ui.extention.DataComparator
 import com.dudegenuine.manualbook.ui.fragment.home.HomeViewModel
 
 /**
@@ -19,7 +20,7 @@ class HomeAdapter(
     private lateinit var listener: ChapterListener
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder = HomeViewHolder(
-        ItemLayoutChapterBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        ItemChapterBinding.inflate(LayoutInflater.from(parent.context), parent, false)
     )
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
@@ -29,7 +30,7 @@ class HomeAdapter(
     override fun getItemCount(): Int = items.size
 
     fun updateData(list: List<Chapter>) {
-        DiffUtil.calculateDiff( HomeDiffChapter(items, list) ).apply {
+        DiffUtil.calculateDiff( DataComparator(items, list) ).apply {
             items.clear()
             items.addAll(list)
 

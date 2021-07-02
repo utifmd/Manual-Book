@@ -12,6 +12,6 @@ import io.reactivex.Observable
 // injected api
 class ChapterPersistence(private val restApi: RestApi): IChapterPersistence {
 
-    override fun getChapter(param: Map<String, String>): Observable<out IChapterResponsePayload> =
+    override suspend fun getChapter(param: Map<String, String>): IChapterResponsePayload = //Observable<out IChapterResponsePayload> =
         restApi.getChapter(param)
 }

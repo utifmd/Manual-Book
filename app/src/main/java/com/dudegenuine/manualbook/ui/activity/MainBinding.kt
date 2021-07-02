@@ -5,27 +5,32 @@ import androidx.annotation.DrawableRes
 import androidx.appcompat.app.AppCompatActivity
 import com.dudegenuine.manualbook.R
 import com.dudegenuine.manualbook.databinding.ActivityMainBinding
-import com.dudegenuine.manualbook.ui.extention.bindEnterReturnTransition
 import com.dudegenuine.manualbook.ui.extention.bindExitRenterTransition
 
 /**
  * Manual Book created by utifmd on 25/06/21.
  */
 object MainBinding {
-    fun AppCompatActivity.setBottomAppBar(binding: ActivityMainBinding, @DrawableRes drawableRes: Int, titleRes: String, fabListener: (View) -> Unit) {
+    fun AppCompatActivity.setBottomAppBar(
+        binding: ActivityMainBinding,
+        @DrawableRes drawableRes: Int? = null,
+        titleRes: String, fabListener: (View) -> Unit) {
+
         binding.run {
-            fab.apply {
-                setImageResource(drawableRes)
-                setOnClickListener(fabListener)
-                show()
-            }
+            drawableRes?.let {
+                fab.apply {
+                    setImageResource(drawableRes)
+                    setOnClickListener(fabListener)
+                    show()
+                }
+            } ?: fab.hide()
+
             bottomAppBarTitle.apply {
                 text = titleRes
                 visibility = View.VISIBLE
             }
             bottomAppBar.apply {
                 visibility = View.VISIBLE
-
                 // replaceMenu(menuRes)
                 performShow()
             }

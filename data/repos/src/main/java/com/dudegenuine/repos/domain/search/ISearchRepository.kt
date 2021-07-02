@@ -9,5 +9,5 @@ import io.reactivex.Observable
  * Manual Book created by utifmd on 25/06/21.
  */
 interface ISearchRepository {
-    fun getSearch(param: Map<String, String>): LiveData<Resource<List<Search>>>
+    suspend fun getSearch(param: Map<String, String>): LiveData<Resource<List<Search>>>
 }

@@ -7,7 +7,7 @@ import java.io.Serializable
  */
 data class Chapter (
     val id: Int,
-    val pages: List<Int?>,
+    val pages: List<Int>,
     val nameSimple: String,
     val nameComplex: String,
     val translatedName: String,
@@ -16,7 +16,7 @@ data class Chapter (
     val revelationPlace: String ): Serializable {
 
     private val defaultBody get() =
-        "Berjumlah $versesCount ayat, secara etimologi berarti \"$translatedName\" $nameSimple diwahyukan kepada Nabi Muhammad SAW di kota $revelationPlace"
+        "Jumlah $versesCount ayat, secara etimologi berarti \"$translatedName\" $nameSimple diwahyukan kepada Nabi Muhammad SAW di kota $revelationPlace"
 
     /*
     * Preview
@@ -28,7 +28,7 @@ data class Chapter (
     val previewBody get() = defaultBody
 
     val previewPage get() =
-        "Halaman ${pages[0]}/${pages[1]}"
+        "Halaman $pages"
 
     /*
     * View

@@ -4,6 +4,8 @@ import com.dudegenuine.manualbook.feature.di.module.*
 import com.dudegenuine.manualbook.feature.di.module.network.NetworkModule
 import com.dudegenuine.manualbook.ui.extention.BaseViewModel
 import com.dudegenuine.manualbook.ui.fragment.home.HomeViewModel
+import com.dudegenuine.manualbook.ui.fragment.quran.QuranViewModel
+import com.dudegenuine.manualbook.ui.fragment.search.SearchViewModel
 import dagger.Component
 import javax.inject.Singleton
 
@@ -23,6 +25,8 @@ import javax.inject.Singleton
 ] )
 interface ManualBookComponent {
     fun inject(homeViewModel: HomeViewModel)
+    fun inject(searchViewModel: SearchViewModel)
+    fun inject(quranViewModel: QuranViewModel)
 
     companion object {
         fun createComponent(): ManualBookComponent {

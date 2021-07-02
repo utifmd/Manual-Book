@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">Holy Guide</string>
+    <string name="app_name">ManualBook</string>
 
     <!--BottomAppBar-->
     <string name="bottom_app_bar_chevron_content_desc">Open or close bottom navigation drawer</string>
@@ -51,7 +51,7 @@
     <string name="compose_recipient_group_content_desc">Recipients</string>
 
     <!--SearchFragment-->
-    <string name="search_suggestion_hint">Cari surah Al-quran</string>
+    <string name="search_suggestion_hint">Cari isi Al-quran</string>
     <string name="search_suggestion_title_yesterday">YESTERDAY</string>
     <string name="search_suggestion_title_this_week">THIS WEEK</string>
     <!--<string name="menu_item_search">Mencari</string>-->
@@ -59,4 +59,6 @@
     <string name="menu_item_share">Bagikan</string>
     <string name="msg_error">Sorry, something went wrong</string>
     <string name="app_close">app close</string>
+    <string name="msg_empty_text">Maaf, data input invalid</string>
+    <string name="tap_to_retry">Tap to Retry</string>
 </resources>

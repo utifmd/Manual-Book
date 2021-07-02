@@ -6,6 +6,8 @@
       <module name="Manual_Book.data.local" target="11" />
       <module name="Manual_Book.data.repos" target="11" />
       <module name="Manual_Book.usecase.chapter" target="11" />
+      <module name="Manual_Book.usecase.quran" target="11" />
+      <module name="Manual_Book.usecase.search" target="11" />
     </bytecodeTargetLevel>
   </component>
 </project>

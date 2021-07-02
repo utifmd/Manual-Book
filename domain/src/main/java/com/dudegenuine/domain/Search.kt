@@ -14,4 +14,6 @@ data class Search (
     val textOrig: String,
     val nameTrans: String,
     val textTrans: String
-): Serializable
+): Serializable {
+    val previewTitle get() = nameTrans
+}

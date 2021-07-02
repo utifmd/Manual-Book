@@ -17,11 +17,10 @@
             app:defaultNavHost="true"
             app:navGraph="@navigation/home_nav_feature"/>
 
-        <!--<fragment
-            android:id="@+id/bottom_nav_drawer"
+        <fragment android:id="@+id/bottom_sheet_fragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:name="com.dudegenuine.manualbook.ui.nav.BottomNavDrawerFragment"/>-->
+            android:name="com.dudegenuine.manualbook.ui.fragment.sheet.BottomSheetFragment"/>
 
         <com.google.android.material.bottomappbar.BottomAppBar
             android:id="@+id/bottom_app_bar"
@@ -41,7 +40,10 @@
                 android:layout_marginVertical="@dimen/grid_0_5"
                 android:paddingHorizontal="@dimen/grid_0_5"
                 android:orientation="horizontal"
-                android:gravity="center_vertical">
+                android:gravity="center_vertical"
+                android:focusable="true"
+                android:clickable="true"
+                android:background="@drawable/app_bar_clickable_foreground">
 
                 <ImageView
                     android:id="@+id/bottom_app_bar_chevron"

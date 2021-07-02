@@ -11,7 +11,9 @@ rootProject.name = "Manual Book"
 include ':app',
         ':domain'
 
-include ':usecase:chapter'
+include ':usecase:chapter',
+        ':usecase:search',
+        ':usecase:quran'
 
 include ':data:local',
         ':data:remote',
