@@ -20,6 +20,7 @@
             <option value="$PROJECT_DIR$/usecase/chapter" />
             <option value="$PROJECT_DIR$/usecase/quran" />
             <option value="$PROJECT_DIR$/usecase/search" />
+            <option value="$PROJECT_DIR$/usecase/verse" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

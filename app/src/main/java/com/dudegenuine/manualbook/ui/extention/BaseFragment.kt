@@ -2,8 +2,11 @@ package com.dudegenuine.manualbook.ui.extention
 
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import android.widget.PopupMenu
+import androidx.annotation.MenuRes
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.FragmentNavigator
 import androidx.navigation.fragment.FragmentNavigatorExtras
@@ -47,7 +50,11 @@ abstract class BaseFragment<VB: ViewBinding>: Fragment(){
             it?.getContentIfNotHandled()?.let { command ->
                 when(command){
                     is NavState.TO ->
-                        findNavController().navigate(command.direction, command.extra)
+                        command.extra?.let { isExtra ->
+                            findNavController().navigate(command.direction,
+                                isExtra
+                            )
+                        }
 
                     is NavState.BACK ->
                         findNavController().navigateUp()

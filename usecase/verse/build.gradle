@@ -1,0 +1,17 @@
+plugins { id 'com.android.library' }
+
+apply from: '../../base.gradle'
+
+android {
+    defaultConfig {
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles "consumer-rules.pro"
+    }
+}
+
+dependencies {
+    implementation project(':domain')
+    implementation project(':data:repos')
+
+    implementation "io.reactivex.rxjava2:rxjava:$rxjava_version"
+}

@@ -24,7 +24,7 @@ abstract class BaseViewModel: ViewModel(){
         return ManualBookComponent.createComponent()
     }
 
-    fun navigate(direction: NavDirections, extra: FragmentNavigator.Extras){
+    fun navigate(direction: NavDirections, extra: FragmentNavigator.Extras?){
         _navigation.value = Event(NavState.TO(direction, extra))
     }
 
@@ -50,12 +50,12 @@ abstract class BaseViewModel: ViewModel(){
                 if(page != null) put("page", page.toString())
     }
 
-    protected fun verseParam(verseKey: String, audio: String): Map<String, String> = mutableMapOf (
-        "verse_key" to verseKey, // /1:1?language=id&words=false&translations=134&audio=1
+    protected fun verseParam(): Map<String, String> = mutableMapOf (
+        //"verse_key" to verseKey, // /1:1?language=id&words=false&translations=134&audio=1
         "language" to "id",
         "words" to "false",
-        "translation" to "134",
-        "audio" to audio
+        "translations" to "134",
+        "audio" to "1"
     )
 
     protected fun quranParam(pageNumber: Int): Map<String, String>{

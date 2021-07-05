@@ -21,7 +21,10 @@ class ChapterDataMapper {
                 nameArabic = it.nameArabic ?: "empty",
                 translatedName = it.translatedName?.name ?: "empty",
                 versesCount = it.versesCount ?: 0,
-                revelationPlace = it.revelationPlace ?: "empty"
+                revelationPlace = it.revelationPlace ?: "empty",
+                /*infoShortText = result.info?.shortText ?: "empty",
+                infoText = result.info?.text ?: "empty",
+                infoSource = result.info?.source ?: "empty"*/
             ))}
         }
         return response

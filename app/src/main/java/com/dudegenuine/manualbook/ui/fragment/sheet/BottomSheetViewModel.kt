@@ -17,4 +17,10 @@ class BottomSheetViewModel: BaseViewModel() {
     fun onItemSelected(view: View){
         Log.d(TAG, "onItemSelected: ${view.id}")
     }
+
+    fun onBackSelected(view: View){
+        Log.d(TAG, "onBackSelected: ${view.id}")
+
+        navigateUp()
+    }
 }

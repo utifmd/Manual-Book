@@ -22,6 +22,7 @@ dependencies {
     implementation project(':usecase:chapter')
     implementation project(':usecase:search')
     implementation project(':usecase:quran')
+    implementation project(':usecase:verse')
 
     implementation project(':data:remote')
     implementation project(':data:local')

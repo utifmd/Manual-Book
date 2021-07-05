@@ -1,13 +1,14 @@
 package com.dudegenuine.manualbook.ui.fragment.quran
 
-import android.util.Log
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import com.dudegenuine.domain.Quran
-import com.dudegenuine.manualbook.NavGraphHomeFeatureDirections
 import com.dudegenuine.manualbook.ui.extention.BaseViewModel
 import com.dudegenuine.quran.GetQuran
+import com.dudegenuine.repos.network.Resource
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
@@ -19,34 +20,45 @@ class QuranViewModel: BaseViewModel() {
     @Inject
     lateinit var getQuran: GetQuran
 
-    private var verseState: Flow<PagingData<Quran>>? = null
+    private var quranState: Flow<PagingData<Quran>>? = null
+    // private var chapterState: Chapter? = null
+
+    val quran = MutableLiveData<Resource<String>>()
 
     fun verses(startPage: Int, endPage: Int): Flow<PagingData<Quran>> {
-        val lastResult = verseState
+        val lastResult = quranState
         if (lastResult != null) {
             return lastResult
         }
 
         val newResult: Flow<PagingData<Quran>> =
-            getQuran(mapOf(
+            getQuran( mapOf(
                 "start_page" to startPage,
                 "finish_page" to endPage
             )).cachedIn(viewModelScope)
 
-        verseState = newResult
+        quranState = newResult.apply {
+            quran.postValue(Resource.onSuccess("this"))
+        }
 
         return newResult
     }
 
-    init { dependency().inject(this) }
+    init {
+        dependency().inject(this)
+
+        quran.postValue(Resource.onLoading())
+    }
 
     /*
     * Listener
     * */
 
-    fun onItemSelected(quran: Quran) {
+    /*fun onItemSelected(quran: Quran) {
         Log.d(TAG, "onItemSelected: ${quran.verseKey}")
 
-        // TODO: 02/07/21 navigate to detail or re mapping quran requests
-    }
+        navigate( NavGraphHomeFeatureDirections.actionGlobalToVerse(
+            quran, chapter
+        ), null)
+    }*/
 }

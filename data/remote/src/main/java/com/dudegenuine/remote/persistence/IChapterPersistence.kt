@@ -8,4 +8,5 @@ import io.reactivex.Observable
  */
 interface IChapterPersistence {
     suspend fun getChapter(param: Map<String, String>): IChapterResponsePayload // Observable<out IChapterResponsePayload>
+    /*suspend fun getChapterInfo(path: String): IChapterResponsePayload*/
 }

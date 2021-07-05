@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/verse_nav_feature"
+    app:startDestination="@id/verseFragment">
+    <!-- VERSE FRAGMENT -->
+    <fragment android:id="@+id/verseFragment"
+        android:name="com.dudegenuine.manualbook.ui.fragment.verse.FragmentVerse"
+        android:label="Verse">
+        <argument android:name="quran" app:argType="com.dudegenuine.domain.Quran"/>
+        <argument android:name="chapter" app:argType="com.dudegenuine.domain.Chapter"/>
+    </fragment>
+</navigation>

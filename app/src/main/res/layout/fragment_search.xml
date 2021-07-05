@@ -68,7 +68,7 @@
             android:id="@+id/fragment_home_swipe_to_refresh"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:showWhenLoading="@{viewModel.searches}">
+            showWhenLoading="@{viewModel.searches}">
             <!--android:overScrollMode="never"-->
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recycler_view"

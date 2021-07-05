@@ -6,7 +6,11 @@ import com.google.gson.annotations.SerializedName
 
 data class ChapterResponse(
 	@SerializedName("chapters")
-	val data: List<Chapter>? = null): IChapterResponsePayload
+	val data: List<Chapter>? = null,
+
+	@SerializedName("chapter_info")
+	val info: ChapterInfo? = null
+): IChapterResponsePayload
 
 data class Chapter(
 	val id: Int? = null,
@@ -42,4 +46,16 @@ data class TranslatedName(
 
 	@SerializedName("language_name")
 	val languageName: String? = null
+)
+
+data class ChapterInfo(
+	val id: Int? = null,
+	@SerializedName("chapter_id")
+	val chapterId: Int? = null,
+	@SerializedName("language_name")
+	val langName: String? = null,
+	@SerializedName("short_text")
+	val shortText: String? = null,
+	val source: String? = null,
+	val text: String? = null
 )

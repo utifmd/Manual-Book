@@ -13,7 +13,8 @@ include ':app',
 
 include ':usecase:chapter',
         ':usecase:search',
-        ':usecase:quran'
+        ':usecase:quran',
+        ':usecase:verse'
 
 include ':data:local',
         ':data:remote',

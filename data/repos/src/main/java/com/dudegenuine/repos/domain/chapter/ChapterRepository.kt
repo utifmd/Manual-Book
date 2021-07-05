@@ -3,6 +3,7 @@ package com.dudegenuine.repos.domain.chapter
 import androidx.lifecycle.LiveData
 import com.dudegenuine.domain.Chapter
 import com.dudegenuine.remote.mapper.ChapterDataMapper
+import com.dudegenuine.remote.model.ChapterResponse
 import com.dudegenuine.remote.payload.IChapterResponsePayload
 import com.dudegenuine.remote.persistence.IChapterPersistence
 import com.dudegenuine.repos.network.Resource
@@ -24,7 +25,13 @@ class ChapterRepository @Inject constructor (
             }
 
             override suspend fun fetchDataRemote(): IChapterResponsePayload {
-                return persistence.getChapter(param)
+                return persistence.getChapter(param)/*.also {
+                    if(it is ChapterResponse){
+                        it.data?.forEach { chapter ->
+                            persistence.getChapterInfo(chapter.id.toString())
+                        }
+                    }
+                }*/
             }
 
             override fun processRequest(response: IChapterResponsePayload): List<Chapter> {

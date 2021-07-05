@@ -17,6 +17,7 @@ class DetailViewModel: BaseViewModel() {
 
     fun onBackSelected(view: View){
         Log.d(TAG, "onBack: triggered ${view.id}.")
+
         navigateUp()
     }
 }

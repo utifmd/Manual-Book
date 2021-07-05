@@ -4,11 +4,9 @@ import androidx.lifecycle.LiveData
 import com.dudegenuine.domain.Search
 import com.dudegenuine.remote.mapper.SearchDataMapper
 import com.dudegenuine.remote.payload.ISearchResponsePayload
-import com.dudegenuine.remote.persistence.IChapterPersistence
 import com.dudegenuine.remote.persistence.ISearchPersistence
 import com.dudegenuine.repos.network.Resource
 import com.dudegenuine.repos.network.ResourceManager
-import io.reactivex.Observable
 import javax.inject.Inject
 
 /**

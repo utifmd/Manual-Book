@@ -22,8 +22,14 @@
         app:destination="@id/quran_nav_feature">
         <argument android:name="chapter" app:argType="com.dudegenuine.domain.Chapter"/>
     </action>
+    <action android:id="@+id/action_global_to_verse"
+        app:destination="@id/verse_nav_feature">
+        <argument android:name="quran" app:argType="com.dudegenuine.domain.Quran"/>
+        <argument android:name="chapter" app:argType="com.dudegenuine.domain.Chapter"/>
+    </action>
 
     <include app:graph="@navigation/detail_nav_feature"/>
     <include app:graph="@navigation/search_nav_feature"/>
     <include app:graph="@navigation/quran_nav_feature"/>
+    <include app:graph="@navigation/verse_nav_feature"/>
 </navigation>

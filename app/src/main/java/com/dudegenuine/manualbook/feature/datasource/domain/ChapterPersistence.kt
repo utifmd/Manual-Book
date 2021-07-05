@@ -14,4 +14,7 @@ class ChapterPersistence(private val restApi: RestApi): IChapterPersistence {
 
     override suspend fun getChapter(param: Map<String, String>): IChapterResponsePayload = //Observable<out IChapterResponsePayload> =
         restApi.getChapter(param)
+
+    /*override suspend fun getChapterInfo(path: String): IChapterResponsePayload =
+        restApi.getChapterInfo(path)*/
 }

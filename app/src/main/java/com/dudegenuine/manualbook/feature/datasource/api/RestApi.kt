@@ -3,6 +3,7 @@ package com.dudegenuine.manualbook.feature.datasource.api
 import com.dudegenuine.remote.model.ChapterResponse
 import com.dudegenuine.remote.model.QuranResponse
 import com.dudegenuine.remote.model.SearchResponse
+import com.dudegenuine.remote.model.VerseResponse
 import io.reactivex.Observable
 import kotlinx.coroutines.Deferred
 import retrofit2.http.GET
@@ -17,6 +18,9 @@ interface RestApi {
     @GET("chapters")
     suspend fun getChapter(@QueryMap queries: Map<String, String>): ChapterResponse
 
+    /*@GET("chapters/{chapter_id}/info?language=id")
+    suspend fun getChapterInfo(@Path("chapter_id") chapterId: String): ChapterResponse*/
+
     @GET("search")
     suspend fun getSearch(@QueryMap queries: Map<String, String>): SearchResponse // Observable<SearchResponse>
 
@@ -24,6 +28,5 @@ interface RestApi {
     suspend fun getQuran(@QueryMap queries: Map<String, String>): QuranResponse
 
     @GET("verses/by_key/{verseKey}") // verses/by_key/1:1?language=id&words=false&translations=134&audio=1
-    suspend fun getVerse(@Path("verseKey") verseKey: String, @QueryMap queries: Map<String, String>): ChapterResponse
-
+    suspend fun getVerse(@Path("verseKey") verseKey: String, @QueryMap queries: Map<String, String>): VerseResponse
 }

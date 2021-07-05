@@ -3,16 +3,21 @@ package com.dudegenuine.manualbook.ui.extention
 import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Color
+import android.os.Build
+import android.text.Html
 import android.util.Log
 import android.view.View
 import androidx.annotation.AttrRes
 import androidx.annotation.ColorInt
+import androidx.annotation.RequiresApi
 import androidx.core.content.res.use
+import androidx.core.text.HtmlCompat
 import androidx.databinding.BindingAdapter
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import com.dudegenuine.domain.Verse
 import com.dudegenuine.local.model.common.Event
 import com.dudegenuine.manualbook.R
 import com.dudegenuine.manualbook.feature.di.component.ManualBookComponent
@@ -20,6 +25,7 @@ import com.dudegenuine.repos.network.Resource
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.transition.MaterialContainerTransform
 import com.google.android.material.transition.MaterialSharedAxis
+import java.io.Serializable
 
 /**
  * Manual Book created by utifmd on 20/06/21.
@@ -76,13 +82,29 @@ fun Fragment.bindExitRenterTransition(){
 
 @BindingAdapter("showWhenLoading")
 fun <T>showWhenLoading(view: SwipeRefreshLayout, resource: Resource<T>?) {
-    Log.d("showWhenLoading", "showWhenLoading: ${resource?.status}")
-    if (resource != null) view.isRefreshing =
-        resource.status == Resource.Status.LOADING
+    if (resource != null) {
+        view.isRefreshing = resource.status == Resource.Status.LOADING
+
+        resource.data?.let {
+            view.isEnabled = false
+        }
+    }
+}
+
+@BindingAdapter("showWhenNull")
+fun <T>showWhenNull(view: SwipeRefreshLayout, resource: T) {
+    view.apply {
+        isRefreshing = resource == null
+    }
 }
 
 fun View.visible(isVisible: Boolean) {
     visibility = if (isVisible) View.VISIBLE else View.GONE
+}
+
+@RequiresApi(Build.VERSION_CODES.N)
+fun Fragment.parseHtml(raw: String): String {
+    return Html.fromHtml(raw, HtmlCompat.FROM_HTML_MODE_LEGACY).toString()
 }
 
 @ColorInt

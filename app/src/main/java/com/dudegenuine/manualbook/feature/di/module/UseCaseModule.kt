@@ -6,7 +6,9 @@ import com.dudegenuine.quran.GetQuran
 import com.dudegenuine.repos.domain.chapter.ChapterRepository
 import com.dudegenuine.repos.domain.quran.QuranRepository
 import com.dudegenuine.repos.domain.search.SearchRepository
+import com.dudegenuine.repos.domain.verse.VerseRepository
 import com.dudegenuine.search.GetSearches
+import com.dudegenuine.verse.GetVerse
 import dagger.Module
 import dagger.Provides
 import io.reactivex.Scheduler
@@ -29,4 +31,8 @@ class UseCaseModule {
     @Provides
     fun provideQuranUseCase(repository: QuranRepository): GetQuran =
         GetQuran(repository)
+
+    @Provides
+    fun provideVerseUseCase(repository: VerseRepository): GetVerse =
+        GetVerse(repository)
 }

@@ -38,7 +38,7 @@ class BottomSheetFragment: BaseFragment<FragmentSheetBinding>() {
             lifecycleOwner = this@BottomSheetFragment
             vueModel = sheetViewModel
 
-            // behavior.state = STATE_HIDDEN
+            navBack.setOnClickListener { toggle() }
             backgroundContainer.background = materialSheetBackground (backgroundContainer.context)
         }
 

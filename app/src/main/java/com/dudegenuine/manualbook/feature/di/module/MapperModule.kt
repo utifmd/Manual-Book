@@ -3,6 +3,7 @@ package com.dudegenuine.manualbook.feature.di.module
 import com.dudegenuine.remote.mapper.ChapterDataMapper
 import com.dudegenuine.remote.mapper.QuranDataMapper
 import com.dudegenuine.remote.mapper.SearchDataMapper
+import com.dudegenuine.remote.mapper.VerseDataMapper
 import dagger.Module
 import dagger.Provides
 
@@ -24,5 +25,10 @@ class MapperModule {
     @Provides
     fun provideQuranMapper(): QuranDataMapper {
         return QuranDataMapper()
+    }
+
+    @Provides
+    fun provideVerseMapper(): VerseDataMapper {
+        return VerseDataMapper()
     }
 }

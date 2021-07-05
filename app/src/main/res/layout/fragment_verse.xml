@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+    <data>
+        <variable
+            name="viewModel"
+            type="com.dudegenuine.manualbook.ui.fragment.verse.VerseViewModel" />
+        <variable
+            name="chapter"
+            type="com.dudegenuine.domain.Chapter"/>
+        <variable
+            name="quran"
+            type="com.dudegenuine.domain.Quran"/>
+        <variable
+            name="verse"
+            type="com.dudegenuine.domain.Verse"/> <!--<variable name="viewModel" type="com.dudegenuine.manualbook.ui.fragment.verse.VerseViewModel" />-->
+        <variable
+            name="viewBody"
+            type="String" />
+        <variable
+            name="event"
+            type="com.dudegenuine.repos.network.Resource" />
+    </data>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            showWhenLoading="@{viewModel.verse}">
+
+            <!--body="@{verse.translationText}"-->
+            <include android:id="@+id/part_detail" layout="@layout/part_detail"
+                subject="@{chapter.viewName}"
+                sender="@{chapter.previewSender}"
+                body="@{viewBody}"
+                highlight="@{quran.text}"
+                recipient="@{verse.viewVerseNumber}"
+                drawable="@{@drawable/quran}"/>
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+    </FrameLayout>
+</layout>
