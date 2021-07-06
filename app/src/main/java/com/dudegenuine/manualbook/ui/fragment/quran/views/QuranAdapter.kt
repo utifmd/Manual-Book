@@ -49,11 +49,10 @@ class QuranAdapter(private val viewModel: QuranViewModel): PagingDataAdapter<Qur
     inner class ViewHolder(val binding: ItemQuranBinding): RecyclerView.ViewHolder(binding.root){
         fun binds(quran: Quran, position: Int) = with(binding){
             front = "${position+1}"
-            title = quran.text
+            title = quran.text // "${quran.text}\n${quran.audioUrl}"
 
-            root.setOnClickListener { // viewModel.onItemSelected(quran)
-                listener.onItemSelected(quran)
-            }
+            textView.setOnClickListener { listener.onItemSelected(quran) }
+            btnPlay.setOnClickListener { listener.onPlayAudioSelected(quran, position) }
 
             if (position % 2 == 0)
                 root.setBackgroundResource(R.color.reply_white_50_alpha_060)
@@ -68,5 +67,6 @@ class QuranAdapter(private val viewModel: QuranViewModel): PagingDataAdapter<Qur
 
     interface Listener{
         fun onItemSelected(quran: Quran)
+        fun onPlayAudioSelected(quran: Quran, position: Int)
     }
 }

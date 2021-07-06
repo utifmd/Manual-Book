@@ -1,6 +1,7 @@
 package com.dudegenuine.manualbook.feature.di.module
 
 import androidx.annotation.MainThread
+import com.dudegenuine.chapter.GetChapterInfo
 import com.dudegenuine.chapter.GetChapters
 import com.dudegenuine.quran.GetQuran
 import com.dudegenuine.repos.domain.chapter.ChapterRepository
@@ -23,6 +24,10 @@ class UseCaseModule {
     @Provides
     fun provideChaptersUseCase(chapterRepository: ChapterRepository): GetChapters =
         GetChapters(chapterRepository) //, compositeDisposable: CompositeDisposable, mainThread: Scheduler
+
+    @Provides
+    fun provideChapterInfoUseCase(chapterRepository: ChapterRepository): GetChapterInfo =
+        GetChapterInfo(chapterRepository)
 
     @Provides
     fun provideSearchUseCase(repository: SearchRepository): GetSearches =

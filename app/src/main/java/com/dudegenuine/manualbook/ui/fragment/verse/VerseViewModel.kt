@@ -1,11 +1,7 @@
 package com.dudegenuine.manualbook.ui.fragment.verse
 
-import android.os.Build
-import android.text.Html
 import android.util.Log
 import android.view.View
-import androidx.annotation.RequiresApi
-import androidx.core.text.HtmlCompat
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
@@ -31,26 +27,22 @@ class VerseViewModel: BaseViewModel() {
 
     private var verseState: LiveData<Resource<Verse>> = MutableLiveData()
 
-    private val _verse = MediatorLiveData<Resource<Verse>>()
-    val verse = MutableLiveData<Resource<String>>()
-
+    val verseResource = MediatorLiveData<Resource<Verse>>()
     fun verse(verseNumber: String): LiveData<Resource<Verse>> {
         loadVerse(verseNumber)
 
-        return _verse
+        return verseResource
     }
 
     private fun loadVerse(verseNumber: String) = viewModelScope.launch(Dispatchers.Main) {
-        _verse.removeSource(verseState)
+        verseResource.removeSource(verseState)
 
         withContext(Dispatchers.IO){
             verseState = getVerse(verseNumber, verseParam())
         }
 
-        _verse.addSource(verseState){
-            _verse.value = it
-
-            verse.postValue(Resource.onSuccess("it"))
+        verseResource.addSource(verseState){
+            verseResource.value = it
 
             if(it.status == Resource.Status.ERROR){
                 _snackPopError.value = Event(R.string.msg_error)
@@ -70,7 +62,5 @@ class VerseViewModel: BaseViewModel() {
 
     init {
         dependency().inject(this)
-
-        verse.postValue(Resource.onLoading())
     }
 }

@@ -5,7 +5,6 @@ import android.content.Context
 import android.graphics.Color
 import android.os.Build
 import android.text.Html
-import android.util.Log
 import android.view.View
 import androidx.annotation.AttrRes
 import androidx.annotation.ColorInt
@@ -17,15 +16,12 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-import com.dudegenuine.domain.Verse
 import com.dudegenuine.local.model.common.Event
 import com.dudegenuine.manualbook.R
-import com.dudegenuine.manualbook.feature.di.component.ManualBookComponent
 import com.dudegenuine.repos.network.Resource
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.transition.MaterialContainerTransform
 import com.google.android.material.transition.MaterialSharedAxis
-import java.io.Serializable
 
 /**
  * Manual Book created by utifmd on 20/06/21.

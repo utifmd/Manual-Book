@@ -13,11 +13,15 @@ import kotlinx.coroutines.flow.Flow
  */
 class GetQuran(private val repository: QuranRepository) {
 
+    operator fun invoke(param: Map<String, Int>): Flow<PagingData<Quran>>{
+        return repository.getQuran(param)
+    }
+
     /*suspend operator fun invoke(param: Map<String, String>): LiveData<Resource<List<Quran>>>{
         return Transformations.map(repository.getQuran(param)){ it }
     }*/
 
-    operator fun invoke(param: Map<String, Int>): Flow<PagingData<Quran>>{
+    /*fun flowPagingData(param: Map<String, Int>): Flow<PagingData<Quran>>{
         return repository.getQuran(param)
-    }
+    }*/
 }

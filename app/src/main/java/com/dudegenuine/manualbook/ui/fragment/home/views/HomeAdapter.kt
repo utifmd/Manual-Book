@@ -7,7 +7,6 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.dudegenuine.domain.Chapter
 import com.dudegenuine.manualbook.databinding.ItemChapterBinding
-import com.dudegenuine.manualbook.ui.extention.DataComparator
 import com.dudegenuine.manualbook.ui.fragment.home.HomeViewModel
 
 /**

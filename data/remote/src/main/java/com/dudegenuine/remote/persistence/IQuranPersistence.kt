@@ -8,4 +8,5 @@ import kotlinx.coroutines.Deferred
  */
 interface IQuranPersistence {
     suspend fun getQuran(param: Map<String, String>): IQuranResponsePayload
+    suspend fun getRecitations(pageNumber: String): IQuranResponsePayload
 }

@@ -9,4 +9,5 @@ import com.dudegenuine.repos.network.Resource
  */
 interface IChapterRepository{
     suspend fun getChapters(param: Map<String, String>): LiveData<Resource<List<Chapter>>>
+    suspend fun getChapterInfo(chapter: Chapter): LiveData<Resource<Chapter>>
 }

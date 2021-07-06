@@ -73,13 +73,6 @@ class MainActivity : AppCompatActivity(), NavController.OnDestinationChangedList
 
     private val quranDestiny: (Bundle?) -> Unit = { arguments ->
         val chapter = arguments?.getSerializable("chapter") as Chapter
-        /*val mediaPlayer: MediaPlayer = MediaPlayer().apply {
-            setDataSource("https://download.quranicaudio.com/quran/abdullaah_3awwaad_al-juhaynee//002.mp3")
-            setAudioAttributes(AudioAttributes.Builder()
-                .setContentType(AudioAttributes.CONTENT_TYPE_MUSIC)
-                .build())
-            prepare()
-        }*/
 
         setBottomAppBar(binding, R.drawable.ic_baseline_volume_up_24, chapter.nameComplex){
             Log.d(TAG, "media player triggered")

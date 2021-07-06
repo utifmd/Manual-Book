@@ -1,6 +1,7 @@
 package com.dudegenuine.manualbook.ui.fragment.quran
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
@@ -20,12 +21,29 @@ class QuranViewModel: BaseViewModel() {
     @Inject
     lateinit var getQuran: GetQuran
 
-    private var quranState: Flow<PagingData<Quran>>? = null
-    // private var chapterState: Chapter? = null
+    var quranState: Flow<PagingData<Quran>>? = null
 
-    val quran = MutableLiveData<Resource<String>>()
+    val quran: (Int, Int, Int) -> Flow<PagingData<Quran>> = { chapterId, startPage, endPage ->
+        loadQuran(chapterId, startPage, endPage)
+    }
 
-    fun verses(startPage: Int, endPage: Int): Flow<PagingData<Quran>> {
+    private fun loadQuran(chapterId: Int, startPage: Int, endPage: Int): Flow<PagingData<Quran>> {
+        val lastResult = quranState
+        if (lastResult != null) {
+            return lastResult
+        }
+
+        val newResult: Flow<PagingData<Quran>> = getQuran( mapOf(
+                "chapter_number" to chapterId,
+                "start_page" to startPage,
+                "finish_page" to endPage )).cachedIn(viewModelScope)
+
+        quranState = newResult
+
+        return newResult
+    }
+
+    /*fun verses(startPage: Int, endPage: Int): Flow<PagingData<Quran>> {
         val lastResult = quranState
         if (lastResult != null) {
             return lastResult
@@ -37,17 +55,13 @@ class QuranViewModel: BaseViewModel() {
                 "finish_page" to endPage
             )).cachedIn(viewModelScope)
 
-        quranState = newResult.apply {
-            quran.postValue(Resource.onSuccess("this"))
-        }
+        quranState = newResult
 
         return newResult
-    }
+    }*/
 
     init {
         dependency().inject(this)
-
-        quran.postValue(Resource.onLoading())
     }
 
     /*

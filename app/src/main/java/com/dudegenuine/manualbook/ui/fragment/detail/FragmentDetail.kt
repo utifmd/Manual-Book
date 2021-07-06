@@ -1,9 +1,12 @@
 package com.dudegenuine.manualbook.ui.fragment.detail
 
+import android.os.Build
 import android.os.Bundle
 import android.view.View
+import androidx.annotation.RequiresApi
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
+import com.dudegenuine.domain.Chapter
 import com.dudegenuine.manualbook.databinding.FragmentDetailBinding
 import com.dudegenuine.manualbook.ui.extention.*
 
@@ -29,14 +32,31 @@ class FragmentDetail: BaseFragment<FragmentDetailBinding>() {
         bindExitRenterTransition()
     }
 
+    @RequiresApi(Build.VERSION_CODES.N)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         binding.apply {
             lifecycleOwner = this@FragmentDetail
             viewModel = vueModel
-            chapter = args.chapter // quran = this@FragmentDetail.args.quran
+            chapter = args.chapter
 
+            observeChapterInfo()
+            bindNavigation()
+        }
+    }
+
+    @RequiresApi(Build.VERSION_CODES.N)
+    private fun observeChapterInfo() {
+        vueModel.chapterInfo(args.chapter).observe(viewLifecycleOwner, { res ->
+            res.data?.let { binding.chapter = it.apply {
+                this.defaultBody = parseHtml(this.defaultBody)
+            }}
+        })
+    }
+
+    private fun bindNavigation() {
+        binding.apply {
             partDetail.navigateBack.setOnClickListener(vueModel::onBackSelected)
         }
     }

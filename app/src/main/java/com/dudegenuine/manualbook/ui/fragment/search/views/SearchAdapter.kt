@@ -1,12 +1,14 @@
 package com.dudegenuine.manualbook.ui.fragment.search.views
 
+import android.os.Build
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.dudegenuine.domain.Search
 import com.dudegenuine.manualbook.databinding.SearchItemBinding
-import com.dudegenuine.manualbook.ui.extention.DataComparator
+import com.dudegenuine.manualbook.ui.fragment.home.views.DataComparator
 import com.dudegenuine.manualbook.ui.fragment.search.SearchViewModel
 
 /**
@@ -21,6 +23,7 @@ class SearchAdapter(
         SearchItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
     )
 
+    @RequiresApi(Build.VERSION_CODES.N)
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) =
         (holder as SearchViewHolder).binds(items[position], viewModel)
 

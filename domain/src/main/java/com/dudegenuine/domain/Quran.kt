@@ -9,5 +9,8 @@ import java.io.Serializable
 data class Quran(
     val id: Int,
     val verseKey: String,
+    val audioUrl: String,
+    val audioReciterName: String,
+    val audioReciterStyle: String,
     val text: String
 ): Serializable

@@ -12,4 +12,8 @@ class QuranPersistence(private val restApi: RestApi): IQuranPersistence {
     override suspend fun getQuran(param: Map<String, String>): IQuranResponsePayload {
         return restApi.getQuran(param)
     }
+
+    override suspend fun getRecitations(pageNumber: String): IQuranResponsePayload {
+        return restApi.getRecitations(pageNumber)
+    }
 }

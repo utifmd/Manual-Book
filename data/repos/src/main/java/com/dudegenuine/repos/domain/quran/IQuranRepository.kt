@@ -11,6 +11,7 @@ import kotlinx.coroutines.flow.Flow
  */
 interface IQuranRepository {
      // fun getQuran(param: Map<String, String>): LiveData<PagingData<Quran>>
+
      // suspend fun getQuran(param: Map<String, String>): LiveData<Resource<List<Quran>>>
      fun getQuran(param: Map<String, Int>): Flow<PagingData<Quran>>
 }

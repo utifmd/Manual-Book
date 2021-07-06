@@ -25,12 +25,14 @@ data class Chapter(
     val translatedName: String,
     val versesCount: Int,
     val nameArabic: String,
-    /*val infoText: String,
-    val infoShortText: String,
-    val infoSource: String,*/
     val revelationPlace: String): Serializable {
 
-    private val defaultBody get() =
+    constructor(chapter: Chapter, infoText: String, infoShortText: String, infoSource: String):
+            this(chapter.id, chapter.pages, chapter.nameSimple, chapter.nameComplex, chapter.translatedName, chapter.versesCount, chapter.nameArabic, chapter.revelationPlace){
+                defaultBody += "\n\n$infoText\nSumber: $infoSource"
+            }
+
+    var defaultBody: String =
         "Jumlah $versesCount ayat, secara etimologi berarti \"$translatedName\" $nameSimple diwahyukan kepada Nabi Muhammad SAW di kota $revelationPlace"
 
     /*

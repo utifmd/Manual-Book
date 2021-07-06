@@ -27,7 +27,7 @@
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            showWhenLoading="@{viewModel.verse}">
+            showWhenLoading="@{viewModel.verseResource}">
 
             <!--body="@{verse.translationText}"-->
             <include android:id="@+id/part_detail" layout="@layout/part_detail"

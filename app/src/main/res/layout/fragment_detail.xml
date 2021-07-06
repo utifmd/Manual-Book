@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
         <variable
             name="chapter"
@@ -13,11 +14,25 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <include android:id="@+id/part_detail" layout="@layout/part_detail"
-            subject="@{chapter.viewName}"
-            sender="@{chapter.previewSender}"
-            body="@{chapter.viewBody}"
-            recipient="@{chapter.previewPage}"
-            drawable="@{@drawable/window_large}"/>
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            showWhenLoading="@{viewModel.chapterInfoResource}">
+            <androidx.core.widget.NestedScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <ScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:layout_behavior="@string/appbar_scrolling_view_behavior">
+                    <include android:id="@+id/part_detail" layout="@layout/part_detail"
+                        subject="@{chapter.viewName}"
+                        sender="@{chapter.previewSender}"
+                        body="@{chapter.defaultBody}"
+                        recipient="@{chapter.previewPage}"
+                        drawable="@{@drawable/window_large}"/>
+                </ScrollView>
+            </androidx.core.widget.NestedScrollView>
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
     </FrameLayout>
 </layout>
