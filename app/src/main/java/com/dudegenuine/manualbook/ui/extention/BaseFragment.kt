@@ -2,14 +2,9 @@ package com.dudegenuine.manualbook.ui.extention
 
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
-import android.widget.PopupMenu
-import androidx.annotation.MenuRes
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.FragmentNavigator
-import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.viewbinding.ViewBinding
 import com.google.android.material.snackbar.Snackbar
@@ -39,7 +34,7 @@ abstract class BaseFragment<VB: ViewBinding>: Fragment(){
         bindViewModel()?.let {
 
             setUpVueModel(it)
-            setUpSnackPop(this, it.snackPopError, Snackbar.LENGTH_LONG)
+            setUpSnackPop(this, it.snackPopResource, Snackbar.LENGTH_LONG)
         }
 
         return binding.root

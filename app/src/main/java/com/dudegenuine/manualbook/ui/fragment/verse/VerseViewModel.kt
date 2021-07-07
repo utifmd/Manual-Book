@@ -45,7 +45,7 @@ class VerseViewModel: BaseViewModel() {
             verseResource.value = it
 
             if(it.status == Resource.Status.ERROR){
-                _snackPopError.value = Event(R.string.msg_error)
+                _snackPop.value = Event(R.string.msg_error)
             }
         }
     }

@@ -9,6 +9,7 @@ import android.view.View
 import androidx.annotation.AttrRes
 import androidx.annotation.ColorInt
 import androidx.annotation.RequiresApi
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.res.use
 import androidx.core.text.HtmlCompat
 import androidx.databinding.BindingAdapter
@@ -26,6 +27,18 @@ import com.google.android.material.transition.MaterialSharedAxis
 /**
  * Manual Book created by utifmd on 20/06/21.
  */
+
+
+fun AppCompatActivity.setUpSnackPop(owner: LifecycleOwner, event: LiveData<Event<Int>>, duration: Int){
+    event.observe(owner, { e -> e.getContentIfNotHandled()?.let { res ->
+        popSnackBar(getString(res), duration)
+    }})
+}
+
+fun AppCompatActivity.popSnackBar(message: String, duration: Int) {
+    Snackbar.make(findViewById(android.R.id.content),
+        message, duration).show()
+}
 
 fun Fragment.setUpSnackPop(owner: LifecycleOwner, event: LiveData<Event<Int>>, duration: Int){
 

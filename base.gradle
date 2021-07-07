@@ -16,12 +16,14 @@ android {
     buildTypes {
         debug {
             buildConfigField "String", "BASE_URL", "\"https://api.quran.com/api/v4/\""
+            buildConfigField "String", "BASE_AUDIO_URL", "\"https://verses.quran.com/\""
         }
         release {
             minifyEnabled true
 
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             buildConfigField "String", "BASE_URL", "\"https://api.quran.com/api/v4/\""
+            buildConfigField "String", "BASE_AUDIO_URL", "\"https://verses.quran.com/\""
         }
     }
 

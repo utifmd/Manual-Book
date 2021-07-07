@@ -45,7 +45,7 @@ data class Chapter(
     val previewBody get() = defaultBody
 
     val previewPage get() =
-        "Halaman ${pages.joinToString(separator = " hingga ")}"
+        "Halaman ke-${pages.joinToString(separator = " dari ")} halaman"
 
     /*
     * View

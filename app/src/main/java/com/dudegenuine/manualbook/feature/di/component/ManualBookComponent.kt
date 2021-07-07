@@ -2,6 +2,7 @@ package com.dudegenuine.manualbook.feature.di.component
 
 import com.dudegenuine.manualbook.feature.di.module.*
 import com.dudegenuine.manualbook.feature.di.module.network.NetworkModule
+import com.dudegenuine.manualbook.ui.activity.MainViewModel
 import com.dudegenuine.manualbook.ui.extention.BaseViewModel
 import com.dudegenuine.manualbook.ui.fragment.detail.DetailViewModel
 import com.dudegenuine.manualbook.ui.fragment.home.HomeViewModel
@@ -26,6 +27,7 @@ import javax.inject.Singleton
     ViewModelModule::class
 ] )
 interface ManualBookComponent {
+    fun inject(mainViewModel: MainViewModel)
     fun inject(homeViewModel: HomeViewModel)
     fun inject(detailViewModel: DetailViewModel)
     fun inject(searchViewModel: SearchViewModel)

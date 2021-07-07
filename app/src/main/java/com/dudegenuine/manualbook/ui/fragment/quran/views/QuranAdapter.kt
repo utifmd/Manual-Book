@@ -1,6 +1,5 @@
 package com.dudegenuine.manualbook.ui.fragment.quran.views
 
-import android.R.id
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
@@ -9,19 +8,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.dudegenuine.domain.Quran
 import com.dudegenuine.manualbook.R
 import com.dudegenuine.manualbook.databinding.ItemQuranBinding
-import com.dudegenuine.manualbook.ui.fragment.quran.QuranViewModel
-import android.text.Spanned.SPAN_INCLUSIVE_INCLUSIVE
 
-import android.R.id.text1
-
-import android.text.style.AbsoluteSizeSpan
-
-import android.text.SpannableString
-import android.text.Spanned
-import android.text.TextUtils
+import android.view.View
 
 
-class QuranAdapter(private val viewModel: QuranViewModel): PagingDataAdapter<Quran, RecyclerView.ViewHolder>(DataComparator) {
+class QuranAdapter: PagingDataAdapter<Quran, RecyclerView.ViewHolder>(DataComparator) {
     private lateinit var listener: Listener
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder = ViewHolder (
@@ -52,7 +43,7 @@ class QuranAdapter(private val viewModel: QuranViewModel): PagingDataAdapter<Qur
             title = quran.text // "${quran.text}\n${quran.audioUrl}"
 
             textView.setOnClickListener { listener.onItemSelected(quran) }
-            btnPlay.setOnClickListener { listener.onPlayAudioSelected(quran, position) }
+            btnPlay.setOnClickListener { listener.onAudioSelected(quran, position) }
 
             if (position % 2 == 0)
                 root.setBackgroundResource(R.color.reply_white_50_alpha_060)
@@ -65,8 +56,13 @@ class QuranAdapter(private val viewModel: QuranViewModel): PagingDataAdapter<Qur
         this.listener = listener
     }
 
-    interface Listener{
+    interface Listener {
         fun onItemSelected(quran: Quran)
-        fun onPlayAudioSelected(quran: Quran, position: Int)
+        fun onEventPlaySelected(view: View)
+        fun onAudioSelected(quran: Quran, position: Int)
+
+        interface Callback {
+            fun onAudioPlayed()
+        }
     }
 }

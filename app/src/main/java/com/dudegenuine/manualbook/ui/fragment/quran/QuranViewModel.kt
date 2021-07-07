@@ -1,15 +1,15 @@
 package com.dudegenuine.manualbook.ui.fragment.quran
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MediatorLiveData
-import androidx.lifecycle.MutableLiveData
+import android.view.View
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import com.dudegenuine.domain.Quran
+import com.dudegenuine.local.model.common.Event
+import com.dudegenuine.manualbook.R
 import com.dudegenuine.manualbook.ui.extention.BaseViewModel
+import com.dudegenuine.manualbook.ui.fragment.quran.views.QuranAdapter
 import com.dudegenuine.quran.GetQuran
-import com.dudegenuine.repos.network.Resource
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
@@ -20,6 +20,8 @@ class QuranViewModel: BaseViewModel() {
     private val TAG: String = javaClass.simpleName
     @Inject
     lateinit var getQuran: GetQuran
+    lateinit var quranListener: QuranAdapter.Listener
+    lateinit var quranCallback: QuranAdapter.Listener.Callback
 
     var quranState: Flow<PagingData<Quran>>? = null
 
@@ -43,36 +45,12 @@ class QuranViewModel: BaseViewModel() {
         return newResult
     }
 
-    /*fun verses(startPage: Int, endPage: Int): Flow<PagingData<Quran>> {
-        val lastResult = quranState
-        if (lastResult != null) {
-            return lastResult
-        }
+    fun playButtonSelect(view: View) =
+        quranListener.onEventPlaySelected(view)
 
-        val newResult: Flow<PagingData<Quran>> =
-            getQuran( mapOf(
-                "start_page" to startPage,
-                "finish_page" to endPage
-            )).cachedIn(viewModelScope)
-
-        quranState = newResult
-
-        return newResult
-    }*/
-
-    init {
-        dependency().inject(this)
+    fun onAudioPlayed() = quranCallback.onAudioPlayed().apply {
+        _snackPop.value = Event(R.string.msg_audio_completion)
     }
 
-    /*
-    * Listener
-    * */
-
-    /*fun onItemSelected(quran: Quran) {
-        Log.d(TAG, "onItemSelected: ${quran.verseKey}")
-
-        navigate( NavGraphHomeFeatureDirections.actionGlobalToVerse(
-            quran, chapter
-        ), null)
-    }*/
+    init { dependency().inject(this) }
 }

@@ -1,18 +1,11 @@
 package com.dudegenuine.manualbook.ui.activity
 
-import android.media.AudioAttributes
-import android.media.AudioManager
-import android.media.MediaPlayer
-import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.*
-import androidx.appcompat.app.AppCompatActivity
-import androidx.databinding.DataBindingUtil
+import androidx.activity.viewModels
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination
-import androidx.navigation.findNavController
-import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import com.dudegenuine.domain.Chapter
 import com.dudegenuine.domain.Quran
@@ -25,113 +18,93 @@ import com.dudegenuine.manualbook.ui.activity.MainBinding.bindFragmentTransition
 import com.dudegenuine.manualbook.ui.activity.MainBinding.popping
 import com.dudegenuine.manualbook.ui.activity.MainBinding.setBottomAppBar
 import com.dudegenuine.manualbook.ui.activity.MainBinding.share
+import com.dudegenuine.manualbook.ui.extention.BaseActivity
+import com.dudegenuine.manualbook.ui.extention.BaseViewModel
+import com.dudegenuine.manualbook.ui.fragment.quran.QuranViewModel
+import com.dudegenuine.manualbook.ui.fragment.quran.views.QuranAdapter
 import com.dudegenuine.manualbook.ui.fragment.sheet.BottomSheetFragment
-import kotlin.LazyThreadSafetyMode.NONE
 
-class MainActivity : AppCompatActivity(), NavController.OnDestinationChangedListener,
-        (MenuItem) -> Boolean {
+class MainActivity : BaseActivity<ActivityMainBinding>(),
+    NavController.OnDestinationChangedListener, QuranAdapter.Listener.Callback {
     private val TAG: String = javaClass.simpleName
-    private lateinit var binding: ActivityMainBinding
-    private lateinit var navController: NavController
-    private lateinit var appBarConfiguration: AppBarConfiguration
 
-    private val sheetFragment: BottomSheetFragment by lazy(NONE) {
-        supportFragmentManager.findFragmentById(R.id.bottom_sheet_fragment) as BottomSheetFragment
-    }
+    private val vueModel: MainViewModel by viewModels()
+    private val quranVueModel: QuranViewModel by viewModels()
+
+    override fun bindView(): ActivityMainBinding =
+        ActivityMainBinding.inflate(layoutInflater)
+
+    override fun bindViewModel(): BaseViewModel = vueModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+
+        bindInitialViews()
         bindFragmentTransition()
-
-        binding.apply {
-            lifecycleOwner = this@MainActivity
-
-            sheetFragment.close()
-        }
-
-        navController = findNavController(R.id.nav_host_fragment).apply { // setupActionBarWithNavController(navController, appBarConfiguration)
-            appBarConfiguration = AppBarConfiguration(this.graph)
-
-            addOnDestinationChangedListener(this@MainActivity)
-        }
+        bindInitialNavigation()
+        bindInitialListener()
     }
 
-    private val homeDestiny: (Bundle?) -> Unit = { _ ->
-        setBottomAppBar(binding, R.drawable.ic_baseline_search_24, getString(R.string.app_name)) {
-            navController.navigate(NavGraphHomeFeatureDirections.actionGlobalToSearch())
-        }
-
+    private val onHomeDestiny: (Bundle?) -> Unit = { _ ->
         binding.apply {
-            bottomAppBarContentContainer.setOnClickListener {
-                popping(it, R.menu.bottom_app_bar_menu_home, this@MainActivity)
-            }
-
+            setBottomAppBar(this,
+                R.drawable.ic_baseline_search_24,
+                getString(R.string.app_name)
+            ) { vueModel.navigateBy() }
+            bottomAppBarContentContainer.setOnClickListener{ onAppbarSelected(it) }
             sheetFragment.close()
         }
     }
 
-    private val quranDestiny: (Bundle?) -> Unit = { arguments ->
+    private val onQuranDestiny: (Bundle?) -> Unit = { arguments ->
         val chapter = arguments?.getSerializable("chapter") as Chapter
-
-        setBottomAppBar(binding, R.drawable.ic_baseline_volume_up_24, chapter.nameComplex){
-            Log.d(TAG, "media player triggered")
-            /*if(!mediaPlayer.isPlaying) mediaPlayer.apply {
-                start()
-                binding.fab.hide()
-            } else mediaPlayer.apply {
-                pause()
-                binding.fab.show()
-            }*/
-        }
+        var isPaused = true
 
         binding.apply {
-            bottomAppBarContentContainer.setOnClickListener {
-                sheetFragment.toggle()
-            }
+            setBottomAppBar(this, R.drawable.ic_baseline_play_circle_24 , chapter.nameComplex) {
+                quranVueModel.playButtonSelect(it)
+                sheetFragment.close()
 
+                if(isPaused) fab.apply {
+                    setImageResource(R.drawable.ic_baseline_pause_circle_24)
+                    isPaused = false
+                }else fab.apply {
+                    setImageResource(R.drawable.ic_baseline_play_circle_24)
+                    isPaused = true
+                }
+            }
+            bottomAppBarContentContainer.setOnClickListener { sheetFragment.toggle() }
             sheetFragment.openData(chapter)
         }
     }
 
-    private val verseDestiny: (Bundle?) -> Unit = { arguments ->
-        // val chapter = arguments?.getSerializable("chapter") as Chapter
-        val quran = arguments?.getSerializable("quran") as Quran
-
-        setBottomAppBar(binding, null, quran.verseKey) { }
+    private val onVerseDestiny: (Bundle?) -> Unit = { arguments ->
+        val quran = arguments?.getSerializable("quran") as Quran // val chapter = arguments?.getSerializable("chapter") as Chapter
 
         binding.apply {
-            bottomAppBarContentContainer.setOnClickListener {
-                Log.d(TAG, "verseDestiny")
-            }
-
+            setBottomAppBar(this, null, quran.verseKey) { }
+            bottomAppBarContentContainer.setOnClickListener { onAppbarSelected(it) }
             sheetFragment.close()
         }
     }
 
-    private val searchDestiny: (Bundle?) -> Unit = { _ ->
-        setBottomAppBar(binding, null, getString(R.string.app_name)) { }
+    private val onSearchDestiny: (Bundle?) -> Unit = { _ ->
         binding.apply {
-            bottomAppBarContentContainer.setOnClickListener {
-                Log.d(TAG, "searchDestiny")
-            }
-
+            setBottomAppBar(this, null, getString(R.string.app_name)) { }
+            bottomAppBarContentContainer.setOnClickListener { onAppbarSelected(it) }
             sheetFragment.close()
         }
     }
 
-    private fun detailDestiny(arguments: Bundle?) {
+    private val onDetailDestiny: (Bundle?) -> Unit = { arguments ->
         val chapter = arguments?.getSerializable("chapter") as Chapter
-
-        setBottomAppBar(binding, R.drawable.ic_baseline_arrow_forward_24, chapter.nameSimple) {
-            navController.navigate(NavGraphHomeFeatureDirections.actionGlobalToQuran(chapter))
-        }
-
         binding.apply {
-            bottomAppBarContentContainer.setOnClickListener {
-                Log.d(TAG, "detailDestiny")
-            }
+            setBottomAppBar (this,
+                R.drawable.ic_baseline_arrow_forward_24,
+                chapter.nameSimple
+            ) { vueModel.navigateBy(chapter) }
 
+            bottomAppBarContentContainer.setOnClickListener { onAppbarSelected(it) }
             sheetFragment.close()
         }
     }
@@ -140,24 +113,43 @@ class MainActivity : AppCompatActivity(), NavController.OnDestinationChangedList
         controller: NavController, destination: NavDestination, arguments: Bundle? ) {
 
         when (destination.id) {
-            R.id.homeFragment -> homeDestiny(arguments)
-            R.id.detailFragment -> detailDestiny(arguments)
-            R.id.quranFragment -> quranDestiny(arguments)
-            R.id.verseFragment -> verseDestiny(arguments)
-            R.id.searchFragment -> searchDestiny(arguments)
+            R.id.homeFragment -> onHomeDestiny(arguments)
+            R.id.detailFragment -> onDetailDestiny(arguments)
+            R.id.quranFragment -> onQuranDestiny(arguments)
+            R.id.verseFragment -> onVerseDestiny(arguments)
+            R.id.searchFragment -> onSearchDestiny(arguments)
         }
+    }
+
+    private fun onAppbarSelected(view: View){
+        popping(view, R.menu.bottom_app_bar_menu_home) { itemMenu ->
+            val title = "${resources.getString(R.string.app_name)} ${BuildConfig.VERSION_NAME}"
+            when(itemMenu.itemId){
+                R.id.menu_item_about -> about(title, "developed by utifmd@gmail.com")
+                R.id.menu_item_share -> share(title, "https://utifmd.github.io/portfolio/")
+            }
+            true
+        }
+    }
+
+    override fun onAudioPlayed() {
+        Log.d(TAG, "onAudioPlayed: callback triggered")
+        binding.fab.setImageResource(R.drawable.ic_baseline_play_circle_24)
     }
 
     override fun onNavigateUp(): Boolean =
         navController.navigateUp(appBarConfiguration) || super.onNavigateUp()
 
-    override fun invoke(item: MenuItem): Boolean {
-        val title = "${resources.getString(R.string.app_name)} ${BuildConfig.VERSION_NAME}"
-        when(item.itemId){
-            R.id.menu_item_about -> about(title, "developed by utifmd@gmail.com")
-            R.id.menu_item_share -> share(title, "https://utifmd.github.io/portfolio/")
-        }
+    private fun bindInitialNavigation() =
+        navController.addOnDestinationChangedListener (this@MainActivity )
 
-        return true
+    private fun bindInitialViews() = binding.apply {
+        lifecycleOwner = this@MainActivity
+
+        sheetFragment.close()
+    }
+
+    private fun bindInitialListener() {
+        quranVueModel.quranCallback = this@MainActivity
     }
 }
