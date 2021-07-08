@@ -25,6 +25,7 @@ import com.dudegenuine.manualbook.ui.fragment.quran.media.AudioQuranPlayer
 import com.dudegenuine.manualbook.ui.fragment.quran.views.QuranAdapter
 import com.dudegenuine.manualbook.ui.fragment.quran.views.StateAdapter
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.launch
 import kotlin.LazyThreadSafetyMode.NONE
 
@@ -68,19 +69,14 @@ class QuranFragment: BaseFragment<FragmentQuranBinding>(),
 
     private fun observeQuranPaging() = lifecycleScope.launch {
         vueModel.quran(args.chapter.id, pageStart, pageFinish).collectLatest {
-            quranAdapter.apply {
+            quranAdapter.apply { // refresh()
                 submitData(it)
-                withLoadStateHeaderAndFooter(
-                    header = StateAdapter { quranAdapter.retry() },
-                    footer = StateAdapter { quranAdapter.retry() }
-                )
             }
         }
     }
 
-    override fun onItemSelected(quran: Quran) = findNavController().navigate(
-        NavGraphHomeFeatureDirections.actionGlobalToVerse( quran, args.chapter )
-    )
+    override fun onItemSelected(quran: Quran) =
+        vueModel.onItemSelected(quran, args.chapter)
 
     override fun onAudioSelected(quran: Quran, position: Int) {
         player.playUrl("${BuildConfig.BASE_AUDIO_URL}${quran.audioUrl}").apply {
@@ -111,6 +107,10 @@ class QuranFragment: BaseFragment<FragmentQuranBinding>(),
             layoutManager = LinearLayoutManager(requireContext())
             adapter = quranAdapter.apply {
                 setListener(this@QuranFragment)
+                withLoadStateHeaderAndFooter(
+                    header = StateAdapter(vueModel) { quranAdapter.retry() },
+                    footer = StateAdapter(vueModel) { quranAdapter.retry() }
+                )
             }
 
             setHasFixedSize(true)

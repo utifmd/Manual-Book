@@ -14,10 +14,11 @@
         <!--app:onRefreshListener="@{() -> viewmodel.userRefreshesItems()}"-->
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
             android:id="@+id/fragment_home_swipe_to_refresh"
-            showWhenLoading="@{homeViewModel.chapters}"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:onRefreshListener="@{() -> homeViewModel.onChaptersRefresh()}">
+            app:onRefreshListener="@{() -> homeViewModel.onChaptersRefresh()}"
+            showWhenLoading="@{homeViewModel.chapters}">
+
             <!--app:paddingTopSystemWindowInsets="@{true}"
             app:paddingBottomSystemWindowInsets="@{true}"-->
             <androidx.recyclerview.widget.RecyclerView

@@ -54,9 +54,8 @@ abstract class BaseActivity<VB: ViewBinding>: AppCompatActivity() {
     private fun setUpNavigation(viewModel: BaseViewModel?) {
         viewModel?.navigation?.observe(this, {
             it?.getContentIfNotHandled()?.let { command -> when(command) {
-                is NavState.TO -> command.extra?.let { isExtra ->
-                    navController.navigate(command.direction, isExtra )
-                }
+                is NavState.TO -> command.extra?.let { isExtra -> navController.navigate(command.direction, isExtra) } ?:
+                    navController.navigate(command.direction)
                 is NavState.BACK ->
                     navController.navigateUp()
             }}

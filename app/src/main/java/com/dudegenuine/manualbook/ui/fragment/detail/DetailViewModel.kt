@@ -49,7 +49,7 @@ class DetailViewModel: BaseViewModel() {
             chapterInfoResource.value = it
 
             if(it.status == Resource.Status.ERROR){
-                _snackPop.value = Event(R.string.msg_error)
+                _snackPop.value = Event(it.message ?: R.string.msg_error.toString())
             }
         }
     }

@@ -6,6 +6,7 @@ import android.graphics.Color
 import android.os.Build
 import android.text.Html
 import android.view.View
+import android.widget.TextView
 import androidx.annotation.AttrRes
 import androidx.annotation.ColorInt
 import androidx.annotation.RequiresApi
@@ -16,6 +17,7 @@ import androidx.databinding.BindingAdapter
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
+import androidx.paging.LoadState
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.dudegenuine.local.model.common.Event
 import com.dudegenuine.manualbook.R
@@ -29,9 +31,9 @@ import com.google.android.material.transition.MaterialSharedAxis
  */
 
 
-fun AppCompatActivity.setUpSnackPop(owner: LifecycleOwner, event: LiveData<Event<Int>>, duration: Int){
+fun AppCompatActivity.setUpSnackPop(owner: LifecycleOwner, event: LiveData<Event<String>>, duration: Int){
     event.observe(owner, { e -> e.getContentIfNotHandled()?.let { res ->
-        popSnackBar(getString(res), duration)
+        popSnackBar(res, duration)
     }})
 }
 
@@ -40,10 +42,10 @@ fun AppCompatActivity.popSnackBar(message: String, duration: Int) {
         message, duration).show()
 }
 
-fun Fragment.setUpSnackPop(owner: LifecycleOwner, event: LiveData<Event<Int>>, duration: Int){
+fun Fragment.setUpSnackPop(owner: LifecycleOwner, event: LiveData<Event<String>>, duration: Int){
 
     event.observe(owner, { e -> e.getContentIfNotHandled()?.let { res ->
-        context?.let { popSnackBar(it.getString(res), duration) }
+        context?.let { popSnackBar(res, duration) }
     }})
 }
 
@@ -89,6 +91,14 @@ fun Fragment.bindExitRenterTransition(){
 * Binding Adapter
 * */
 
+@BindingAdapter("pagingLoadState")
+fun pagingLoadState(view: SwipeRefreshLayout, loadState: LoadState?) {
+    if (loadState != null) view.apply { //loadState is LoadState.Loading
+        isRefreshing = loadState is LoadState.Loading
+        isEnabled = false
+    }
+}
+
 @BindingAdapter("showWhenLoading")
 fun <T>showWhenLoading(view: SwipeRefreshLayout, resource: Resource<T>?) {
     if (resource != null) {
@@ -104,6 +114,14 @@ fun <T>showWhenLoading(view: SwipeRefreshLayout, resource: Resource<T>?) {
 fun <T>showWhenNull(view: SwipeRefreshLayout, resource: T) {
     view.apply {
         isRefreshing = resource == null
+    }
+}
+
+@BindingAdapter("elementPlaceholder")
+fun <T>elementPlaceHolder(view: TextView, resource: T) {
+    when(resource){
+        is String -> if(resource.length == 0)
+            view.setBackgroundResource(R.color.cardview_shadow_end_color)
     }
 }
 

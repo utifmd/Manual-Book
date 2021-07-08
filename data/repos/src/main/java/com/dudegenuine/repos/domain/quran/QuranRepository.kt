@@ -1,16 +1,12 @@
 package com.dudegenuine.repos.domain.quran
 
 import android.util.Log
-import androidx.lifecycle.LiveData
 import androidx.paging.*
 import com.dudegenuine.domain.Quran
 import com.dudegenuine.remote.mapper.QuranDataMapper
 import com.dudegenuine.remote.persistence.IQuranPersistence
-import com.dudegenuine.repos.network.Resource
-import com.dudegenuine.repos.network.ResourceManager
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
 import retrofit2.HttpException
 import java.io.IOException
 import javax.inject.Inject
@@ -33,23 +29,19 @@ class QuranRepository @Inject constructor(
         ).flow
     }
 
-    inner class QuranPagingSource( private val parentParam: Map<String, Int> ): PagingSource<Int, Quran>(){
+    inner class QuranPagingSource(private val passedParams: Map<String, Int>): PagingSource<Int, Quran>(){
 
         override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Quran> {
-            val startPage = parentParam["start_page"] ?: DEFAULT_PAGE_INDEX
-            val finishPage = parentParam["finish_page"] ?: DEFAULT_PAGE_INDEX
+            val startPage = passedParams["start_page"] ?: DEFAULT_PAGE_INDEX
+            val finishPage = passedParams["finish_page"] ?: DEFAULT_PAGE_INDEX
 
             val position = params.key ?: startPage
 
             return try {
-                /*val response = persistence.getQuran(mapOf("page_number" to position.toString())).also {
-                    persistence.getRecitations(position.toString())
-                }*/
-
                 val quranResp = CoroutineScope(coroutineContext).async {
-                    persistence.getQuran( mapOf(
+                    persistence.getQuran( mutableMapOf(
                         "page_number" to position.toString(),
-                        "chapter_number" to parentParam["chapter_number"].toString()
+                        "chapter_number" to passedParams["chapter_number"].toString()
                     ))
                 }
                 val audioResp = CoroutineScope(coroutineContext).async {
@@ -65,6 +57,7 @@ class QuranRepository @Inject constructor(
                 } else {
                     if (position >= finishPage) null else position + 1 // (params.loadSize / NETWORK_PAGE_SIZE)
                 }
+
                 LoadResult.Page(
                     data = data,
                     prevKey = null, // if (position <= DEFAULT_PAGE_INDEX) null else position - 1,
@@ -86,7 +79,7 @@ class QuranRepository @Inject constructor(
     }
 
     companion object {
-        private const val NETWORK_PAGE_SIZE = 7
+        private const val NETWORK_PAGE_SIZE = 1
         private const val DEFAULT_PAGE_INDEX = 1
     }
 }

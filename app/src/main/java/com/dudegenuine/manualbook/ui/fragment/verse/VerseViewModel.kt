@@ -27,25 +27,27 @@ class VerseViewModel: BaseViewModel() {
 
     private var verseState: LiveData<Resource<Verse>> = MutableLiveData()
 
-    val verseResource = MediatorLiveData<Resource<Verse>>()
+    private val _verse = MediatorLiveData<Resource<Verse>>()
+    val verse get(): LiveData<Resource<Verse>> = _verse
+
     fun verse(verseNumber: String): LiveData<Resource<Verse>> {
         loadVerse(verseNumber)
 
-        return verseResource
+        return _verse
     }
 
     private fun loadVerse(verseNumber: String) = viewModelScope.launch(Dispatchers.Main) {
-        verseResource.removeSource(verseState)
+        _verse.removeSource(verseState)
 
         withContext(Dispatchers.IO){
             verseState = getVerse(verseNumber, verseParam())
         }
 
-        verseResource.addSource(verseState){
-            verseResource.value = it
+        _verse.addSource(verseState){
+            _verse.value = it
 
             if(it.status == Resource.Status.ERROR){
-                _snackPop.value = Event(R.string.msg_error)
+                _snackPop.value = Event(it.message ?: R.string.msg_error.toString())
             }
         }
     }

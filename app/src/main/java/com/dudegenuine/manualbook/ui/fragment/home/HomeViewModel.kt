@@ -48,8 +48,7 @@ class HomeViewModel: BaseViewModel() {
             _chapters.value = it
 
             if (it.status == Resource.Status.ERROR) {
-                Log.d(TAG, "loadChapters: ${it.throwable?.localizedMessage}")
-                _snackPop.value = Event(R.string.msg_error)
+                _snackPop.value = Event(it.message ?: R.string.msg_error.toString())
             }
         }
     }

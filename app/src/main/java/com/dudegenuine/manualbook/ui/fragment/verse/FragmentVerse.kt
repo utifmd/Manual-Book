@@ -30,11 +30,11 @@ class FragmentVerse: BaseFragment<FragmentVerseBinding>() {
 
         binding.apply {
             lifecycleOwner = this@FragmentVerse
-            quran = args.quran
             chapter = args.chapter
 
             vueModel.verse(args.quran.verseKey).observe(viewLifecycleOwner, {
                 it?.data?.let { itVerse ->
+                    quran = args.quran
                     verse = itVerse
                     viewBody = parseHtml(
                         itVerse.translationText

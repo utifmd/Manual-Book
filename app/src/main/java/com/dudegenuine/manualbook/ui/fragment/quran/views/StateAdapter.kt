@@ -13,21 +13,12 @@ import com.dudegenuine.manualbook.ui.fragment.quran.QuranViewModel
 /**
  * Manual Book created by utifmd on 02/07/21.
  */
-class StateAdapter(val retry: ()-> Unit): LoadStateAdapter<RecyclerView.ViewHolder>() {
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, loadState: LoadState) {
-        (holder as StateAdapter.ViewHolder).bindState(loadState)
-    }
-
-    override fun onCreateViewHolder(
-        parent: ViewGroup,
-        loadState: LoadState
-    ): RecyclerView.ViewHolder = ViewHolder (
-        ItemPagerStateBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-    )
-
+class StateAdapter(private val viewModel: QuranViewModel, val retry: ()-> Unit): LoadStateAdapter<StateAdapter.ViewHolder>() {
     inner class ViewHolder(val binding: ItemPagerStateBinding): RecyclerView.ViewHolder(binding.root){
 
         fun bindState(loadState: LoadState) = with(binding) {
+            viewModel.onQuranState(loadState)
+
             if (loadState is LoadState.Error) {
                 textViewError.text = loadState.error.localizedMessage
             }
@@ -39,4 +30,14 @@ class StateAdapter(val retry: ()-> Unit): LoadStateAdapter<RecyclerView.ViewHold
             }
         }
     }
+
+    override fun onBindViewHolder(holder: StateAdapter.ViewHolder, loadState: LoadState) {
+        holder.bindState(loadState)
+    }
+
+    override fun onCreateViewHolder(
+        parent: ViewGroup,
+        loadState: LoadState ): StateAdapter.ViewHolder = ViewHolder (
+        ItemPagerStateBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+    )
 }

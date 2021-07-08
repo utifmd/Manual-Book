@@ -5,12 +5,15 @@ import androidx.annotation.MainThread
 import androidx.annotation.WorkerThread
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.dudegenuine.repos.network.Resource.Companion.TIMEOUT_CODE
 import io.reactivex.Observable
 import io.reactivex.Observer
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import kotlinx.coroutines.*
+import retrofit2.HttpException
 import java.lang.Exception
+import java.net.SocketTimeoutException
 import kotlin.coroutines.coroutineContext
 
 /**
@@ -54,9 +57,15 @@ abstract class ResourceManager<ResultType, RequestType>{
         CoroutineScope(coroutineContext).launch(supervisorJob) {
             try {
                 manageData()
-            } catch (e: Exception) {
-                Log.e(TAG, "An error happened: $e")
-                setValue(Resource.onError(data = null, throwable = e))
+            } catch (exception: Exception) {
+                when(exception){
+                    is HttpException -> setValue(Resource.onError(null,
+                        Resource.onErrorMessage(exception.code())))
+                    is SocketTimeoutException -> setValue(Resource.onError(null,
+                        Resource.onErrorMessage(TIMEOUT_CODE)))
+                    else -> setValue(Resource.onError(null,
+                        Resource.onErrorMessage(Int.MAX_VALUE)))
+                }
             }
 
             /*val localData = fetchDataLocal()

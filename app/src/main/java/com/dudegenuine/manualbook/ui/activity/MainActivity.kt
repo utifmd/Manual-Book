@@ -96,9 +96,11 @@ class MainActivity : BaseActivity<ActivityMainBinding>(),
         }
     }
 
+    // TODO: 07/07/21 check the chapter state inconsistency 
     private val onDetailDestiny: (Bundle?) -> Unit = { arguments ->
-        val chapter = arguments?.getSerializable("chapter") as Chapter
-        binding.apply {
+        val chapter = arguments?.getSerializable("chapter") as Chapter?
+
+        chapter?.let { binding.apply {
             setBottomAppBar (this,
                 R.drawable.ic_baseline_arrow_forward_24,
                 chapter.nameSimple
@@ -106,7 +108,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(),
 
             bottomAppBarContentContainer.setOnClickListener { onAppbarSelected(it) }
             sheetFragment.close()
-        }
+        }}
     }
 
     override fun onDestinationChanged(

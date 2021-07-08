@@ -13,7 +13,7 @@ import com.dudegenuine.local.model.common.NavState
 /**
  * Manual Book created by utifmd on 18/06/21.
  */
-abstract class BaseFragment<VB: ViewBinding>: Fragment(){
+abstract class BaseFragment<VB: ViewBinding>: Fragment() {
     private lateinit var _binding: VB // ? = null
     val binding get() = _binding
 
@@ -42,19 +42,12 @@ abstract class BaseFragment<VB: ViewBinding>: Fragment(){
 
     private fun setUpVueModel(viewModel: BaseViewModel?) {
         viewModel?.navigation?.observe(viewLifecycleOwner, {
-            it?.getContentIfNotHandled()?.let { command ->
-                when(command){
-                    is NavState.TO ->
-                        command.extra?.let { isExtra ->
-                            findNavController().navigate(command.direction,
-                                isExtra
-                            )
-                        }
-
-                    is NavState.BACK ->
-                        findNavController().navigateUp()
-                }
-            }
+            it?.getContentIfNotHandled()?.let { command -> when(command) {
+                is NavState.TO -> command.extra?.let { isExtra -> findNavController().navigate(command.direction, isExtra) } ?:
+                    findNavController().navigate(command.direction)
+                is NavState.BACK ->
+                    findNavController().navigateUp()
+            }}
         })
     }
 

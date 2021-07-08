@@ -16,8 +16,8 @@ abstract class BaseViewModel: ViewModel(){
     private val _navigation = MutableLiveData<Event<NavState>>()
     val navigation: LiveData<Event<NavState>> get() = _navigation
 
-    protected val _snackPop = MutableLiveData<Event<Int>>()
-    val snackPopResource: LiveData<Event<Int>> get() = _snackPop
+    protected val _snackPop = MutableLiveData<Event<String>>()
+    val snackPopResource: LiveData<Event<String>> get() = _snackPop
 
     fun dependency(): ManualBookComponent {
         return ManualBookComponent.createComponent()
