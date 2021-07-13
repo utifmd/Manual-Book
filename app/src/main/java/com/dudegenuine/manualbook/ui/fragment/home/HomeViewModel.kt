@@ -2,10 +2,7 @@ package com.dudegenuine.manualbook.ui.fragment.home
 
 import android.util.Log
 import android.view.View
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MediatorLiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import com.dudegenuine.repos.network.Resource
 import com.dudegenuine.chapter.GetChapters
@@ -21,10 +18,10 @@ import javax.inject.Inject
 /**
  * Manual Book created by utifmd on 20/06/21.
  */
-class HomeViewModel: BaseViewModel() {
+class HomeViewModel: BaseViewModel(), LifecycleObserver {
     private val TAG: String = javaClass.simpleName
-    @Inject
-    lateinit var getChapters: GetChapters
+
+    @Inject lateinit var getChapters: GetChapters
 
     private var chaptersState: LiveData<Resource<List<Chapter>>> = MutableLiveData()
 

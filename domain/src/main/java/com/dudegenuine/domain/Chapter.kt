@@ -27,9 +27,13 @@ data class Chapter(
     val nameArabic: String,
     val revelationPlace: String): Serializable {
 
+    companion object {
+        const val TAG_KEY: String = "chapter"
+    }
+
     constructor(chapter: Chapter, infoText: String, infoShortText: String, infoSource: String):
             this(chapter.id, chapter.pages, chapter.nameSimple, chapter.nameComplex, chapter.translatedName, chapter.versesCount, chapter.nameArabic, chapter.revelationPlace){
-                defaultBody += "\n\n$infoText\nSumber: $infoSource"
+                defaultBody += ("\n\n$infoText\nSumber: $infoSource")
             }
 
     var defaultBody: String =

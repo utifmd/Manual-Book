@@ -2,10 +2,8 @@ package com.dudegenuine.manualbook.ui.fragment.verse
 
 import android.util.Log
 import android.view.View
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MediatorLiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
+import com.dudegenuine.domain.Quran
 import com.dudegenuine.domain.Verse
 import com.dudegenuine.local.model.common.Event
 import com.dudegenuine.manualbook.R
@@ -20,20 +18,21 @@ import javax.inject.Inject
 /**
  * Manual Book created by utifmd on 03/07/21.
  */
-class VerseViewModel: BaseViewModel() {
+class VerseViewModel(savedStateHandle: SavedStateHandle): BaseViewModel() {
     private val TAG: String = javaClass.simpleName
-    @Inject
-    lateinit var getVerse: GetVerse
+
+    @Inject lateinit var getVerse: GetVerse
 
     private var verseState: LiveData<Resource<Verse>> = MutableLiveData()
-
     private val _verse = MediatorLiveData<Resource<Verse>>()
-    val verse get(): LiveData<Resource<Verse>> = _verse
+    val verse: LiveData<Resource<Verse>> get() = _verse
 
-    fun verse(verseNumber: String): LiveData<Resource<Verse>> {
-        loadVerse(verseNumber)
+    init {
+        dependency().inject(this)
 
-        return _verse
+        savedStateHandle.get<Quran>(Quran.TAG_KEY)?.let {
+            loadVerse(it.verseKey)
+        }
     }
 
     private fun loadVerse(verseNumber: String) = viewModelScope.launch(Dispatchers.Main) {
@@ -60,9 +59,5 @@ class VerseViewModel: BaseViewModel() {
         Log.d(TAG, "onBackSelected: ${view.id}")
 
         navigateUp()
-    }
-
-    init {
-        dependency().inject(this)
     }
 }

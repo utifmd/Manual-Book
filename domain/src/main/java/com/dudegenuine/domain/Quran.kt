@@ -13,4 +13,8 @@ data class Quran(
     val audioReciterName: String,
     val audioReciterStyle: String,
     val text: String
-): Serializable
+): Serializable{
+    companion object {
+        const val TAG_KEY = "quran"
+    }
+}

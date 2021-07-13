@@ -10,6 +10,8 @@ import com.dudegenuine.manualbook.R
 import com.dudegenuine.manualbook.databinding.ItemQuranBinding
 
 import android.view.View
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 
 
 class QuranAdapter: PagingDataAdapter<Quran, RecyclerView.ViewHolder>(DataComparator) {
@@ -25,6 +27,8 @@ class QuranAdapter: PagingDataAdapter<Quran, RecyclerView.ViewHolder>(DataCompar
         item?.let {
             (holder as QuranAdapter.ViewHolder).binds(it, position)
         }
+
+        /*(holder as QuranAdapter.ViewHolder).binds(items[position], position)*/
     }
 
     private object DataComparator: DiffUtil.ItemCallback<Quran>(){

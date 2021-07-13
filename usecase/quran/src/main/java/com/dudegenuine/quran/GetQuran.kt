@@ -2,6 +2,7 @@ package com.dudegenuine.quran
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
+import androidx.lifecycle.asLiveData
 import androidx.paging.PagingData
 import com.dudegenuine.domain.Quran
 import com.dudegenuine.repos.domain.quran.QuranRepository
@@ -13,13 +14,13 @@ import kotlinx.coroutines.flow.Flow
  */
 class GetQuran(private val repository: QuranRepository) {
 
-    operator fun invoke(param: Map<String, Int>): Flow<PagingData<Quran>>{
+    /*operator fun invoke(param: Map<String, Int>): Flow<PagingData<Quran>>{
         return repository.getQuran(param)
-    }
-
-    /*suspend operator fun invoke(param: Map<String, String>): LiveData<Resource<List<Quran>>>{
-        return Transformations.map(repository.getQuran(param)){ it }
     }*/
+
+    suspend operator fun invoke(param: Map<String, Int>): LiveData<PagingData<Quran>>{
+        return Transformations.map(repository.getQuran(param)){ it }
+    }
 
     /*fun flowPagingData(param: Map<String, Int>): Flow<PagingData<Quran>>{
         return repository.getQuran(param)

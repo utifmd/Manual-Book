@@ -91,14 +91,6 @@ fun Fragment.bindExitRenterTransition(){
 * Binding Adapter
 * */
 
-@BindingAdapter("pagingLoadState")
-fun pagingLoadState(view: SwipeRefreshLayout, loadState: LoadState?) {
-    if (loadState != null) view.apply { //loadState is LoadState.Loading
-        isRefreshing = loadState is LoadState.Loading
-        isEnabled = false
-    }
-}
-
 @BindingAdapter("showWhenLoading")
 fun <T>showWhenLoading(view: SwipeRefreshLayout, resource: Resource<T>?) {
     if (resource != null) {
@@ -110,28 +102,8 @@ fun <T>showWhenLoading(view: SwipeRefreshLayout, resource: Resource<T>?) {
     }
 }
 
-@BindingAdapter("showWhenNull")
-fun <T>showWhenNull(view: SwipeRefreshLayout, resource: T) {
-    view.apply {
-        isRefreshing = resource == null
-    }
-}
-
-@BindingAdapter("elementPlaceholder")
-fun <T>elementPlaceHolder(view: TextView, resource: T) {
-    when(resource){
-        is String -> if(resource.length == 0)
-            view.setBackgroundResource(R.color.cardview_shadow_end_color)
-    }
-}
-
 fun View.visible(isVisible: Boolean) {
     visibility = if (isVisible) View.VISIBLE else View.GONE
-}
-
-@RequiresApi(Build.VERSION_CODES.N)
-fun Fragment.parseHtml(raw: String): String {
-    return Html.fromHtml(raw, HtmlCompat.FROM_HTML_MODE_LEGACY).toString()
 }
 
 @ColorInt

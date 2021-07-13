@@ -5,7 +5,11 @@ import android.os.Bundle
 import android.view.View
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.AbstractSavedStateViewModelFactory
+import androidx.lifecycle.SavedStateHandle
+import androidx.lifecycle.ViewModel
 import androidx.navigation.fragment.navArgs
+import androidx.savedstate.SavedStateRegistryOwner
 import com.dudegenuine.domain.Chapter
 import com.dudegenuine.manualbook.databinding.FragmentDetailBinding
 import com.dudegenuine.manualbook.ui.extention.*
@@ -17,8 +21,12 @@ import com.dudegenuine.manualbook.ui.extention.*
 // TODO: 05/07/21 implement media player
 class FragmentDetail: BaseFragment<FragmentDetailBinding>() {
     private val TAG: String = javaClass.simpleName
-    private val vueModel: DetailViewModel by viewModels()
+
     private val args: FragmentDetailArgs by navArgs()
+
+    private val vueModel: DetailViewModel by viewModels {
+        BaseViewModelFactory(DetailViewModel.DetailFactory, this, arguments)
+    }
 
     override fun bindView(): FragmentDetailBinding =
         FragmentDetailBinding.inflate(layoutInflater)
@@ -32,7 +40,6 @@ class FragmentDetail: BaseFragment<FragmentDetailBinding>() {
         bindExitRenterTransition()
     }
 
-    @RequiresApi(Build.VERSION_CODES.N)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -41,22 +48,6 @@ class FragmentDetail: BaseFragment<FragmentDetailBinding>() {
             viewModel = vueModel
             chapter = args.chapter
 
-            observeChapterInfo()
-            bindNavigation()
-        }
-    }
-
-    @RequiresApi(Build.VERSION_CODES.N)
-    private fun observeChapterInfo() {
-        vueModel.chapterInfo(args.chapter).observe(viewLifecycleOwner, { res ->
-            res.data?.let { binding.chapter = it.apply {
-                this.defaultBody = parseHtml(this.defaultBody)
-            }}
-        })
-    }
-
-    private fun bindNavigation() {
-        binding.apply {
             partDetail.navigateBack.setOnClickListener(vueModel::onBackSelected)
         }
     }

@@ -1,10 +1,12 @@
 package com.dudegenuine.repos.domain.quran
 
 import android.util.Log
+import androidx.lifecycle.LiveData
 import androidx.paging.*
 import com.dudegenuine.domain.Quran
 import com.dudegenuine.remote.mapper.QuranDataMapper
 import com.dudegenuine.remote.persistence.IQuranPersistence
+import com.dudegenuine.repos.network.Resource
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.Flow
 import retrofit2.HttpException
@@ -19,18 +21,16 @@ class QuranRepository @Inject constructor(
     val persistence: IQuranPersistence,
     val mapper: QuranDataMapper ) : IQuranRepository {
 
-    override fun getQuran(param: Map<String, Int>): Flow<PagingData<Quran>> {
+    override suspend fun getQuran(param: Map<String, Int>): LiveData<PagingData<Quran>> {
         return Pager(
             config = PagingConfig(
                 pageSize = NETWORK_PAGE_SIZE,
                 enablePlaceholders = false
-            ),
-            pagingSourceFactory = { QuranPagingSource(param) }
-        ).flow
+            )
+        ){ QuranPagingSource(param) }.liveData
     }
 
     inner class QuranPagingSource(private val passedParams: Map<String, Int>): PagingSource<Int, Quran>(){
-
         override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Quran> {
             val startPage = passedParams["start_page"] ?: DEFAULT_PAGE_INDEX
             val finishPage = passedParams["finish_page"] ?: DEFAULT_PAGE_INDEX
@@ -82,4 +82,23 @@ class QuranRepository @Inject constructor(
         private const val NETWORK_PAGE_SIZE = 1
         private const val DEFAULT_PAGE_INDEX = 1
     }
+
+    /*override fun getQuran(param: Map<String, Int>): Flow<PagingData<Quran>> {
+        return Pager(
+            config = PagingConfig(
+                pageSize = NETWORK_PAGE_SIZE,
+                enablePlaceholders = false
+            )
+        ){ QuranPagingSource(param) }.flow
+    }*/
+
+    /*@ExperimentalPagingApi
+    inner class QuranRemoteMediator(private val passedParams: Map<String, Int>): RemoteMediator<Int, Quran>(){
+        override suspend fun load(
+            loadType: LoadType,
+            state: PagingState<Int, Quran>
+        ): MediatorResult {
+
+        }
+    }*/
 }

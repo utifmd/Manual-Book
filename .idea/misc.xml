@@ -9,6 +9,8 @@
         <entry key="app/src/main/res/drawable/ic_baseline_menu_book_24.xml" value="0.17135416666666667" />
         <entry key="app/src/main/res/drawable/ic_baseline_search_24.xml" value="0.17135416666666667" />
         <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.17135416666666667" />
+        <entry key="app/src/main/res/drawable/ic_splash_center_background.xml" value="0.17135416666666667" />
+        <entry key="app/src/main/res/drawable/splash_brand_screen.xml" value="0.17135416666666667" />
         <entry key="app/src/main/res/font/work_sans.xml" value="0.18541666666666667" />
         <entry key="app/src/main/res/font/work_sans_bold.xml" value="0.18541666666666667" />
         <entry key="app/src/main/res/font/work_sans_extrabold.xml" value="0.18541666666666667" />
@@ -35,6 +37,8 @@
         <entry key="app/src/main/res/layout/spinner_item_layout.xml" value="0.15520833333333334" />
         <entry key="app/src/main/res/menu/bottom_app_bar_menu_detail.xml" value="0.24114583333333334" />
         <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.17135416666666667" />
+        <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher_quran.xml" value="0.1953125" />
+        <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher_quran_round.xml" value="0.1953125" />
         <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.17135416666666667" />
       </map>
     </option>

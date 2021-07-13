@@ -24,23 +24,14 @@ class FragmentVerse: BaseFragment<FragmentVerseBinding>() {
 
     override fun bindViewModel(): BaseViewModel = vueModel
 
-    @RequiresApi(Build.VERSION_CODES.N)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         binding.apply {
             lifecycleOwner = this@FragmentVerse
+            viewModel = vueModel
             chapter = args.chapter
-
-            vueModel.verse(args.quran.verseKey).observe(viewLifecycleOwner, {
-                it?.data?.let { itVerse ->
-                    quran = args.quran
-                    verse = itVerse
-                    viewBody = parseHtml(
-                        itVerse.translationText
-                    )
-                }
-            })
+            quran = args.quran
 
             partDetail.navigateBack.setOnClickListener(vueModel::onBackSelected)
         }

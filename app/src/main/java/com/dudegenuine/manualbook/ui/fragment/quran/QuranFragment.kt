@@ -17,10 +17,7 @@ import com.dudegenuine.manualbook.BuildConfig
 import com.dudegenuine.manualbook.NavGraphHomeFeatureDirections
 import com.dudegenuine.manualbook.databinding.FragmentQuranBinding
 import com.dudegenuine.manualbook.ui.activity.MainActivity
-import com.dudegenuine.manualbook.ui.extention.BaseFragment
-import com.dudegenuine.manualbook.ui.extention.BaseViewModel
-import com.dudegenuine.manualbook.ui.extention.bindEnterReturnTransition
-import com.dudegenuine.manualbook.ui.extention.bindExitRenterTransition
+import com.dudegenuine.manualbook.ui.extention.*
 import com.dudegenuine.manualbook.ui.fragment.quran.media.AudioQuranPlayer
 import com.dudegenuine.manualbook.ui.fragment.quran.views.QuranAdapter
 import com.dudegenuine.manualbook.ui.fragment.quran.views.StateAdapter
@@ -37,10 +34,12 @@ class QuranFragment: BaseFragment<FragmentQuranBinding>(),
     private val TAG: String = javaClass.simpleName
 
     private val args: QuranFragmentArgs by navArgs()
-    private val vueModel: QuranViewModel by activityViewModels()
+    private val vueModel: QuranViewModel by viewModels {
+        BaseViewModelFactory(QuranViewModel.QuranFactory, this, arguments)
+    }
 
-    private val pageStart: Int by lazy(NONE){ args.chapter.pages[0] }
-    private val pageFinish: Int by lazy(NONE){ args.chapter.pages[1] }
+    /*private val pageStart: Int by lazy(NONE){ args.chapter.pages[0] }
+    private val pageFinish: Int by lazy(NONE){ args.chapter.pages[1] }*/
     private val padLeft: String by lazy(NONE) { args.chapter.id.toString().padStart(3, '0') }
 
     private val quranAdapter = QuranAdapter()
@@ -67,12 +66,12 @@ class QuranFragment: BaseFragment<FragmentQuranBinding>(),
         observeQuranPaging()
     }
 
-    private fun observeQuranPaging() = lifecycleScope.launch {
-        vueModel.quran(args.chapter.id, pageStart, pageFinish).collectLatest {
-            quranAdapter.apply { // refresh()
-                submitData(it)
+    private fun observeQuranPaging() {
+        vueModel.quran.observe(viewLifecycleOwner, {
+            lifecycleScope.launch {
+                quranAdapter.submitData(it)
             }
-        }
+        })
     }
 
     override fun onItemSelected(quran: Quran) =
@@ -103,6 +102,9 @@ class QuranFragment: BaseFragment<FragmentQuranBinding>(),
     }
 
     private fun bindInitialView() = binding.apply {
+        lifecycleOwner = this@QuranFragment
+        viewModel = vueModel
+
         recyclerView.apply {
             layoutManager = LinearLayoutManager(requireContext())
             adapter = quranAdapter.apply {

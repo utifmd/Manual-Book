@@ -62,6 +62,11 @@
         <item name="android:windowBackground">?android:colorBackground</item>
         <item name="android:windowLightStatusBar" tools:ignore="NewApi">true</item>
     </style>
+
+    <style name="SplashScreen" parent="Theme.AppCompat.NoActionBar">
+        <item name="android:background">@drawable/splash_brand_screen</item>
+        <item name="android:fitsSystemWindows">true</item>
+    </style>
 </resources>
 
 <!--

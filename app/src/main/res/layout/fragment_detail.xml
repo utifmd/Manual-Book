@@ -17,7 +17,7 @@
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            showWhenLoading="@{viewModel.chapterInfoResource}">
+            showWhenLoading="@{viewModel.chapterInfo}">
             <androidx.core.widget.NestedScrollView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
@@ -28,7 +28,7 @@
                     <include android:id="@+id/part_detail" layout="@layout/part_detail"
                         subject="@{chapter.viewName}"
                         sender="@{chapter.previewSender}"
-                        body="@{chapter.defaultBody}"
+                        body="@{viewModel.chapterInfo.data.defaultBody}"
                         recipient="@{chapter.previewPage}"
                         drawable="@{@drawable/window_large}"/>
                 </ScrollView>
