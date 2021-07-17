@@ -6,11 +6,9 @@ plugins {
 dependencies {
     implementation project(':domain')
 
-
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.0-native-mt")
-    // implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.0-native-mt")
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.0-native-mt"
     implementation "io.reactivex.rxjava2:rxjava:$rxjava_version"
-    implementation "com.google.code.gson:gson:2.8.5"
+    implementation "com.google.code.gson:gson:2.8.6"
 }
 
 java {

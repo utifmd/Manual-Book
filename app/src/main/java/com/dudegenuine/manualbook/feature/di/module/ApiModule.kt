@@ -1,6 +1,6 @@
 package com.dudegenuine.manualbook.feature.di.module
 
-import com.dudegenuine.manualbook.feature.di.module.network.INetwork
+import com.dudegenuine.manualbook.feature.di.module.factory.INetwork
 import com.dudegenuine.manualbook.feature.datasource.api.RestApi
 import dagger.Module
 import dagger.Provides

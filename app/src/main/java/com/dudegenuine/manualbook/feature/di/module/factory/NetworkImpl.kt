@@ -1,9 +1,9 @@
-package com.dudegenuine.manualbook.feature.di.module.network
+package com.dudegenuine.manualbook.feature.di.module.factory
 
 import com.dudegenuine.manualbook.BuildConfig
-import com.dudegenuine.manualbook.feature.di.module.network.INetwork.Companion.CONNECT_TIMEOUT
-import com.dudegenuine.manualbook.feature.di.module.network.INetwork.Companion.READ_TIMEOUT
-import com.dudegenuine.manualbook.feature.di.module.network.INetwork.Companion.WRITE_TIMEOUT
+import com.dudegenuine.manualbook.feature.di.module.factory.INetwork.Companion.CONNECT_TIMEOUT
+import com.dudegenuine.manualbook.feature.di.module.factory.INetwork.Companion.READ_TIMEOUT
+import com.dudegenuine.manualbook.feature.di.module.factory.INetwork.Companion.WRITE_TIMEOUT
 import com.google.gson.FieldNamingPolicy
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder

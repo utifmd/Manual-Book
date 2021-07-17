@@ -10,7 +10,6 @@ import androidx.navigation.ui.navigateUp
 import com.dudegenuine.domain.Chapter
 import com.dudegenuine.domain.Quran
 import com.dudegenuine.manualbook.BuildConfig
-import com.dudegenuine.manualbook.NavGraphHomeFeatureDirections
 import com.dudegenuine.manualbook.R
 import com.dudegenuine.manualbook.databinding.ActivityMainBinding
 import com.dudegenuine.manualbook.ui.activity.MainBinding.about

@@ -8,7 +8,9 @@ import androidx.navigation.NavDirections
 import androidx.navigation.fragment.FragmentNavigator
 import com.dudegenuine.local.model.common.Event
 import com.dudegenuine.local.model.common.NavState
+import com.dudegenuine.manualbook.feature.di.component.DaggerManualBookComponent
 import com.dudegenuine.manualbook.feature.di.component.ManualBookComponent
+import com.dudegenuine.manualbook.feature.di.module.AndroidModule
 
 /**
  * Manual Book created by utifmd on 20/06/21.
@@ -22,7 +24,7 @@ abstract class BaseViewModel: ViewModel(){
     val snackPopResource: LiveData<Event<String>> get() = _snackPop
 
     fun dependency(): ManualBookComponent {
-        return ManualBookComponent.createComponent()
+        return DaggerManualBookComponent.factory().create(AndroidModule(null))// .createComponent()
     }
 
     fun navigate(direction: NavDirections, extra: FragmentNavigator.Extras? = null){

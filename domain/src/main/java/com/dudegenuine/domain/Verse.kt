@@ -17,6 +17,10 @@ data class Verse(
     val hzbNumber: Int
 ): Serializable {
 
+    constructor(verse: Verse, translationText: String): this(
+        verse.id, verse.verseKey, translationText, verse.audioUrl, verse.verseNumber, verse.juzNumber, verse.rubNumber, verse.hzbNumber
+    )
+
     val viewVerseNumber
         get() = "Ayat ke-$verseNumber | Hizb $hzbNumber | Rub $rubNumber"
 }

@@ -1,4 +1,4 @@
-package com.dudegenuine.manualbook.feature.di.module.network
+package com.dudegenuine.manualbook.feature.di.module.factory
 
 import com.google.gson.Gson
 import okhttp3.OkHttpClient

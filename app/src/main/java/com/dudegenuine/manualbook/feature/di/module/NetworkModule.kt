@@ -1,5 +1,7 @@
-package com.dudegenuine.manualbook.feature.di.module.network
+package com.dudegenuine.manualbook.feature.di.module
 
+import com.dudegenuine.manualbook.feature.di.module.factory.INetwork
+import com.dudegenuine.manualbook.feature.di.module.factory.NetworkImpl
 import dagger.Module
 import dagger.Provides
 

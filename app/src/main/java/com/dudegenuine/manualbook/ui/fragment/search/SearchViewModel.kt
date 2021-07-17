@@ -30,8 +30,6 @@ class SearchViewModel: BaseViewModel() {
     private val _searches = MediatorLiveData<Resource<List<Search>>>()
     val searches: LiveData<Resource<List<Search>>> get() = _searches
 
-    init { dependency().inject(this) }
-
     private fun loadSearches(query: String) = viewModelScope.launch(Dispatchers.Main) {
         _searches.removeSource(searchState)
 
@@ -58,5 +56,9 @@ class SearchViewModel: BaseViewModel() {
 
     val onBackSelected: (View) -> Unit = {
         navigateUp()
+    }
+
+    init {
+        dependency().inject(this)
     }
 }

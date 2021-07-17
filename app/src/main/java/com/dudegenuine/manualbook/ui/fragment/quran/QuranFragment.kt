@@ -1,5 +1,6 @@
 package com.dudegenuine.manualbook.ui.fragment.quran
 
+import android.content.Context
 import android.media.MediaPlayer
 import android.os.Bundle
 import android.util.Log
@@ -34,13 +35,14 @@ class QuranFragment: BaseFragment<FragmentQuranBinding>(),
     private val TAG: String = javaClass.simpleName
 
     private val args: QuranFragmentArgs by navArgs()
+
     private val vueModel: QuranViewModel by viewModels {
         BaseViewModelFactory(QuranViewModel.QuranFactory, this, arguments)
     }
 
-    /*private val pageStart: Int by lazy(NONE){ args.chapter.pages[0] }
-    private val pageFinish: Int by lazy(NONE){ args.chapter.pages[1] }*/
-    private val padLeft: String by lazy(NONE) { args.chapter.id.toString().padStart(3, '0') }
+    private val padLeft: String by lazy(NONE) {
+        args.chapter.id.toString().padStart(3, '0')
+    }
 
     private val quranAdapter = QuranAdapter()
     private var player = AudioQuranPlayer()

@@ -18,6 +18,7 @@ class BaseViewModelFactory<out V: ViewModel>(
         modelClass: Class<T>,
         handle: SavedStateHandle ): T {
 
+        @Suppress("UNCHECKED_CAST")
         return viewModelFactory.create(handle) as T
     }
 

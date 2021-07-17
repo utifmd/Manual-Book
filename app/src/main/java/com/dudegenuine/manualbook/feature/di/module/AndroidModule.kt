@@ -14,10 +14,10 @@ import javax.inject.Singleton
  * Manual Book created by utifmd on 17/06/21.
  */
 @Module
-class AndroidModule {
+class AndroidModule(val context: Context?) {
     @Provides
-    fun provideContext(): Context =
-        ManualBook.creteInstance().applicationContext
+    fun provideContext(): Context = context
+        ?: ManualBook.creteInstance().applicationContext
 
     @Singleton @Provides
     fun provideCompositeDisposable(): CompositeDisposable =
