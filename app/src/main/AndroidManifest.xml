@@ -10,9 +10,9 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_quran_round"
         android:supportsRtl="true"
-        android:name=".ManualBook"
+        android:name="com.dudegenuine.manualbook.ManualBook"
         android:theme="@style/Theme.ManualBook">
-        <activity android:name=".ui.activity.SplashScreen"
+        <activity android:name="com.dudegenuine.manualbook.ui.activity.SplashScreen"
             android:theme="@style/SplashScreen"
             android:exported="true">
             <intent-filter>
@@ -21,7 +21,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.activity.MainActivity"
+        <activity android:name="com.dudegenuine.manualbook.ui.activity.MainActivity"
             android:exported="true"/>
         <meta-data
             android:name="preloaded_fonts"

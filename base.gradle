@@ -18,9 +18,11 @@ android {
             buildConfigField "String", "BASE_AUDIO_URL", "\"https://verses.quran.com/\""
         }
         release {
-            minifyEnabled true
+            /*minifyEnabled true
+            multiDexEnabled true
+            multiDexKeepFile file('multidex_keep_file.txt')
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'*/
 
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             buildConfigField "String", "BASE_URL", "\"https://api.quran.com/api/v4/\""
             buildConfigField "String", "BASE_AUDIO_URL", "\"https://verses.quran.com/\""
         }

@@ -19,3 +19,14 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
+
+# way to debug R8 code shrinking
+# https://developer.android.com/studio/build/shrink-code#keep-code
+
+# enable this line to show classes removed by shrinking in usage.txt file
+# -printusage ./usage.txt
+
+# keep class removed wrongly by R8, if don't have this line, app crash during startup
+# Abort message: 'thread.cc:2090] No pending exception expected: java.lang.ClassNotFoundException: Didn't find class "org.strongswan.android.logic.CharonVpnService$BuilderAdapter" on path: DexPathList[[zip.......................
+
+#-keep class org.strongswan.**  { *; }

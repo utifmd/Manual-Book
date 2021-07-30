@@ -76,7 +76,6 @@ abstract class ResourceManager<ResultType, RequestType>{
                 setValue(Resource.onSuccess(localData))
             }*/
         }
-
         return this
     }
 

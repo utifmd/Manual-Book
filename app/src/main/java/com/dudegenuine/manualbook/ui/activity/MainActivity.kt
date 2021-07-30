@@ -21,7 +21,6 @@ import com.dudegenuine.manualbook.ui.extention.BaseActivity
 import com.dudegenuine.manualbook.ui.extention.BaseViewModel
 import com.dudegenuine.manualbook.ui.fragment.quran.QuranViewModel
 import com.dudegenuine.manualbook.ui.fragment.quran.views.QuranAdapter
-import com.dudegenuine.manualbook.ui.fragment.sheet.BottomSheetFragment
 
 class MainActivity : BaseActivity<ActivityMainBinding>(),
     NavController.OnDestinationChangedListener, QuranAdapter.Listener.Callback {

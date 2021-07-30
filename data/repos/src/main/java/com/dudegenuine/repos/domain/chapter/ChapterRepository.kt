@@ -17,7 +17,7 @@ class ChapterRepository @Inject constructor (
     private val mapper: ChapterDataMapper): IChapterRepository {
 
     override suspend fun getChapters(param: Map<String, String>): LiveData<Resource<List<Chapter>>> {
-        return object: ResourceManager<List<Chapter>, IChapterResponsePayload>(){
+        return object: ResourceManager<List<Chapter>, IChapterResponsePayload>() {
             override fun shouldFetch(result: List<Chapter>?): Boolean {
                 return true
             }

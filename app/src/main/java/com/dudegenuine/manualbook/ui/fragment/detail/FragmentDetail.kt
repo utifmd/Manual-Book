@@ -17,8 +17,6 @@ import com.dudegenuine.manualbook.ui.extention.*
 /**
  * Manual Book created by utifmd on 24/06/21.
  */
-
-// TODO: 05/07/21 implement media player
 class FragmentDetail: BaseFragment<FragmentDetailBinding>() {
     private val TAG: String = javaClass.simpleName
 

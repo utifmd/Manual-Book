@@ -15,7 +15,7 @@ import com.dudegenuine.local.model.common.NavState
  */
 abstract class BaseFragment<VB: ViewBinding>: Fragment() {
     private lateinit var _binding: VB // ? = null
-    val binding get() = _binding
+    protected val binding get() = _binding
 
     /*private lateinit var _viewModel: ViewModel // ? = null
     val viewModel get() = _viewModel*/
@@ -23,6 +23,11 @@ abstract class BaseFragment<VB: ViewBinding>: Fragment() {
     abstract fun bindView(): VB
 
     abstract fun bindViewModel(): BaseViewModel?
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        _binding = bindView()
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
