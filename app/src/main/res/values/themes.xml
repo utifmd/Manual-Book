@@ -64,8 +64,7 @@
     </style>
 
     <style name="SplashScreen" parent="Theme.AppCompat.NoActionBar">
-        <item name="android:background">@drawable/splash_brand_screen</item>
-        <item name="android:fitsSystemWindows">true</item>
+        <item name="android:windowBackground">@drawable/splash_brand_screen</item>
     </style>
 </resources>
 

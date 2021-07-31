@@ -13,6 +13,7 @@ import com.dudegenuine.local.model.common.Event
 import com.dudegenuine.manualbook.R
 import com.dudegenuine.manualbook.ui.extention.BaseViewModel
 import com.dudegenuine.manualbook.ui.extention.BaseViewModelFactory
+import com.dudegenuine.manualbook.ui.fragment.quran.views.QuranAdapter
 import com.dudegenuine.repos.network.Resource
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

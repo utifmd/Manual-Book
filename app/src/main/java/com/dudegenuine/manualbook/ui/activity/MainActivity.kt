@@ -19,6 +19,8 @@ import com.dudegenuine.manualbook.ui.activity.MainBinding.setBottomAppBar
 import com.dudegenuine.manualbook.ui.activity.MainBinding.share
 import com.dudegenuine.manualbook.ui.extention.BaseActivity
 import com.dudegenuine.manualbook.ui.extention.BaseViewModel
+import com.dudegenuine.manualbook.ui.extention.BaseViewModelFactory
+import com.dudegenuine.manualbook.ui.fragment.detail.DetailViewModel
 import com.dudegenuine.manualbook.ui.fragment.quran.QuranViewModel
 import com.dudegenuine.manualbook.ui.fragment.quran.views.QuranAdapter
 
@@ -57,7 +59,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(),
     private val onQuranDestiny: (Bundle?) -> Unit = { arguments ->
         val chapter = arguments?.getSerializable("chapter") as Chapter
         var isPaused = true
-
+        Log.d(TAG, "onQuranDestiny chapter: "+chapter.nameSimple)
         binding.apply {
             setBottomAppBar(this, R.drawable.ic_baseline_play_circle_24 , chapter.nameComplex) {
                 quranVueModel.playButtonSelect(it)
@@ -97,7 +99,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(),
     // TODO: 07/07/21 check the chapter state inconsistency 
     private val onDetailDestiny: (Bundle?) -> Unit = { arguments ->
         val chapter = arguments?.getSerializable("chapter") as Chapter?
-
+        Log.d(TAG, "onDetailDestiny chapter: "+chapter?.nameSimple)
         chapter?.let { binding.apply {
             setBottomAppBar (this,
                 R.drawable.ic_baseline_arrow_forward_24,

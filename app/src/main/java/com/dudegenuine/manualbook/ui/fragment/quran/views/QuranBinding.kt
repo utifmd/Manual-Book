@@ -27,7 +27,7 @@ object QuranBinding {
     @BindingAdapter("showWhenNull")
     @JvmStatic fun <T>showWhenNull(view: SwipeRefreshLayout, resource: T) {
         view.apply {
-            isRefreshing = resource == null
+            isRefreshing = false
         }
     }
 

@@ -1,29 +1,22 @@
 package com.dudegenuine.manualbook.ui.fragment.quran
 
-import android.content.Context
 import android.media.MediaPlayer
 import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.dudegenuine.domain.Quran
 import com.dudegenuine.manualbook.BuildConfig
-import com.dudegenuine.manualbook.NavGraphHomeFeatureDirections
 import com.dudegenuine.manualbook.databinding.FragmentQuranBinding
-import com.dudegenuine.manualbook.ui.activity.MainActivity
 import com.dudegenuine.manualbook.ui.extention.*
 import com.dudegenuine.manualbook.ui.fragment.quran.media.AudioQuranPlayer
 import com.dudegenuine.manualbook.ui.fragment.quran.views.QuranAdapter
 import com.dudegenuine.manualbook.ui.fragment.quran.views.StateAdapter
-import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import kotlin.LazyThreadSafetyMode.NONE
 
@@ -35,10 +28,7 @@ class QuranFragment: BaseFragment<FragmentQuranBinding>(),
     private val TAG: String = javaClass.simpleName
 
     private val args: QuranFragmentArgs by navArgs()
-
-    private val vueModel: QuranViewModel by viewModels {
-        BaseViewModelFactory(QuranViewModel.QuranFactory, this, arguments)
-    }
+    private val vueModel: QuranViewModel by activityViewModels()
 
     private val padLeft: String by lazy(NONE) {
         args.chapter.id.toString().padStart(3, '0')
@@ -55,7 +45,6 @@ class QuranFragment: BaseFragment<FragmentQuranBinding>(),
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         bindInitialListener()
         bindEnterReturnTransition()
         bindExitRenterTransition()
@@ -63,17 +52,15 @@ class QuranFragment: BaseFragment<FragmentQuranBinding>(),
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         bindInitialView()
         observeQuranPaging()
     }
 
     private fun observeQuranPaging() {
-        vueModel.quran.observe(viewLifecycleOwner, {
-            lifecycleScope.launch {
-                quranAdapter.submitData(it)
-            }
-        })
+        lifecycleScope.launch { args.chapter.let {
+            vueModel.quran(it.id, it.pages[0], it.pages[1])
+                .collect(quranAdapter::submitData)
+        }}
     }
 
     override fun onItemSelected(quran: Quran) =
@@ -86,6 +73,7 @@ class QuranFragment: BaseFragment<FragmentQuranBinding>(),
     }
 
     override fun onEventPlaySelected(view: View) {
+        Log.d(TAG, "onEventPlaySelected: ${view.id}")
         val padRight = hasPlayedAt.toString().padStart(3, '0')
 
         player.playUrl("${BuildConfig.BASE_AUDIO_URL}AbdulBaset/Mujawwad/mp3/$padLeft$padRight.mp3")

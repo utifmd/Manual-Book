@@ -21,14 +21,23 @@ class QuranRepository @Inject constructor(
     val persistence: IQuranPersistence,
     val mapper: QuranDataMapper ) : IQuranRepository {
 
-    override suspend fun getQuran(param: Map<String, Int>): LiveData<PagingData<Quran>> {
+    override fun getQuran(param: Map<String, Int>): Flow<PagingData<Quran>> {
+        return Pager(
+            config = PagingConfig(
+                pageSize = NETWORK_PAGE_SIZE,
+                enablePlaceholders = false
+            )
+        ){ QuranPagingSource(param) }.flow
+    }
+
+    /*override suspend fun getQuran(param: Map<String, Int>): LiveData<PagingData<Quran>> {
         return Pager(
             config = PagingConfig(
                 pageSize = NETWORK_PAGE_SIZE,
                 enablePlaceholders = false
             )
         ){ QuranPagingSource(param) }.liveData
-    }
+    }*/
 
     inner class QuranPagingSource(private val passedParams: Map<String, Int>): PagingSource<Int, Quran>(){
         override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Quran> {
@@ -83,14 +92,6 @@ class QuranRepository @Inject constructor(
         private const val DEFAULT_PAGE_INDEX = 1
     }
 
-    /*override fun getQuran(param: Map<String, Int>): Flow<PagingData<Quran>> {
-        return Pager(
-            config = PagingConfig(
-                pageSize = NETWORK_PAGE_SIZE,
-                enablePlaceholders = false
-            )
-        ){ QuranPagingSource(param) }.flow
-    }*/
 
     /*@ExperimentalPagingApi
     inner class QuranRemoteMediator(private val passedParams: Map<String, Int>): RemoteMediator<Int, Quran>(){

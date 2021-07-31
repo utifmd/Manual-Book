@@ -6,8 +6,11 @@ import android.os.Handler
 import android.os.Looper
 import android.os.PersistableBundle
 import android.util.Log
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import com.dudegenuine.manualbook.R
+import com.dudegenuine.manualbook.databinding.ActivitySplashBinding
 import com.dudegenuine.manualbook.ui.fragment.home.HomeViewModel
 import com.dudegenuine.repos.network.Resource
 
@@ -31,11 +34,10 @@ class SplashScreen: AppCompatActivity() {
             Log.d(javaClass.simpleName, "onCreate: postDelayed")
         }, 3000)*/
 
-
         homeViewModel.chapters.observe(this@SplashScreen, {
             when(it.status){
                 Resource.Status.LOADING -> Log.d(javaClass.name, "onCreate: loading..")
-                Resource.Status.ERROR -> Log.d(javaClass.name, "onCreate: error ${it.message}")
+                Resource.Status.ERROR -> Log.d(javaClass.name, "onError: ${it.message}")
                 else -> startActivity( starting ).apply { finish() }
             }
         })

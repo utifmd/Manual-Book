@@ -4,6 +4,7 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.17135416666666667" />
+        <entry key="app/src/main/res/drawable/allah_caligraph.xml" value="0.17604166666666668" />
         <entry key="app/src/main/res/drawable/app_bar_clickable_foreground.xml" value="0.17604166666666668" />
         <entry key="app/src/main/res/drawable/avatar_none.xml" value="0.17135416666666667" />
         <entry key="app/src/main/res/drawable/ic_baseline_menu_book_24.xml" value="0.17135416666666667" />
@@ -18,6 +19,7 @@
         <entry key="app/src/main/res/font/work_sans_semibold.xml" value="0.18541666666666667" />
         <entry key="app/src/main/res/layout-v23/activity_main.xml" value="0.15989583333333332" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.17222222222222222" />
+        <entry key="app/src/main/res/layout/activity_splash.xml" value="0.15" />
         <entry key="app/src/main/res/layout/fragment_detail.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_home.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_quran.xml" value="0.1" />
